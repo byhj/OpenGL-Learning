@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch11-Mvp-matrix.cpp">
+    <ClCompile Include="ch11-mvp-matrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

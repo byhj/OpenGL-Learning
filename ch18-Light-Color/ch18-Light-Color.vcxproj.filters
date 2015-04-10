@@ -15,21 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch18-Light-Color.cpp">
+    <ClCompile Include="ch18-light-color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="light.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="light.frag">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="cube.vert">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="cube.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cube1.frag">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

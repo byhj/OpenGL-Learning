@@ -1,162 +1,138 @@
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <iostream>
+#include <GL/freeglut.h>
+#include <glm/glm.hpp>
 #include <shader.h>
 #include <SOIL/SOIL.h>
 
-const static GLfloat VertexData[] = {
-	// Positions          // Colors           // Texture Coords
-	0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // Top Right
-	0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,   // Bottom Right
-	-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,   // Bottom Left
-	-0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f
+const static GLsizei VertexCount(32);
+const static GLsizeiptr VertexSize = sizeof(GLfloat) * VertexCount;
+const static GLfloat VertexData[] = { //vertex data
+    // Positions          // Colors           // Texture Coords
+     0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // Top Right
+     0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // Bottom Right
+    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // Bottom Left
+    -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // Top Left 
 };
 
-const static GLuint ElementData[] = {  // Note that we start from 0!
+const static GLsizei ElementCount(6);
+const static GLsizeiptr ElementSize = sizeof(GLuint) * ElementCount;
+const static GLuint ElementData[ElementCount] = {  
     0, 1, 3,   // First Triangle
     1, 2, 3    // Second Triangle
 };  
 
-const GLuint Width(800), Height(600);
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
-GLuint vbo, vao, ibo, program;
-Shader TriangleShader("Triangle Shader");
-GLuint color_loc, tex1, tex2;
+GLuint vbo, vao, ebo, program, color_loc;
+Shader triangleShader("Triangle");
+GLuint texture1, texture2, tex1_loc, tex2_loc;
 
-void init_shader()
+void init_shader()  // initial the shader 
 {
-	TriangleShader.init();
-	TriangleShader.attach(GL_VERTEX_SHADER, "unit.vert");
-	TriangleShader.attach(GL_FRAGMENT_SHADER, "unit.frag");
-	TriangleShader.link();
-	program = TriangleShader.program;
+	triangleShader.init();
+	triangleShader.attach(GL_VERTEX_SHADER, "unit.vert");
+	triangleShader.attach(GL_FRAGMENT_SHADER, "unit.frag");
+	triangleShader.link();
+	program = triangleShader.program;
+	tex1_loc = glGetUniformLocation(program, "tex1");
+	tex2_loc = glGetUniformLocation(program, "tex2");
 }
 
 void init_buffer()
 {
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);    //load the vertex data
-	glBufferData(GL_ARRAY_BUFFER, sizeof(VertexData), VertexData, GL_STATIC_DRAW);
+	glGenBuffers(1, &vbo); //initial the vertex buffer object
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, VertexSize, VertexData, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);    //load the vertex data
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(ElementData), ElementData, GL_STATIC_DRAW);
+	glGenBuffers(1, &ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, ElementSize, ElementData, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 void init_vertexArray()
 {
-	glGenVertexArrays(1, &vao);
+	glGenVertexArrays(1, &vao);  //initial the vertex array object
 	glBindVertexArray(vao);
-
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);   //bind the vbo to vao, send the data to shader
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);  //tranform the data to shader
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 8, (GLvoid*)(NULL));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 8, (GLvoid*)(NULL + sizeof(GLfloat) * 3) );
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 8, (GLvoid*)(NULL + sizeof(GLfloat) * 6) );
 	glEnableVertexAttribArray(0);
-	// Color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
-	// TexCoord attribute
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(2);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); 
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo); //这里告诉vao ebo的存储情况
 	glBindVertexArray(0);
 }
 
-GLuint init_texture(const char * textureFile)
+void init_texture()
 {
 	int width, height;
-	unsigned char*image = SOIL_load_image(textureFile, &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char*image = SOIL_load_image("container.jpg", &width, &height, 0, SOIL_LOAD_RGB);
 	if (!image)
 		std::cout << "Faile to load the file" << std::endl;
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
+
+	glGenTextures(1, &texture1);
+	glBindTexture(GL_TEXTURE_2D, texture1); //绑定到texture0
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 
-		         width, height,
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height,
 		         0, GL_RGB, GL_UNSIGNED_BYTE, image);
     glGenerateMipmap(GL_TEXTURE_2D);
     SOIL_free_image_data(image);
     glBindTexture(GL_TEXTURE_2D, 0); 
-	return texture;
+
+	image =SOIL_load_image("awesomeface.png", &width, &height, 0, SOIL_LOAD_RGB);
+	if (!image)
+	   std::cout << "Faile to load the file" << std::endl;
+	glGenTextures(1, &texture2);
+	glBindTexture(GL_TEXTURE_2D, texture2); //绑定到texture0
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height,
+		         0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    SOIL_free_image_data(image);
+    glBindTexture(GL_TEXTURE_2D, 0); 
+
 }
 
 void init()
-{		
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-
+{
 	init_shader();
+	init_texture();
 	init_buffer();
 	init_vertexArray();
-	tex1 = init_texture("../media/Texture/container.jpg");
-	tex2 = init_texture("../media/Texture/awesomeface.png");
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f); //background color
 }
 
-int main()
+void render()
 {
-	std::cout << "Starting GLFW context, OpenGL 3.3" << std::endl;
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glUseProgram(program);
+	glBindVertexArray(vao); 
+	glUniform1i(tex1_loc, 0);
+	glUniform1i(tex2_loc, 1);
+	glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture1);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, texture2);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+	glFlush();
+}
 
-	GLFWwindow *window = glfwCreateWindow(Width, Height, "LearnOpenGL", nullptr, nullptr);
-	glfwMakeContextCurrent(window);
-	if (window == NULL) 
-	{
-		std::cerr << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return -1;
-	}
-
-    glfwSetKeyCallback(window, key_callback);
-	glewExperimental = GL_TRUE;
-
-	if (glewInit() != GLEW_OK)
-	{
-		std::cerr << "Failed to initialize GLEW" << std::endl;
-		return -1;
-	}
-
-	glViewport(0, 0, Width, Height);
+int main(int argc, char **argv)
+{
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_RGBA);
+	glutInitWindowPosition(300, 0);
+	glutInitWindowSize(720, 640);
+	glutCreateWindow("ch6-shader-attribute");
+	glewInit();
 	init();
-
-	while (!glfwWindowShouldClose(window)) {
-		glfwPollEvents();
-
-		glClear(GL_COLOR_BUFFER_BIT);
-		glUseProgram(program);
-		glBindVertexArray(vao);
-
-		glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, tex1);
-        glUniform1i(glGetUniformLocation(program, "tex1"), 0);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, tex2);
-        glUniform1i(glGetUniformLocation(program, "tex2"), 1);
-
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
-
-		glfwSwapBuffers(window);
-	}
-
-	glDeleteVertexArrays(1, &vao);
-	glDeleteBuffers(1, &vbo);
-	glDeleteProgram(program);
-
-	glfwTerminate();
-	return 0;
-}
-
-void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
-{
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);  //we should close the window
+	glutDisplayFunc(render);
+	glutMainLoop();
 }

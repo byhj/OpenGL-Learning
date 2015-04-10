@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch6-Shader-Attritube.cpp">
+    <ClCompile Include="ch6-shader-attribute.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

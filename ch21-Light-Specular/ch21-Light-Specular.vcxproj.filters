@@ -15,21 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch21-Light-Specular.cpp">
+    <ClCompile Include="ch21-light-specular.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="light.frag">
+    <None Include="cube.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="light.vert">
+    <None Include="cube1.frag">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="cube.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="cube.vert">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
