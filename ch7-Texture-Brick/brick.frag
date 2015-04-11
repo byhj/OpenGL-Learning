@@ -6,6 +6,5 @@ uniform sampler2D brick;
 
 void main()
 {
-    vec4 cc = texture2D(brick, tc);
-	fragColor = cc + vec4(1.0);
+	fragColor = texture2D(brick, tc);
 }

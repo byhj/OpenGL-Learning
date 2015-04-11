@@ -15,15 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch15-camera-look-around.cpp">
+    <ClCompile Include="ch15-Camera-Look-Around.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="cube.frag">
+    <None Include="cube.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="cube.vert">
+    <None Include="cube.frag">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

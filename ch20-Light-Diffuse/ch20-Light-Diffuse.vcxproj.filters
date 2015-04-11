@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch20-light-diffuse.cpp">
+    <ClCompile Include="ch20-Light-Diffuse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -23,7 +23,10 @@
     <None Include="cube.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="cube1.frag">
+    <None Include="light.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light.vert">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="cube.frag">

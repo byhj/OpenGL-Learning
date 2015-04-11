@@ -1,95 +1,120 @@
-/*
-A vertex array object stores the following:
-   glbindbuffer();
-   Calls to glEnableVertexAttribArray or glDisableVertexAttribArray.
-   Vertex attribute configurations via glVertexAttribPointer.
-   Vertex buffer objects associated with vertex attributes by calls to glVertexAttribPointer.
-*/
-
 #include <GL/glew.h>
-#include <GL/freeglut.h>
-#include <glm/glm.hpp>
+#include <GLFW/glfw3.h>
+#include <iostream>
 #include <shader.h>
 
-const static GLsizei VertexCount(4);
-const static GLsizeiptr VertexSize = sizeof(glm::vec3) * VertexCount;
-const static glm::vec3 VertexData[VertexCount] = {  //vertex data
-    glm::vec3( 0.5f,  0.5f, 0.0f),  // Top Right
-    glm::vec3( 0.5f, -0.5f, 0.0f),  // Bottom Right
-    glm::vec3(-0.5f, -0.5f, 0.0f),  // Bottom Left
-    glm::vec3(-0.5f,  0.5f, 0.0f)   // Top Left 
+const static GLfloat VertexData[] = {
+     0.5f,  0.5f, 0.0f,  // Top Right
+     0.5f, -0.5f, 0.0f,  // Bottom Right
+    -0.5f, -0.5f, 0.0f,  // Bottom Left
+    -0.5f,  0.5f, 0.0f   // Top Left 
 };
 
-const static GLsizei ElementCount(6);
-const static GLsizeiptr ElementSize = sizeof(GLushort) * ElementCount;
-const static GLushort ElementData[ElementCount] = {  
+const static GLuint ElementData[] = {  // Note that we start from 0!
     0, 1, 3,   // First Triangle
     1, 2, 3    // Second Triangle
 };  
 
-GLuint vbo, vao, ebo, program;
-Shader rectangleShader("Rectangle");
+const GLuint Width(1200), Height(1024);
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+GLuint vbo, vao, ibo, program;
+Shader TriangleShader("Triangle Shader");
 
-void init_shader()  // initial the shader 
+void init_shader()
 {
-	rectangleShader.init();
-	rectangleShader.attach(GL_VERTEX_SHADER, "rectangle.vert");
-	rectangleShader.attach(GL_FRAGMENT_SHADER, "rectangle.frag");
-	rectangleShader.link();
-	program = rectangleShader.program;
+	TriangleShader.init();
+	TriangleShader.attach(GL_VERTEX_SHADER, "rectangle.vert");
+	TriangleShader.attach(GL_FRAGMENT_SHADER, "rectangle.frag");
+	TriangleShader.link();
+	program = TriangleShader.program;
 }
 
 void init_buffer()
 {
-	glGenBuffers(1, &vbo); //initial the vertex buffer object
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, VertexSize, VertexData, GL_STATIC_DRAW);
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);    //load the vertex data
+	glBufferData(GL_ARRAY_BUFFER, sizeof(VertexData), VertexData, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glGenBuffers(1, &ebo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, ElementSize, ElementData, GL_STATIC_DRAW);
+
+	glGenBuffers(1, &ibo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);    //load the vertex data
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(ElementData), ElementData, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 void init_vertexArray()
 {
-	glGenVertexArrays(1, &vao);  //initial the vertex array object
+	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);  //tranform the data to shader
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
-		                  sizeof(glm::vec3), (GLvoid*)(NULL));
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);   //bind the vbo to vao, send the data to shader
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	glBindVertexArray(0);
 }
 
 void init()
-{
+{		
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
 	init_shader();
 	init_buffer();
 	init_vertexArray();
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f); //background color
 }
 
-void render()
+int main()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
-	glUseProgram(program);
-	glBindVertexArray(vao);    
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
-	glBindVertexArray(0);
-	glFlush();
-}
+	std::cout << "Starting GLFW context, OpenGL 3.3" << std::endl;
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-int main(int argc, char **argv)
-{
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGBA);
-	glutInitWindowPosition(300, 0);
-	glutInitWindowSize(720, 640);
-	glutCreateWindow("ch3-Rectangle");
-	glewInit();
+	GLFWwindow *window = glfwCreateWindow(Width, Height, "LearnOpenGL", nullptr, nullptr);
+	glfwMakeContextCurrent(window);
+	if (window == NULL) 
+	{
+		std::cerr << "Failed to create GLFW window" << std::endl;
+		glfwTerminate();
+		return -1;
+	}
+
+    glfwSetKeyCallback(window, key_callback);
+	glewExperimental = GL_TRUE;
+
+	if (glewInit() != GLEW_OK)
+	{
+		std::cerr << "Failed to initialize GLEW" << std::endl;
+		return -1;
+	}
+
+	glViewport(0, 0, Width, Height);
 	init();
-	glutDisplayFunc(render);
-	glutMainLoop();
+
+	while (!glfwWindowShouldClose(window)) {
+		glfwPollEvents();
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glUseProgram(program);
+		glBindVertexArray(vao);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+
+		glfwSwapBuffers(window);
+	}
+
+	glDeleteVertexArrays(1, &vao);
+	glDeleteBuffers(1, &vbo);
+	glDeleteProgram(program);
+
+	glfwTerminate();
+	return 0;
+}
+
+void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
+{
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);  //we should close the window
 }

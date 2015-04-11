@@ -1,12 +1,10 @@
-#version 130
+#version 330 core
 
-//#version 330 core
-//layout (location = 0) in vec3 position;
+layout (location = 0) in vec3 position;
 
-attribute vec3 position;
-uniform mat4 mvp_matrix;
+uniform mat4 mvp;
 
 void main()
 {
-    gl_Position = mvp_matrix * vec4(position, 1.0f);
+    gl_Position = mvp * vec4(position, 1.0f);
 } 

@@ -4,10 +4,9 @@ layout (location = 0) out vec4 fragColor;
 
 in vec2 tc;
 in vec3 vColor;
-
-uniform sampler2D brick;
+uniform sampler2D container;
 
 void main()
 {
-    fragColor =  texture2D(brick, tc) * vec4(vColor, 1.0f);
+    fragColor =  texture2D(container, tc) * vec4(vColor, 1.0);
 }

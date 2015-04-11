@@ -4,10 +4,9 @@
 #include <vector>
 
 // GL Includes
-#include <GL\glew.h>
+#include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
 
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
@@ -21,7 +20,7 @@ enum Camera_Movement {
 // Default camera values
 const GLfloat YAW        = -90.0f;
 const GLfloat PITCH      =  0.0f;
-const GLfloat SPEED      =  3.0f;
+const GLfloat SPEED      =  1.0f;
 const GLfloat SENSITIVTY =  0.25f;
 const GLfloat ZOOM       =  45.0f;
 
@@ -53,6 +52,7 @@ public:
         this->Pitch = pitch;
         this->updateCameraVectors();
     }
+
     // Constructor with scalar values
     Camera(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat upY, GLfloat upZ, GLfloat yaw, GLfloat pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVTY), Zoom(ZOOM)
     {

@@ -15,27 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch9-texture-unit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="源.cpp">
+    <ClCompile Include="ch9-Texture-Unit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="unit.vert">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="unit.frag">
       <Filter>Resource Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="awesomeface.png">
+    <None Include="unit.vert">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="container.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
+    </None>
   </ItemGroup>
 </Project>

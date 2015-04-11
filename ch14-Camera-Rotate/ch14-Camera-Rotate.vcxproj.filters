@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch14-camera-rotate.cpp">
+    <ClCompile Include="ch14-Camera-Rotate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

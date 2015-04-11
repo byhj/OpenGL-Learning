@@ -1,13 +1,12 @@
 #include <GL/glew.h>
-#include <GL/freeglut.h>
+#include <GLFW/glfw3.h>
+#include <iostream>
+#include <shader.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <shader.h>
 #include <SOIL/SOIL.h>
 
-const static GLsizei VertexCount(180);
-const static GLsizeiptr VertexSize = sizeof(GLfloat) * VertexCount;
-const static GLfloat VertexData[VertexCount] = { //vertex data
+const static GLfloat VertexData[] = {
     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
      0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
      0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
@@ -50,122 +49,153 @@ const static GLfloat VertexData[VertexCount] = { //vertex data
     -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
     -0.5f,  0.5f, -0.5f,  0.0f, 1.0f 
 };
-  
-GLuint vbo, vao, program, color_loc;
-Shader triangleShader("Triangle");
-GLuint texture1, texture2, tex1_loc, tex2_loc;
-GLuint mvp_matrix_loc;
 
-void init_shader()  // initial the shader 
+const GLuint Width(1200), Height(1024);
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+GLuint vbo, vao, ibo, program;
+Shader TriangleShader("Triangle Shader");
+GLuint color_loc, tex1, tex2;
+GLuint transformLoc;
+
+void init_shader()
 {
-	triangleShader.init();
-	triangleShader.attach(GL_VERTEX_SHADER, "cube.vert");
-	triangleShader.attach(GL_FRAGMENT_SHADER, "cube.frag");
-	triangleShader.link();
-	program = triangleShader.program;
-	tex1_loc = glGetUniformLocation(program, "tex1");
-	tex2_loc = glGetUniformLocation(program, "tex2");
-	mvp_matrix_loc = glGetUniformLocation(program, "mvp_matrix");
+	TriangleShader.init();
+	TriangleShader.attach(GL_VERTEX_SHADER, "cube.vert");
+	TriangleShader.attach(GL_FRAGMENT_SHADER, "cube.frag");
+	TriangleShader.link();
+	program = TriangleShader.program;
+	transformLoc = glGetUniformLocation(program, "mvp_matrix");
+    
 }
 
 void init_buffer()
 {
-	glGenBuffers(1, &vbo); //initial the vertex buffer object
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, VertexSize, VertexData, GL_STATIC_DRAW);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);    //load the vertex data
+	glBufferData(GL_ARRAY_BUFFER, sizeof(VertexData), VertexData, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 }
 
 void init_vertexArray()
 {
-	glGenVertexArrays(1, &vao);  //initial the vertex array object
+	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);  //tranform the data to shader
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (GLvoid*)(NULL));
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (GLvoid*)(NULL + sizeof(GLfloat) * 3) );
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);   //bind the vbo to vao, send the data to shader
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); 
 	glBindVertexArray(0);
 }
 
-void init_texture()
+GLuint init_texture(const char * textureFile)
 {
 	int width, height;
-	unsigned char*image = SOIL_load_image("../media/texture/container.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char*image = SOIL_load_image(textureFile, &width, &height, 0, SOIL_LOAD_RGB);
 	if (!image)
 		std::cout << "Faile to load the file" << std::endl;
-
-	glGenTextures(1, &texture1);
-	glBindTexture(GL_TEXTURE_2D, texture1); //绑定到texture0
+	GLuint texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(image);
-	glBindTexture(GL_TEXTURE_2D, 0);
 
-	image = SOIL_load_image("../media/texture/awesomeface.png", &width, &height, 0, SOIL_LOAD_RGB);
-	if (!image)
-		std::cout << "Faile to load the file" << std::endl;
-	glGenTextures(1, &texture2);
-	glBindTexture(GL_TEXTURE_2D, texture2); //绑定到texture0
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height,
-		0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(image);
-	glBindTexture(GL_TEXTURE_2D, 0);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 
+		         width, height,
+		         0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    SOIL_free_image_data(image);
+    glBindTexture(GL_TEXTURE_2D, 0); 
+	return texture;
 }
 
 void init()
-{
-	glEnable(GL_DEPTH_TEST);
+{		
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClearDepth(1.0f);
+	glEnable(GL_DEPTH_TEST);  
 	init_shader();
-	init_texture();
 	init_buffer();
 	init_vertexArray();
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f); //background color
-	glClearDepth(1.0f);
+	tex1 = init_texture("../media/Texture/container.jpg");
+	tex2 = init_texture("../media/Texture/awesomeface.png");
 }
 
-void render()
+int main()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glUseProgram(program);
-	glBindVertexArray(vao); 
-	glUniform1i(tex1_loc, 0);
-	glUniform1i(tex2_loc, 1);
-	glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture1);
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, texture2);
-	float time = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
-	glm::mat4 proj_matrix = glm::perspective(45.0f, 720.0f / 640.0f, 0.1f, 100.0f);
-	glm::mat4 model_matrix = glm::rotate(glm::mat4(1.0f), glm::radians(time * 50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-	glm::mat4 view_matrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f));
-	glm::mat4 mvp_matrix = proj_matrix * view_matrix * model_matrix;
-	glUniformMatrix4fv(mvp_matrix_loc, 1, GL_FALSE, &mvp_matrix[0][0]);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-	glBindVertexArray(0);
-	glutSwapBuffers();
-	glutPostRedisplay();
-}
+	std::cout << "Starting GLFW context, OpenGL 3.3" << std::endl;
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-int main(int argc, char **argv)
-{
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
-	glutInitWindowPosition(300, 0);
-	glutInitWindowSize(720, 640);
-	glutCreateWindow("ch6-shader-attribute");
-	glewInit();
+	GLFWwindow *window = glfwCreateWindow(Width, Height, "LearnOpenGL", nullptr, nullptr);
+	glfwMakeContextCurrent(window);
+	if (window == NULL) 
+	{
+		std::cerr << "Failed to create GLFW window" << std::endl;
+		glfwTerminate();
+		return -1;
+	}
+
+    glfwSetKeyCallback(window, key_callback);
+	glewExperimental = GL_TRUE;
+
+	if (glewInit() != GLEW_OK)
+	{
+		std::cerr << "Failed to initialize GLEW" << std::endl;
+		return -1;
+	}
+
+	glViewport(0, 0, Width, Height);
 	init();
-	glutDisplayFunc(render);
-	glutMainLoop();
+
+	while (!glfwWindowShouldClose(window)) {
+		glfwPollEvents();
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glUseProgram(program);
+		glBindVertexArray(vao);
+
+		glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, tex1);
+        glUniform1i(glGetUniformLocation(program, "tex1"), 0);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, tex2);
+        glUniform1i(glGetUniformLocation(program, "tex2"), 1);
+       // Create transformations
+        glm::mat4 model;
+        glm::mat4 view;
+        glm::mat4 proj;
+		float time = glfwGetTime();
+		model = glm::rotate(model, glm::radians(time * 50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        proj = glm::perspective(45.0f, (GLfloat)Width / (GLfloat)Height, 0.1f, 100.0f);
+		glm::mat4 mvp = proj * view * model;
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, &mvp[0][0]);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glBindVertexArray(0);
+
+		glfwSwapBuffers(window);
+	}
+
+	glDeleteVertexArrays(1, &vao);
+	glDeleteBuffers(1, &vbo);
+	glDeleteBuffers(1, &ibo);
+	glDeleteProgram(program);
+
+	glfwTerminate();
+	return 0;
+}
+
+void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
+{
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);  //we should close the window
 }

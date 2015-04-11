@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch12-mvp-cube.cpp">
+    <ClCompile Include="ch12-Mvp-Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

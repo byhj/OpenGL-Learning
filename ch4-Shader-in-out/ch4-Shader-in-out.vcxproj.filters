@@ -15,24 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch4-shader-in-out.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ch45-gs-normal\ch45-gs-normal.cpp">
+    <ClCompile Include="ch4-Shader-in-out.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="triangle.frag">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="triangle.vert">
       <Filter>Resource Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\ch45-gs-normal\model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <None Include="triangle.frag">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
