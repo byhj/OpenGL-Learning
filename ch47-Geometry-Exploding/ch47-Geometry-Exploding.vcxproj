@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5A813E80-DC78-41CA-93D5-C16BAF69FA0B}</ProjectGuid>
+    <ProjectGuid>{C120F86B-E58E-4B75-AC66-D048C2F5F633}</ProjectGuid>
     <RootNamespace>ch47GeometryExploding</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -46,7 +46,6 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -63,12 +62,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="model.frag" />
-    <None Include="model.geom" />
-    <None Include="model.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ch47-Geometry-Exploding.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
