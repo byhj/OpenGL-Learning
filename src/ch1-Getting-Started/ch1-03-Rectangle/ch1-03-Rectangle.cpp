@@ -25,7 +25,8 @@ public:
 		glUseProgram(program);
 		glBindVertexArray(vao);
 
-		//Draw the Triangle
+		//We set the display mode is line
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		glUseProgram(0);
@@ -39,17 +40,17 @@ public:
 	}
 
 private:
-   void init_buffer();
-   void init_shader();
-   void init_vertexArray();
+	void init_buffer();
+	void init_shader();
+	void init_vertexArray();
 
-   GLuint ibo, vbo, vao, program;
-   Shader RectangleShader;
+	GLuint vbo, vao, ibo, program;
+	Shader RectangleShader;
 };
 
 CALL_MAIN(RectangleApp);
 
-
+//////////////////////////Data///////////////////////////
 const static GLfloat VertexData[] = 
 {
 	-0.5f, -0.5f,
@@ -64,7 +65,10 @@ const static GLuint IndexData[] =
 	0, 1, 2,
 	2, 3, 0,
 };
-const static GLsizei IndexSize = sizeof(IndexSize);
+const static GLsizei IndexSize = sizeof(IndexData);
+
+//////////////////////////Data////////////////////////////
+
 
 void RectangleApp::init_shader()
 {
@@ -83,7 +87,7 @@ void RectangleApp::init_buffer()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glGenBuffers(1, &ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);    //load the vertex data
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, IndexSize, IndexData, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
