@@ -1,4 +1,4 @@
-#include <common/oglApp.h>
+#include <common/learnApp.h>
 
 class WindowApp: public byhj::Application
 {

@@ -1,14 +1,7 @@
-#include <common/oglApp.h>
+#include <common/learnApp.h>
 #include <common/shader.h>
-
 #include <iostream>
 
-const static GLfloat VertexData[] = {
-	// Positions    // Colors
-	0.5f, -0.5f,   1.0f, 0.0f, 0.0f,   // Bottom Right
-	-0.5f, -0.5f,   0.0f, 1.0f, 0.0f,   // Bottom Left
-	0.0f,  0.5f,   0.0f, 0.0f, 1.0f    // Top 
-};
 
 class ShaderApp: public byhj::Application
 {
@@ -16,7 +9,7 @@ public:
 	ShaderApp(){};
 	~ShaderApp(){};
 
-	void ShaderApp::vInit()
+	void ShaderApp::v_Init()
 	{		
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
@@ -25,7 +18,7 @@ public:
 		init_vertexArray();
 	}
 
-	void vRender()
+	void v_Render()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -37,7 +30,7 @@ public:
 		glBindVertexArray(0);
 	}
 
-	void vShutdown()
+	void v_Shutdown()
 	{
 		glDeleteProgram(program);
 		glDeleteVertexArrays(1, &vao);
@@ -55,6 +48,14 @@ private:
 
 CALL_MAIN(ShaderApp);
 
+
+const static GLfloat VertexData[] = {
+	// Positions    // Colors
+	0.5f, -0.5f,   1.0f, 0.0f, 0.0f,   // Bottom Right
+   -0.5f, -0.5f,   0.0f, 1.0f, 0.0f,   // Bottom Left
+	0.0f,  0.5f,   0.0f, 0.0f, 1.0f    // Top 
+};
+
 void ShaderApp::init_shader()
 {
 	TriangleShader.init();
@@ -62,6 +63,7 @@ void ShaderApp::init_shader()
 	TriangleShader.attach(GL_FRAGMENT_SHADER, "triangle.frag");
 	TriangleShader.link();
 	TriangleShader.use();
+	TriangleShader.interfaceInfo();
 	program = TriangleShader.GetProgram();
 }
 

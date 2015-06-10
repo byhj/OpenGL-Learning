@@ -30,6 +30,7 @@ $RECYCLE.BIN/
 *.sbm
 *.jpg
 *.png
+*.trace
 
 # =========================
 # Operating System Files

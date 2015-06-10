@@ -1,7 +1,7 @@
-
 #ifndef SHADER_H
 #define SHADER_H
 
+#include <GL/glew.h>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -181,7 +181,7 @@ void Shader::interfaceInfo()
 	glGetProgramInterfaceiv(program, GL_UNIFORM,  GL_ACTIVE_RESOURCES, &outputs);
 	if (outputs > 0)
 		std::cout << "----------Uniform---------" << std::endl;
-	if (outputs > 10)
+	if (outputs > 100)
 		return ;
 	for (int i = 0; i != outputs; ++i)
 	{
