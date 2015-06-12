@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{0E000EE3-28C7-4D5F-BAC8-8AD42B0DF188}</ProjectGuid>
-    <RootNamespace>ch202LightPhong</RootNamespace>
+    <ProjectGuid>{F2739EBA-6D50-4061-A0B8-80BE871E5A0B}</ProjectGuid>
+    <RootNamespace>ch110Camera</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -65,11 +65,9 @@
   <ItemGroup>
     <None Include="cube.frag" />
     <None Include="cube.vert" />
-    <None Include="light.frag" />
-    <None Include="light.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch2-02-Light-Phong.cpp" />
+    <ClCompile Include="ch1-10-Camera.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

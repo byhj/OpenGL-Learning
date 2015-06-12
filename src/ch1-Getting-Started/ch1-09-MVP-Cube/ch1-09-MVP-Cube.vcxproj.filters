@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="light.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="light.vert">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="cube.frag">
       <Filter>Resource Files</Filter>
     </None>
@@ -29,7 +23,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch2-02-Light-Phong.cpp">
+    <ClCompile Include="ch1-09-Mvp-Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

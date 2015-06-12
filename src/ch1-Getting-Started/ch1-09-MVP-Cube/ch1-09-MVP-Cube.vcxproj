@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{0E000EE3-28C7-4D5F-BAC8-8AD42B0DF188}</ProjectGuid>
-    <RootNamespace>ch202LightPhong</RootNamespace>
+    <ProjectGuid>{56B935C7-C44C-4854-8376-C85F878850E0}</ProjectGuid>
+    <RootNamespace>ch109MVPCube</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -37,6 +37,7 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\OpenGL-Learning.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
@@ -65,11 +66,9 @@
   <ItemGroup>
     <None Include="cube.frag" />
     <None Include="cube.vert" />
-    <None Include="light.frag" />
-    <None Include="light.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch2-02-Light-Phong.cpp" />
+    <ClCompile Include="ch1-09-Mvp-Cube.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
