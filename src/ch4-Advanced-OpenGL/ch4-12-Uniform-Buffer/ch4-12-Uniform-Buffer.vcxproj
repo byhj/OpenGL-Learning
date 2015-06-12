@@ -63,6 +63,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="cube.frag" />
+    <None Include="cube.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ch4-12-Unifrom-Buffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
