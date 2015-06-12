@@ -50,7 +50,7 @@ namespace byhj {
 			glfwSetScrollCallback(window, glfw_scroll);
 
 			// GLFW Options
-	        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 			if (window == NULL)
 			{

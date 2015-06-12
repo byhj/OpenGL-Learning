@@ -1,20 +1,16 @@
+#include <common/loadTexture.h>
 #include <common/learnApp.h>
 #include <common/shader.h>
 #include <common/camera.h>
-#include <common/loadTexture.h>
-#include <common/glDebug.h>
-#include <common/model.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-
 class TextureApp: public byhj::Application
 {
 public:
-	TextureApp()
+	TextureApp():program(0), TriangleShader("Triangle Shader"), camera(glm::vec3(0.0f, 0.0f, 3.0f))
 	{
-		camera.Position = glm::vec3(0.0f, 0.0f, 3.0f);
 		lastX = GetScreenWidth() / 2.0f;
 		lastY = GetScreenHeight() / 2.0f;
 		firstMouse = true;
@@ -29,46 +25,52 @@ public:
 	{			
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClearDepth(1.0f);
-        
-		init_buffer();
+		glEnable(GL_DEPTH_TEST);  
+
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_FRONT);
+		glFrontFace(GL_CCW); 
+
 		init_shader();
-
-		glEnable(GL_DEPTH_TEST);
+		init_buffer();
+		init_vertexArray();
+		init_texture();
 	}
-
 
 	void v_Render()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glUseProgram(program);
-		float time = glfwGetTime() / 1000.0f;
+		glBindVertexArray(vao);
 
 		GLfloat currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		//set the mvp matrix
-		glm::mat4 model_matrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -8.0f, -15.0f));
-		glm::mat4 view_matrix = camera.GetViewMatrix();
-		glm::mat4 proj_matrix = glm::perspective(camera.Zoom, GetAspect(), 0.1f, 1000.0f);
-		glm::mat4 mvp_matrix = proj_matrix * view_matrix * model_matrix;
-		glUniformMatrix4fv(proj_loc, 1, GL_FALSE, &proj_matrix[0][0]);
-		glUniformMatrix4fv(view_loc, 1, GL_FALSE, &view_matrix[0][0]);
-		glUniformMatrix4fv(model_loc, 1, GL_FALSE, &model_matrix[0][0]);
+		// Create transformations
+		glm::mat4 model;
+		glm::mat4 view;
+		glm::mat4 proj;
+		float time = glfwGetTime();
+		model = glm::rotate(model, glm::radians(time * 50.0f), glm::vec3(0.5f, 1.0f, 1.0f));
+		view  = camera.GetViewMatrix();
+		proj  = glm::perspective(camera.Zoom, GetAspect(), 0.1f, 100.0f);
+		glm::mat4 mvp = proj * view * model;
+		glUniformMatrix4fv(mvp_loc, 1, GL_FALSE, &mvp[0][0]);
 
-		//set the light unfirom
-		glm::vec3 diffuseColor = glm::vec3(0.8f); // Decrease the influence
-		glm::vec3 ambientColor = glm::vec3(0.8f); // Low influence
-		glUniform3f(lightAmbientLoc, ambientColor.x, ambientColor.y, ambientColor.z);
-		glUniform3f(lightDiffuseLoc, diffuseColor.x, diffuseColor.y, diffuseColor.z);
-		glUniform3f(lightSpecularLoc, 1.0f, 1.0f, 1.0f);
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, 0);
 
-		model.Draw(program);
+		glBindVertexArray(0);
 	}
+	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+	void do_movement();
+	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 	void v_Shutdown()
 	{
+		glDeleteProgram(program);
 	}
 	void v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
 	void v_Movement(GLFWwindow *window);
@@ -77,9 +79,9 @@ public:
 
 private:
 	void init_shader();
+	void init_texture();
 	void init_buffer();
 	void init_vertexArray();
-	void init_texture();
 
 private:
 
@@ -91,51 +93,87 @@ private:
 	GLfloat deltaTime;
 	GLfloat lastFrame;
 
-	Shader modelShader;
-	GLuint view_loc, proj_loc, model_loc, program;
-	Model model;
-	GLint lightSpecularLoc, lightDiffuseLoc, lightAmbientLoc;
-
+	//
+	GLuint program;
+	Shader TriangleShader;
+	GLuint tex1, tex2;
+	GLuint tex1_loc, tex2_loc, mvp_loc;
+	GLuint vao, vbo, ibo;
 };
 
 CALL_MAIN(TextureApp);
 
+#pragma region VertexData
+
+const static GLfloat VertexData[] = {
+	// front
+	-0.25, -0.25,  0.25,
+	0.25, -0.25,  0.25,
+	0.25,  0.25,  0.25,
+	-0.25,  0.25,  0.25,
+	// back
+	-0.25, -0.25, -0.25,
+	0.25, -0.25, -0.25,
+	0.25,  0.25, -0.25,
+	-0.25,  0.25, -0.25,
+};
+const static GLushort ElementData[] = {
+	// front
+	0, 1, 2,
+	2, 3, 0,
+	// top
+	3, 2, 6,
+	6, 7, 3,
+	// back
+	7, 6, 5,
+	5, 4, 7,
+	// bottom
+	4, 5, 1,
+	1, 0, 4,
+	// left
+	4, 0, 3,
+	3, 7, 4,
+	// right
+	1, 5, 6,
+	6, 2, 1,
+};
+
+#pragma endregion
 
 void TextureApp::init_shader()
 {
-	modelShader.init();
-	modelShader.attach(GL_VERTEX_SHADER, "model.vert");
-	modelShader.attach(GL_FRAGMENT_SHADER, "model.frag");
-	modelShader.link();
-	modelShader.use();
-	program = modelShader.GetProgram();
+	TriangleShader.init();
+	TriangleShader.attach(GL_VERTEX_SHADER, "cube.vert");
+	TriangleShader.attach(GL_FRAGMENT_SHADER, "cube.frag");
+	TriangleShader.link();
+	program = TriangleShader.GetProgram();
+	mvp_loc = glGetUniformLocation(program, "mvp_matrix");
 
-	view_loc = glGetUniformLocation(program, "view");
-	model_loc = glGetUniformLocation(program, "model");
-	proj_loc = glGetUniformLocation(program, "proj");
-
-	GLint matDiffuseLoc = glGetUniformLocation(program, "material.diffuse");
-	GLint matSpecularLoc = glGetUniformLocation(program, "material.specular");
-	GLint matShineLoc = glGetUniformLocation(program, "material.shininess");
-	glUniform3fv(matSpecularLoc, 1, &glm::vec3(0.5f, 0.5f, 0.5f)[0]);
-	glUniform1f(matShineLoc, 64.0f);
-	glUniform1i(matDiffuseLoc, 0);
-
-	lightAmbientLoc = glGetUniformLocation(program, "light.ambient");
-	lightDiffuseLoc = glGetUniformLocation(program, "light.diffuse");
-	lightSpecularLoc = glGetUniformLocation(program,"light.specular");
 }
 
 void TextureApp::init_buffer()
 {
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);    //load the vertex data
+	glBufferData(GL_ARRAY_BUFFER, sizeof(VertexData), VertexData, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	model.loadModel("../../../media/objects/nanosuit/nanosuit.obj");
+	glGenBuffers(1, &ibo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);    //load the vertex data
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(ElementData), ElementData, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 }
 
 void TextureApp::init_vertexArray()
 {
-
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);   //bind the vbo to vao, send the data to shader
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); 
+	glBindVertexArray(0);
 }
 
 void TextureApp::init_texture()
@@ -165,9 +203,10 @@ void TextureApp::v_Movement(GLFWwindow *window)
 // Is called whenever a key is pressed/released via GLFW
 void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-
+	//cout << key << std::endl;
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
+
 	if(action == GLFW_PRESS)
 		keys[key] = true;
 	else if(action == GLFW_RELEASE)
@@ -188,12 +227,12 @@ void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 
 	lastX = xpos;
 	lastY = ypos;
-
 	camera.ProcessMouseMovement(xoffset, yoffset);
 }	
 
 
 void TextureApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
+
 	camera.ProcessMouseScroll(yoffset);
 }

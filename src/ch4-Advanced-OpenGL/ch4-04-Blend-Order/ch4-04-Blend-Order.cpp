@@ -2,11 +2,12 @@
 #include <common/learnApp.h>
 #include <common/shader.h>
 #include <common/camera.h>
-#include <common/glDebug.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include <map>
 
 class TextureApp: public byhj::Application
 {
@@ -32,47 +33,31 @@ public:
 
 		glClearColor(0.0, 0.0, 0.0, 1.0);
 		glClearDepth(1.0f);
-
-		// Setup some OpenGL options
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
-		glEnable(GL_STENCIL_TEST);
-		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	void v_Render()
 	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glUseProgram(program);
 
-		glUseProgram(color_program);
+
+		GLfloat currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
 		glm::mat4 model;
 		glm::mat4 view = camera.GetViewMatrix();
 		glm::mat4 projection = glm::perspective(camera.Zoom, GetAspect(), 0.1f, 100.0f);
-		glUniformMatrix4fv(glGetUniformLocation(color_program, "view"), 1, GL_FALSE, &view[0][0]);
-		glUniformMatrix4fv(glGetUniformLocation(color_program, "projection"), 1, GL_FALSE, &projection[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, &view[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, &projection[0][0]);
 
-///////////////////////////////Draw Plane/////////////////////////////////////////////
-		glUseProgram(program); 
-		glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-
-		// Draw floor as normal, we only care about the containers. The floor should NOT fill the stencil buffer so we set its mask to 0x00
-		glStencilMask(0x00);  //disable write stencil buffer
-		// Floor
-		glBindVertexArray(plane_vao);
-		glBindTexture(GL_TEXTURE_2D, plane_texture);
-		model = glm::mat4();
-		glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, &model[0][0]);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-		glBindVertexArray(0);
-
-//////////////////////////////////////////////////////////////////////////////////////////
-
-		// 1st. Render pass, draw objects as normal, filling the stencil buffer
-		//将像素与后两位与1比较，比较模式GL_ALWAYS，即像素区域模板值都是1
-		glStencilFunc(GL_ALWAYS, 1, 0xFF);
-		glStencilMask(0xFF);		//enable write stencil buffer,fill the stencil buffer with 1
+		// Cubes
 		glBindVertexArray(cube_vao);
 		glBindTexture(GL_TEXTURE_2D, cube_texture);  // We omit the glActiveTexture part since TEXTURE0 is already the default active texture unit. (sampler used in fragment is set to 0 as well as default)		
 		model = glm::translate(model, glm::vec3(-1.0f, 0.0f, -1.0f));
@@ -83,34 +68,47 @@ public:
 		glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, &model[0][0]);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		// 2nd. Render pass, now draw slightly scaled versions of the objects, this time disabling stencil writing.
-		// Because stencil buffer is now filled with several 1s. The parts of the buffer that are 1 are now not drawn, thus only drawing 
-		// the objects' size differences, making it look like borders.
-		//将模式放大一些，将后两位与1比较，不等于1的通过绘制，因为前面讲特定区域绘制成1了，所以只有边界
-		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-		glStencilMask(0x00);
-		glDisable(GL_DEPTH_TEST);
-		glUseProgram(color_program);
-		GLfloat scale = 1.05;
-		// Cubes
-		glBindVertexArray(cube_vao);
-		glBindTexture(GL_TEXTURE_2D, cube_texture);  
+		// Floor
+		glBindVertexArray(plane_vao);
+		glBindTexture(GL_TEXTURE_2D, plane_texture);
 		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(-1.0f, 0.0f, -1.0f));		
-		model = glm::scale(model, glm::vec3(scale, scale, scale));
-		glUniformMatrix4fv(glGetUniformLocation(color_program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		model = glm::mat4();		
-		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));	
-		model = glm::scale(model, glm::vec3(scale, scale, scale));
-		glUniformMatrix4fv(glGetUniformLocation(color_program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, &model[0][0]);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 
-		//reset the status
-		glStencilMask(0xFF);
-		glEnable(GL_DEPTH_TEST);
-		//CheckDebugLog();
+		////////////////////////////////////////////////////////////////
+		//1.Draw all opaque objects first.
+		//2.Sort all the transparent objects.
+		//3.Draw all the transparent objects in sorted order.
+	    ////////////////////////////////////////////////////////////////
+
+		// Vegetation
+		// Sort windows
+		std::vector<glm::vec3> windows;
+		windows.push_back(glm::vec3(-1.5f,  0.0f, -0.48f));
+		windows.push_back(glm::vec3( 1.5f,  0.0f,  0.51f));
+		windows.push_back(glm::vec3( 0.0f,  0.0f,  0.7f));
+		windows.push_back(glm::vec3(-0.3f,  0.0f, -2.3f));
+		windows.push_back(glm::vec3( 0.5f,  0.0f, -0.6f));
+
+		//use map to Sort with distance 
+		std::map<GLfloat, glm::vec3> sorted;
+		for (GLuint i = 0; i < windows.size(); i++)
+		{
+			GLfloat distance = glm::length(camera.Position - windows[i]);
+			sorted[distance] = windows[i];
+		}
+		glBindVertexArray(transparent_vao);
+		glBindTexture(GL_TEXTURE_2D, transparent_texture);
+		for (std::map<float, glm::vec3>::reverse_iterator it = sorted.rbegin(); it != sorted.rend(); ++it)
+		{
+			model = glm::mat4();
+			model = glm::translate(model, it->second);
+			glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			glDrawArrays(GL_TRIANGLES, 0, 6);
+		}
+		glBindVertexArray(0);
+
 	}
 	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 	void do_movement();
@@ -143,10 +141,10 @@ private:
 	GLfloat lastFrame;
 
 	//
-	GLuint cube_vao, cube_vbo, plane_vao, plane_vbo;
-	Shader StencilShader, ColorShader;
-	GLuint program, color_program;
-	GLuint cube_texture, plane_texture;
+	GLuint cube_vao, cube_vbo, plane_vao, plane_vbo, transparent_vao, transparent_vbo;
+	Shader depthShader;
+	GLuint program;
+	GLuint cube_texture, plane_texture , transparent_texture;
 	GLuint tex;
 };
 
@@ -201,45 +199,51 @@ GLfloat cubeVertices[] = {
 	-0.5f, 0.5f, -0.5f, 0.0f, 1.0f
 };
 
-GLfloat planeVertices[] = {
-	// Positions            // Texture Coords (note we set these higher than 1 that together with GL_REPEAT as texture wrapping mode will cause the floor texture to repeat)
-	5.0f, -0.5f, 5.0f, 2.0f, 0.0f,
-	-5.0f, -0.5f, 5.0f, 0.0f, 0.0f,
-	-5.0f, -0.5f, -5.0f, 0.0f, 2.0f,
+static const GLfloat planeVertices[] = {
+	// Positions          // Texture Coords (note we set these higher than 1 that together with GL_REPEAT as texture wrapping mode will cause the floor texture to repeat)
+	5.0f, -0.5f,  5.0f,  2.0f,  0.0f,
+	-5.0f, -0.5f,  5.0f,  0.0f,  0.0f,
+	-5.0f, -0.5f, -5.0f,  0.0f,  2.0f,
 
-	5.0f, -0.5f, 5.0f, 2.0f, 0.0f,
-	-5.0f, -0.5f, -5.0f, 0.0f, 2.0f,
-	5.0f, -0.5f, -5.0f, 2.0f, 2.0f
+	5.0f, -0.5f,  5.0f,  2.0f,  0.0f,
+	-5.0f, -0.5f, -5.0f,  0.0f,  2.0f,
+	5.0f, -0.5f, -5.0f,  2.0f,  2.0f
 };
+
+static const GLfloat transparentVertices[] = {
+	// Positions         // Texture Coords (swapped y coordinates because texture is flipped upside down)
+	0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+	0.0f, -0.5f,  0.0f,  0.0f,  1.0f,
+	1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+
+	0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+	1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+	1.0f,  0.5f,  0.0f,  1.0f,  0.0f
+};
+
 #pragma endregion
 
 void TextureApp::init_shader()
 {
-	StencilShader.init();
-	StencilShader.attach(GL_VERTEX_SHADER, "stencil.vert");
-	StencilShader.attach(GL_FRAGMENT_SHADER, "stencil.frag");
-	StencilShader.link();
-	StencilShader.use();
-	program = StencilShader.GetProgram();
+	depthShader.init();
+	depthShader.attach(GL_VERTEX_SHADER, "blend.vert");
+	depthShader.attach(GL_FRAGMENT_SHADER, "blend.frag");
+	depthShader.link();
+	program = depthShader.GetProgram();
 	glUniform1i(glGetUniformLocation(program, "texture1"), 0);
-
-	ColorShader.init();
-	ColorShader.attach(GL_VERTEX_SHADER, "stencil.vert");
-	ColorShader.attach(GL_FRAGMENT_SHADER, "color.frag");
-	ColorShader.link();
-	color_program = ColorShader.GetProgram();
 }
 
 void TextureApp::init_texture()
 {
 	cube_texture = loadTexture("../../../media/textures/marble.jpg");
 	plane_texture = loadTexture("../../../media/textures/metal.png");
+	transparent_texture = loadTexture("../../../media/textures/window.png", true);
 }
 
 
 void TextureApp::init_buffer()
 {
-	glGenBuffers(1, &cube_vbo);
+	glGenBuffers(1, & cube_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, cube_vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), &cubeVertices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -247,6 +251,11 @@ void TextureApp::init_buffer()
 	glGenBuffers(1, &plane_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, plane_vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(planeVertices), &planeVertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glGenBuffers(1, &transparent_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, transparent_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(transparentVertices), transparentVertices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 }
@@ -265,6 +274,15 @@ void TextureApp::init_vertexArray()
 	glGenVertexArrays(1, &plane_vao);
 	glBindVertexArray(plane_vao);
 	glBindBuffer(GL_ARRAY_BUFFER, plane_vbo);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glBindVertexArray(0);
+
+	glGenVertexArrays(1, &transparent_vao);
+	glBindVertexArray(transparent_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, transparent_vbo);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(1);

@@ -72,7 +72,7 @@ glm::vec3 cubePositions[] = {
 	glm::vec3(-1.3f,  1.0f, -1.5f)
 };
 
-glm::vec3 g_lightPos(1.5f, 0.5f, 1.0f);
+glm::vec3 g_lightPos(2.5f, 0.5f, 0.0f);
 
 class TextureApp: public byhj::Application
 {
@@ -129,8 +129,8 @@ public:
 
 		glUniform3f(lightPosLoc, g_lightPos.x, g_lightPos.y, g_lightPos.z);
 		glUniform1f(glGetUniformLocation(prog_app, "light.constant"), 1.0f);
-		glUniform1f(glGetUniformLocation(prog_app, "light.linear"), 0.09);
-		glUniform1f(glGetUniformLocation(prog_app, "light.quadratic"), 0.032);
+		glUniform1f(glGetUniformLocation(prog_app, "light.linear"), 0.045);
+		glUniform1f(glGetUniformLocation(prog_app, "light.quadratic"), 0.045);
 
 		glUniform3f(lightAmbientLoc,  0.2f, 0.2f, 0.2f);
 		glUniform3f(lightDiffuseLoc,  0.5f, 0.5f, 0.5f); // Let's darken the light a bit to fit the scene
