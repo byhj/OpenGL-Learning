@@ -52,8 +52,8 @@ public:
         this->WorldUp = up;
         this->Yaw = yaw;
         this->Pitch = pitch;
-        this->updateCameraVectors();
 		this->ctr = true;
+        this->updateCameraVectors();
     }
 
     // Constructor with scalar values
@@ -92,8 +92,8 @@ public:
         xoffset *= this->MouseSensitivity;
         yoffset *= this->MouseSensitivity;
 
-        this->Yaw   += xoffset;
-        this->Pitch += yoffset;
+		this->Yaw   += xoffset;
+		this->Pitch += yoffset;
 
         // Make sure that when pitch is out of bounds, screen doesn't get flipped
         if (constrainPitch)
@@ -105,7 +105,8 @@ public:
         }
 
         // Update Front, Right and Up Vectors using the updated Eular angles
-        this->updateCameraVectors();
+		if (this->ctr)
+          this->updateCameraVectors();
     }
 
     // Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
@@ -116,15 +117,12 @@ public:
             this->Zoom = 1.0f;
         if (this->Zoom >= 179.0f)
             this->Zoom = 179.0f;
-		std::cout << this->Zoom << std::endl;
     }
 
 private:
     // Calculates the front vector from the Camera's (updated) Eular Angles
     void updateCameraVectors()
     {
-		if (ctr)
-        {// Calculate the new Front vector
             glm::vec3 front;
             front.x = cos(glm::radians(this->Yaw)) * cos(glm::radians(this->Pitch));
             front.y = sin(glm::radians(this->Pitch));
@@ -133,6 +131,5 @@ private:
             // Also re-calculate the Right and Up vector
             this->Right = glm::normalize(glm::cross(this->Front, this->WorldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
             this->Up    = glm::normalize(glm::cross(this->Right, this->Front));
-		}
     }
 };

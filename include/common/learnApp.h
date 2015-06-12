@@ -50,7 +50,8 @@ namespace byhj {
 			glfwSetScrollCallback(window, glfw_scroll);
 
 			// GLFW Options
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
 			if (window == NULL)
 			{
 				std::cerr << "Failed to create GLFW window" << std::endl;

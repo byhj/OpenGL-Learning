@@ -24,9 +24,8 @@ glm::vec3 cubePositions[] = {
 class TextureApp: public byhj::Application
 {
 public:
-	TextureApp():program(0), TriangleShader("Triangle Shader")
+	TextureApp():program(0), TriangleShader("Triangle Shader"), camera(glm::vec3(0.0f, 0.0f, 3.0f))
 	{
-		camera.Position = glm::vec3(0.0f, 0.0f, 3.0f);
 		lastX = GetScreenWidth() / 2.0f;
 		lastY = GetScreenHeight() / 2.0f;
 		firstMouse = true;
@@ -270,12 +269,12 @@ void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 
 	lastX = xpos;
 	lastY = ypos;
-
 	camera.ProcessMouseMovement(xoffset, yoffset);
 }	
 
 
 void TextureApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
+
 	camera.ProcessMouseScroll(yoffset);
 }
