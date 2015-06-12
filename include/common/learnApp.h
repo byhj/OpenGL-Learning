@@ -3,7 +3,7 @@
 
 #include <GL/glew.h>
 #include <common/glDebug.h>
-#include <GL/glfw3.h>
+#include <GLFW/glfw3.h>
 
 #include <iostream>
 #include <string>
