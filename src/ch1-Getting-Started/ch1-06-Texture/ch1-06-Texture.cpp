@@ -4,13 +4,13 @@
 
 #include <iostream>
 
-class ShaderApp: public byhj::Application
+class TextureApp: public byhj::Application
 {
 public:
-	ShaderApp(){};
-	~ShaderApp(){};
+	TextureApp(){};
+	~TextureApp(){};
 
-	void ShaderApp::v_Init()
+	void TextureApp::v_Init()
 	{		
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
@@ -50,7 +50,7 @@ private:
 	GLint texture, tex_loc;
 };
 
-CALL_MAIN(ShaderApp);
+CALL_MAIN(TextureApp);
 
 const static GLfloat VertexData[] = {
 	// Positions    //Texcoords
@@ -59,7 +59,7 @@ const static GLfloat VertexData[] = {
 	0.0f,  0.5f,    0.5f, 1.0f    // Top 
 };
 
-void ShaderApp::init_shader()
+void TextureApp::init_shader()
 {
 	TriangleShader.init();
 	TriangleShader.attach(GL_VERTEX_SHADER, "triangle.vert");
@@ -71,7 +71,7 @@ void ShaderApp::init_shader()
 	glUniform1i(tex_loc, 0);
 }
 
-void ShaderApp::init_buffer()
+void TextureApp::init_buffer()
 {
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);    //load the vertex data
@@ -79,7 +79,7 @@ void ShaderApp::init_buffer()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void ShaderApp::init_vertexArray()
+void TextureApp::init_vertexArray()
 {
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -95,7 +95,7 @@ void ShaderApp::init_vertexArray()
 	glBindVertexArray(0);
 }
 
-void ShaderApp::init_texture()
+void TextureApp::init_texture()
 {
 	texture = loadTexture("../../../media/textures/wall.jpg");
 }

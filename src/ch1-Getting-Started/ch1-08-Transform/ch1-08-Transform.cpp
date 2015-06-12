@@ -5,11 +5,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-class TextureApp: public byhj::Application
+class TransformApp: public byhj::Application
 {
 public:
-	TextureApp():program(0), TriangleShader("Triangle Shader") {};
-	~TextureApp() {};
+	TransformApp():program(0), TriangleShader("Triangle Shader") {};
+	~TransformApp() {};
 
 	void v_Init()
 	{		
@@ -56,9 +56,9 @@ private:
 	GLuint vao, vbo, ibo;
 };
 
-CALL_MAIN(TextureApp);
+CALL_MAIN(TransformApp);
 
-void TextureApp::init_shader()
+void TransformApp::init_shader()
 {
 	TriangleShader.init();
 	TriangleShader.attach(GL_VERTEX_SHADER, "texture.vert");
@@ -78,7 +78,7 @@ void TextureApp::init_shader()
 }
 
 
-void TextureApp::init_texture()
+void TransformApp::init_texture()
 {		
 	tex1 = loadTexture("../../../media/textures/container.jpg");
 	tex2 = loadTexture("../../../media/textures/awesomeface.png");

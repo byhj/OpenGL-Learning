@@ -14,10 +14,10 @@ static const glm::vec3 Pos[4] =
 	glm::vec3( 0.75f, -0.75f, 0.0f),
 };
 
-class TextureApp: public byhj::Application
+class UboApp: public byhj::Application
 {
 public:
-	TextureApp():program(0), TriangleShader("Triangle Shader"), camera(glm::vec3(0.0f, 0.0f, 3.0f))
+	UboApp():program(0), TriangleShader("Triangle Shader"), camera(glm::vec3(0.0f, 0.0f, 3.0f))
 	{
 		lastX = GetScreenWidth() / 2.0f;
 		lastY = GetScreenHeight() / 2.0f;
@@ -27,7 +27,7 @@ public:
 		for (int i = 0; i != 1024; ++ i)
 			keys[i] = false;
 	};
-	~TextureApp() {};
+	~UboApp() {};
 
 	void v_Init()
 	{			
@@ -102,7 +102,7 @@ private:
 	GLuint red_ubo_index, green_ubo_index, blue_ubo_index, yellow_ubo_index;
 };
 
-CALL_MAIN(TextureApp);
+CALL_MAIN(UboApp);
 
 #pragma region VertexData
 
@@ -142,7 +142,7 @@ const static GLushort ElementData[] = {
 
 #pragma endregion
 
-void TextureApp::init_shader()
+void UboApp::init_shader()
 {
 	TriangleShader.init();
 	TriangleShader.attach(GL_VERTEX_SHADER, "cube.vert");
@@ -153,7 +153,7 @@ void TextureApp::init_shader()
 
 }
 
-void TextureApp::init_buffer()
+void UboApp::init_buffer()
 {
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);    //load the vertex data
@@ -182,7 +182,7 @@ void TextureApp::init_buffer()
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
-void TextureApp::init_vertexArray()
+void UboApp::init_vertexArray()
 {
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -195,7 +195,7 @@ void TextureApp::init_vertexArray()
 
 
 // Moves/alters the camera positions based on user input
-void TextureApp::v_Movement(GLFWwindow *window)
+void UboApp::v_Movement(GLFWwindow *window)
 {
 	// Camera controls
 	if(keys[GLFW_KEY_W])
@@ -214,7 +214,7 @@ void TextureApp::v_Movement(GLFWwindow *window)
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void UboApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	//cout << key << std::endl;
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -226,7 +226,7 @@ void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int ac
 		keys[key] = false;	
 }
 
-void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
+void UboApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
 	if(firstMouse)
 	{
@@ -244,7 +244,7 @@ void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 }	
 
 
-void TextureApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+void UboApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 
 	camera.ProcessMouseScroll(yoffset);

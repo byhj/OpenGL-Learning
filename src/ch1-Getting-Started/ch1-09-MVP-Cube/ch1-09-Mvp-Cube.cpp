@@ -30,11 +30,11 @@ glm::vec3 cubePositions[] = {
 	glm::vec3(-1.3f,  1.0f, -1.5f)  
 };
 
-class TextureApp: public byhj::Application
+class MvpApp: public byhj::Application
 {
 public:
-	TextureApp():program(0), TriangleShader("Triangle Shader") {};
-	~TextureApp() {};
+	MvpApp():program(0), TriangleShader("Triangle Shader") {};
+	~MvpApp() {};
 
 	void v_Init()
 	{			
@@ -114,7 +114,7 @@ private:
 	GLuint vao, vbo, ibo;
 };
 
-CALL_MAIN(TextureApp);
+CALL_MAIN(MvpApp);
 
 #pragma region VertexData
 
@@ -164,7 +164,7 @@ const static GLfloat VertexData[] = {
 
 #pragma endregion
 
-void TextureApp::init_shader()
+void MvpApp::init_shader()
 {
 	TriangleShader.init();
 	TriangleShader.attach(GL_VERTEX_SHADER, "cube.vert");
@@ -175,7 +175,7 @@ void TextureApp::init_shader()
     
 }
 
-void TextureApp::init_buffer()
+void MvpApp::init_buffer()
 {
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);    //load the vertex data
@@ -184,7 +184,7 @@ void TextureApp::init_buffer()
 
 }
 
-void TextureApp::init_vertexArray()
+void MvpApp::init_vertexArray()
 {
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -199,7 +199,7 @@ void TextureApp::init_vertexArray()
 	glBindVertexArray(0);
 }
 
-void TextureApp::init_texture()
+void MvpApp::init_texture()
 {
 	tex1 = loadTexture("../../../media/textures/container.jpg");
 	tex2 = loadTexture("../../../media/textures/awesomeface.png");

@@ -6,10 +6,10 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-class TextureApp: public byhj::Application
+class CullingApp: public byhj::Application
 {
 public:
-	TextureApp():program(0), TriangleShader("Triangle Shader"), camera(glm::vec3(0.0f, 0.0f, 1.0f))
+	CullingApp():program(0), TriangleShader("Triangle Shader"), camera(glm::vec3(0.0f, 0.0f, 1.0f))
 	{
 		lastX = GetScreenWidth() / 2.0f;
 		lastY = GetScreenHeight() / 2.0f;
@@ -19,7 +19,7 @@ public:
 		for (int i = 0; i != 1024; ++ i)
 			keys[i] = false;
 	};
-	~TextureApp() {};
+	~CullingApp() {};
 
 	void v_Init()
 	{			
@@ -101,7 +101,7 @@ private:
 	GLuint vao, vbo, ibo;
 };
 
-CALL_MAIN(TextureApp);
+CALL_MAIN(CullingApp);
 
 #pragma region VertexData
 
@@ -140,7 +140,7 @@ const static GLushort ElementData[] = {
 
 #pragma endregion
 
-void TextureApp::init_shader()
+void CullingApp::init_shader()
 {
 	TriangleShader.init();
 	TriangleShader.attach(GL_VERTEX_SHADER, "cube.vert");
@@ -151,7 +151,7 @@ void TextureApp::init_shader()
 
 }
 
-void TextureApp::init_buffer()
+void CullingApp::init_buffer()
 {
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);    //load the vertex data
@@ -165,7 +165,7 @@ void TextureApp::init_buffer()
 
 }
 
-void TextureApp::init_vertexArray()
+void CullingApp::init_vertexArray()
 {
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -176,13 +176,13 @@ void TextureApp::init_vertexArray()
 	glBindVertexArray(0);
 }
 
-void TextureApp::init_texture()
+void CullingApp::init_texture()
 {
 
 }
 
 // Moves/alters the camera positions based on user input
-void TextureApp::v_Movement(GLFWwindow *window)
+void CullingApp::v_Movement(GLFWwindow *window)
 {
 	// Camera controls
 	if(keys[GLFW_KEY_W])
@@ -201,7 +201,7 @@ void TextureApp::v_Movement(GLFWwindow *window)
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void CullingApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	//cout << key << std::endl;
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -213,7 +213,7 @@ void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int ac
 		keys[key] = false;	
 }
 
-void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
+void CullingApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
 	if(firstMouse)
 	{
@@ -231,7 +231,7 @@ void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 }	
 
 
-void TextureApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+void CullingApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 
 	camera.ProcessMouseScroll(yoffset);

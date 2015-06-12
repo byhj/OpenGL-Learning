@@ -6,7 +6,7 @@
 class ShaderApp: public byhj::Application
 {
 public:
-	ShaderApp(){};
+	ShaderApp():program(0), vao(0), vbo(0){};
 	~ShaderApp(){};
 
 	void ShaderApp::v_Init()

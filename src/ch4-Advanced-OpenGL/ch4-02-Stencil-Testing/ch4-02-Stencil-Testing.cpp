@@ -8,10 +8,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-class TextureApp: public byhj::Application
+class StencilApp: public byhj::Application
 {
 public:
-	TextureApp():program(0), camera(glm::vec3(0.0f, 0.0f, 3.0f))
+	StencilApp():program(0), camera(glm::vec3(0.0f, 0.0f, 3.0f))
 	{
 		lastX = GetScreenWidth() / 2.0f;
 		lastY = GetScreenHeight() / 2.0f;
@@ -21,7 +21,7 @@ public:
 		for (int i = 0; i != 1024; ++ i)
 			keys[i] = false;
 	};
-	~TextureApp() {};
+	~StencilApp() {};
 
 	void v_Init()
 	{			
@@ -150,7 +150,7 @@ private:
 	GLuint tex;
 };
 
-CALL_MAIN(TextureApp);
+CALL_MAIN(StencilApp);
 
 
 #pragma region Data
@@ -213,7 +213,7 @@ GLfloat planeVertices[] = {
 };
 #pragma endregion
 
-void TextureApp::init_shader()
+void StencilApp::init_shader()
 {
 	StencilShader.init();
 	StencilShader.attach(GL_VERTEX_SHADER, "stencil.vert");
@@ -230,14 +230,14 @@ void TextureApp::init_shader()
 	color_program = ColorShader.GetProgram();
 }
 
-void TextureApp::init_texture()
+void StencilApp::init_texture()
 {
 	cube_texture = loadTexture("../../../media/textures/marble.jpg");
 	plane_texture = loadTexture("../../../media/textures/metal.png");
 }
 
 
-void TextureApp::init_buffer()
+void StencilApp::init_buffer()
 {
 	glGenBuffers(1, &cube_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, cube_vbo);
@@ -251,7 +251,7 @@ void TextureApp::init_buffer()
 
 }
 
-void TextureApp::init_vertexArray()
+void StencilApp::init_vertexArray()
 {
 	glGenVertexArrays(1, &cube_vao);
 	glBindVertexArray(cube_vao);
@@ -274,7 +274,7 @@ void TextureApp::init_vertexArray()
 
 
 // Moves/alters the camera positions based on user input
-void TextureApp::v_Movement(GLFWwindow *window)
+void StencilApp::v_Movement(GLFWwindow *window)
 {
 	// Camera controls
 	if(keys[GLFW_KEY_W])
@@ -293,7 +293,7 @@ void TextureApp::v_Movement(GLFWwindow *window)
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void StencilApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	//cout << key << std::endl;
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -305,7 +305,7 @@ void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int ac
 		keys[key] = false;	
 }
 
-void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
+void StencilApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
 	if(firstMouse)
 	{
@@ -323,7 +323,7 @@ void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 }	
 
 
-void TextureApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+void StencilApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 
 	camera.ProcessMouseScroll(yoffset);

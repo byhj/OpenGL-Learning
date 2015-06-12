@@ -5,7 +5,7 @@
 class TriangleApp: public byhj::Application
 {
 public:
-	TriangleApp() { }
+	TriangleApp() :program(0), vao(0), vbo(0) { }
 	~TriangleApp() {}
 
 public:
@@ -52,8 +52,8 @@ CALL_MAIN(TriangleApp);
 const static GLfloat VertexData[] = 
 {
 	-0.5f, -0.5f,
-	0.5f, -0.5f,
-	0.0f,  0.5f
+	 0.5f, -0.5f,
+	 0.0f,  0.5f
 };
 
 void TriangleApp::init_shader()
@@ -84,4 +84,5 @@ void TriangleApp::init_vertexArray()
 	glEnableVertexAttribArray(0);
 
 	glBindVertexArray(0);
+	glDisableVertexAttribArray(0);
 }

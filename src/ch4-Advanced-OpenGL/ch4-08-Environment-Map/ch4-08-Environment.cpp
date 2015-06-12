@@ -6,10 +6,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-class TextureApp: public byhj::Application
+
+class SkyboxApp: public byhj::Application
 {
 public:
-	TextureApp():camera(glm::vec3(0.0f, 0.0f, 3.0f))
+	SkyboxApp():camera(glm::vec3(0.0f, 0.0f, 3.0f))
 	{
 		lastX = GetScreenWidth() / 2.0f;
 		lastY = GetScreenHeight() / 2.0f;
@@ -19,7 +20,7 @@ public:
 		for (int i = 0; i != 1024; ++ i)
 			keys[i] = false;
 	};
-	~TextureApp() {};
+	~SkyboxApp() {};
 
 	void v_Init()
 	{			
@@ -110,7 +111,7 @@ private:
 
 };
 
-CALL_MAIN(TextureApp);
+CALL_MAIN(SkyboxApp);
 
 #pragma region VertexData
 
@@ -206,7 +207,7 @@ GLfloat skyboxVertices[] = {
 };
 #pragma endregion
 
-void TextureApp::init_shader()
+void SkyboxApp::init_shader()
 {
 	cubeShader.init();
 	cubeShader.attach(GL_VERTEX_SHADER, "cube.vert");
@@ -226,7 +227,7 @@ void TextureApp::init_shader()
 
 }
 
-void TextureApp::init_buffer()
+void SkyboxApp::init_buffer()
 {
 	glGenBuffers(1, &cube_vbo); //initial the vertex buffer object
 	glBindBuffer(GL_ARRAY_BUFFER, cube_vbo);
@@ -240,7 +241,7 @@ void TextureApp::init_buffer()
 
 }
 
-void TextureApp::init_vertexArray()
+void SkyboxApp::init_vertexArray()
 {
 	//cube data
 	glGenVertexArrays(1, &cube_vao);  //initial the vertex array object
@@ -261,7 +262,7 @@ void TextureApp::init_vertexArray()
 	glBindVertexArray(0);
 }
 
-void TextureApp::init_texture()
+void SkyboxApp::init_texture()
 {
 	// Cubemap (Skybox)
 	std::vector<std::string> faces;
@@ -275,7 +276,7 @@ void TextureApp::init_texture()
 }
 
 // Moves/alters the camera positions based on user input
-void TextureApp::v_Movement(GLFWwindow *window)
+void SkyboxApp::v_Movement(GLFWwindow *window)
 {
 	// Camera controls
 	if(keys[GLFW_KEY_W])
@@ -294,7 +295,7 @@ void TextureApp::v_Movement(GLFWwindow *window)
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void SkyboxApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	//cout << key << std::endl;
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -306,7 +307,7 @@ void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int ac
 		keys[key] = false;	
 }
 
-void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
+void SkyboxApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
 	if(firstMouse)
 	{
@@ -324,7 +325,7 @@ void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 }	
 
 
-void TextureApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+void SkyboxApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 
 	camera.ProcessMouseScroll(yoffset);

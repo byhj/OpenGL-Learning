@@ -4,11 +4,11 @@
 
 #include <iostream>
 
-class TriangleApp: public byhj::Application
+class SpriteApp: public byhj::Application
 {
 public:
-	TriangleApp() { }
-	~TriangleApp() {}
+	SpriteApp() { }
+	~SpriteApp() {}
 
 public:
 	void v_Init()
@@ -52,10 +52,10 @@ private:
 	GLuint sprite_texture;
 };
 
-CALL_MAIN(TriangleApp);
+CALL_MAIN(SpriteApp);
 
 
-void TriangleApp::init_shader()
+void SpriteApp::init_shader()
 {
 	PointShader.init();
 	PointShader.attach(GL_VERTEX_SHADER, "point.vert");

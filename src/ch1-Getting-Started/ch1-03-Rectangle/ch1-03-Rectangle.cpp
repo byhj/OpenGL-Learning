@@ -5,7 +5,7 @@
 class RectangleApp: public byhj::Application
 {
 public:
-	RectangleApp() { }
+	RectangleApp(): program(0), vao(0), vbo(0), ibo(0) { }
 	~RectangleApp() {}
 
 public:
@@ -37,6 +37,7 @@ public:
 		glDeleteProgram(program);
 		glDeleteVertexArrays(1, &vao);
 		glDeleteBuffers(1, &vbo);
+		glDeleteBuffers(1, &ibo);
 	}
 
 private:
@@ -104,4 +105,5 @@ void RectangleApp::init_vertexArray()
 	glEnableVertexAttribArray(0);
 
 	glBindVertexArray(0);
+	glDisableVertexAttribArray(0);
 }

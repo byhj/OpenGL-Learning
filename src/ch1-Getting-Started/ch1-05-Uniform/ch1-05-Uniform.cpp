@@ -3,13 +3,13 @@
 
 #include <iostream>
 
-class ShaderApp: public byhj::Application
+class UniformApp: public byhj::Application
 {
 public:
-	 ShaderApp(){};
-	 ~ShaderApp(){};
+	 UniformApp(){};
+	 ~UniformApp(){};
 
-	 void ShaderApp::v_Init()
+	 void UniformApp::v_Init()
 	 {		
 		 glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
@@ -53,7 +53,7 @@ private:
 	GLuint color_loc;
 };
 
-CALL_MAIN(ShaderApp);
+CALL_MAIN(UniformApp);
 
 const static GLfloat VertexData[] = {
 	// Positions  
@@ -62,7 +62,7 @@ const static GLfloat VertexData[] = {
 	0.0f,  0.5f,  
 };
 
-void ShaderApp::init_shader()
+void UniformApp::init_shader()
 {
 	TriangleShader.init();
 	TriangleShader.attach(GL_VERTEX_SHADER, "triangle.vert");
@@ -75,7 +75,7 @@ void ShaderApp::init_shader()
 	color_loc = glGetUniformLocation(program, "color");
 }
 
-void ShaderApp::init_buffer()
+void UniformApp::init_buffer()
 {
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);    //load the vertex data
@@ -83,7 +83,7 @@ void ShaderApp::init_buffer()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void ShaderApp::init_vertexArray()
+void UniformApp::init_vertexArray()
 {
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);

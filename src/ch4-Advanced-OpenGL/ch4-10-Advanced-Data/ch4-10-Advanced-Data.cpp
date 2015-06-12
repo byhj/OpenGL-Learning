@@ -7,10 +7,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-class TextureApp: public byhj::Application
+class DataApp: public byhj::Application
 {
 public:
-	TextureApp():program(0), TriangleShader("Triangle Shader"), camera(glm::vec3(0.0f, 0.0f, 3.0f))
+	DataApp():program(0), TriangleShader("Triangle Shader"), camera(glm::vec3(0.0f, 0.0f, 3.0f))
 	{
 		lastX = GetScreenWidth() / 2.0f;
 		lastY = GetScreenHeight() / 2.0f;
@@ -20,7 +20,7 @@ public:
 		for (int i = 0; i != 1024; ++ i)
 			keys[i] = false;
 	};
-	~TextureApp() {};
+	~DataApp() {};
 
 	void v_Init()
 	{			
@@ -111,7 +111,7 @@ private:
 	GLuint vbo_copy, vao_copy;
 };
 
-CALL_MAIN(TextureApp);
+CALL_MAIN(DataApp);
 
 #pragma region VertexData
 
@@ -161,7 +161,7 @@ const static GLfloat VertexData[] = {
 
 #pragma endregion
 
-void TextureApp::init_shader()
+void DataApp::init_shader()
 {
 	TriangleShader.init();
 	TriangleShader.attach(GL_VERTEX_SHADER, "cube.vert");
@@ -172,7 +172,7 @@ void TextureApp::init_shader()
     
 }
 
-void TextureApp::init_buffer()
+void DataApp::init_buffer()
 {
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);    //load the vertex data
@@ -186,7 +186,7 @@ void TextureApp::init_buffer()
 
 }
 
-void TextureApp::init_vertexArray()
+void DataApp::init_vertexArray()
 {
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -211,14 +211,14 @@ void TextureApp::init_vertexArray()
 	glBindVertexArray(0);
 }
 
-void TextureApp::init_texture()
+void DataApp::init_texture()
 {
 	tex1 = loadTexture("../../../media/textures/container.jpg");
 	tex2 = loadTexture("../../../media/textures/awesomeface.png");
 }
 
 // Moves/alters the camera positions based on user input
-void TextureApp::v_Movement(GLFWwindow *window)
+void DataApp::v_Movement(GLFWwindow *window)
 {
 	// Camera controls
 	if(keys[GLFW_KEY_W])
@@ -237,7 +237,7 @@ void TextureApp::v_Movement(GLFWwindow *window)
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void DataApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	//cout << key << std::endl;
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -249,7 +249,7 @@ void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int ac
 		keys[key] = false;	
 }
 
-void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
+void DataApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
 	if(firstMouse)
 	{
@@ -267,7 +267,7 @@ void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 }	
 
 
-void TextureApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+void DataApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 
 	camera.ProcessMouseScroll(yoffset);

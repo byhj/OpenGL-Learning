@@ -6,10 +6,10 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-class TextureApp: public byhj::Application
+class FramebufferApp: public byhj::Application
 {
 public:
-	TextureApp():program(0), camera(glm::vec3(0.0f, 0.0f, 3.0f))
+	FramebufferApp():program(0), camera(glm::vec3(0.0f, 0.0f, 3.0f))
 	{
 		lastX = GetScreenWidth() / 2.0f;
 		lastY = GetScreenHeight() / 2.0f;
@@ -19,7 +19,7 @@ public:
 		for (int i = 0; i != 1024; ++ i)
 			keys[i] = false;
 	};
-	~TextureApp() {};
+	~FramebufferApp() {};
 
 	void v_Init()
 	{			
@@ -127,7 +127,7 @@ private:
 	GLuint textureColorbuffer;
 };
 
-CALL_MAIN(TextureApp);
+CALL_MAIN(FramebufferApp);
 
 
 #pragma region Data
@@ -201,7 +201,7 @@ GLfloat quadVertices[] = {   // Vertex attributes for a quad that fills the enti
 };
 #pragma endregion
 
-void TextureApp::init_shader()
+void FramebufferApp::init_shader()
 {
 	depthShader.init();
 	depthShader.attach(GL_VERTEX_SHADER, "fbo.vert");
@@ -220,14 +220,14 @@ void TextureApp::init_shader()
 	glUniform1i(glGetUniformLocation(screen_program, "texture1"), 0);
 }
 
-void TextureApp::init_texture()
+void FramebufferApp::init_texture()
 {
 	cube_texture = loadTexture("../../../media/textures/marble.jpg");
 	plane_texture = loadTexture("../../../media/textures/metal.png");
 }
 
 
-void TextureApp::init_buffer()
+void FramebufferApp::init_buffer()
 {
 	glGenBuffers(1, &cube_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, cube_vbo);
@@ -252,7 +252,7 @@ void TextureApp::init_buffer()
 	glBindVertexArray(0);
 }
 
-void TextureApp::init_vertexArray()
+void FramebufferApp::init_vertexArray()
 {
 	glGenVertexArrays(1, &cube_vao);
 	glBindVertexArray(cube_vao);
@@ -274,7 +274,7 @@ void TextureApp::init_vertexArray()
 }
 
 // Generates a texture that is suited for attachments to a framebuffer
-GLuint TextureApp::generateAttachmentTexture(GLboolean depth, GLboolean stencil)
+GLuint FramebufferApp::generateAttachmentTexture(GLboolean depth, GLboolean stencil)
 {
 	// What enum to use?
 	GLenum attachment_type;
@@ -301,7 +301,7 @@ GLuint TextureApp::generateAttachmentTexture(GLboolean depth, GLboolean stencil)
 	return textureID;
 }
 
-void TextureApp::init_fbo()
+void FramebufferApp::init_fbo()
 {
 	glGenFramebuffers(1, &fbo);
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -319,7 +319,7 @@ void TextureApp::init_fbo()
 
 }
 // Moves/alters the camera positions based on user input
-void TextureApp::v_Movement(GLFWwindow *window)
+void FramebufferApp::v_Movement(GLFWwindow *window)
 {
 	// Camera controls
 	if(keys[GLFW_KEY_W])
@@ -338,7 +338,7 @@ void TextureApp::v_Movement(GLFWwindow *window)
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void FramebufferApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	//cout << key << std::endl;
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -350,7 +350,7 @@ void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int ac
 		keys[key] = false;	
 }
 
-void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
+void FramebufferApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
 	if(firstMouse)
 	{
@@ -368,7 +368,7 @@ void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 }	
 
 
-void TextureApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+void FramebufferApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 
 	camera.ProcessMouseScroll(yoffset);

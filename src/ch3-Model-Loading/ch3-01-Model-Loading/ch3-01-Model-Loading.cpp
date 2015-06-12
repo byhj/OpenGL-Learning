@@ -9,10 +9,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-class TextureApp: public byhj::Application
+class ModelApp: public byhj::Application
 {
 public:
-	TextureApp()
+	ModelApp()
 	{
 		camera.Position = glm::vec3(0.0f, 0.0f, 3.0f);
 		lastX = GetScreenWidth() / 2.0f;
@@ -23,7 +23,7 @@ public:
 		for (int i = 0; i != 1024; ++ i)
 			keys[i] = false;
 	};
-	~TextureApp() {};
+	~ModelApp() {};
 
 	void v_Init()
 	{			
@@ -98,10 +98,10 @@ private:
 
 };
 
-CALL_MAIN(TextureApp);
+CALL_MAIN(ModelApp);
 
 
-void TextureApp::init_shader()
+void ModelApp::init_shader()
 {
 	modelShader.init();
 	modelShader.attach(GL_VERTEX_SHADER, "model.vert");
@@ -126,25 +126,25 @@ void TextureApp::init_shader()
 	lightSpecularLoc = glGetUniformLocation(program,"light.specular");
 }
 
-void TextureApp::init_buffer()
+void ModelApp::init_buffer()
 {
 
 	model.loadModel("../../../media/objects/nanosuit/nanosuit.obj");
 
 }
 
-void TextureApp::init_vertexArray()
+void ModelApp::init_vertexArray()
 {
 
 }
 
-void TextureApp::init_texture()
+void ModelApp::init_texture()
 {
 
 }
 
 // Moves/alters the camera positions based on user input
-void TextureApp::v_Movement(GLFWwindow *window)
+void ModelApp::v_Movement(GLFWwindow *window)
 {
 	// Camera controls
 	if(keys[GLFW_KEY_W])
@@ -163,7 +163,7 @@ void TextureApp::v_Movement(GLFWwindow *window)
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void ModelApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -174,7 +174,7 @@ void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int ac
 		keys[key] = false;	
 }
 
-void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
+void ModelApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
 	if(firstMouse)
 	{
@@ -193,7 +193,7 @@ void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 }	
 
 
-void TextureApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+void ModelApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera.ProcessMouseScroll(yoffset);
 }

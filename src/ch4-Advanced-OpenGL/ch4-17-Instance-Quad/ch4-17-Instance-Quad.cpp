@@ -4,11 +4,11 @@
 
 #include <iostream>
 
-class TriangleApp: public byhj::Application
+class InstanceApp: public byhj::Application
 {
 public:
-	TriangleApp() { }
-	~TriangleApp() {}
+	InstanceApp() { }
+	~InstanceApp() {}
 
 public:
 	void v_Init()
@@ -48,7 +48,7 @@ private:
 	GLuint instanceVBO;
 };
 
-CALL_MAIN(TriangleApp);
+CALL_MAIN(InstanceApp);
 
 const static GLsizei VertexCount(30);
 const static GLsizeiptr VertexSize = sizeof(GLfloat)* VertexCount;
@@ -64,7 +64,7 @@ const static GLfloat VertexData[VertexCount] =
 	0.05f, 0.05f, 0.0f, 1.0f, 1.0f
 };
 
-void TriangleApp::init_shader()
+void InstanceApp::init_shader()
 {
 	triangleShader.init();
 	triangleShader.attach(GL_VERTEX_SHADER, "quad.vert");
@@ -74,7 +74,7 @@ void TriangleApp::init_shader()
 	mvp_matrix_loc = glGetUniformLocation(program, "mvp_matrix");
 }
 
-void TriangleApp::init_buffer()
+void InstanceApp::init_buffer()
 {
 	glGenBuffers(1, &vbo); //initial the vertex buffer object
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -101,7 +101,7 @@ void TriangleApp::init_buffer()
 
 }
 
-void TriangleApp::init_vertexArray()
+void InstanceApp::init_vertexArray()
 {
 	glGenVertexArrays(1, &vao);  //initial the vertex array object
 	glBindVertexArray(vao);

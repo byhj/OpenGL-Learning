@@ -10,10 +10,10 @@
 
 GLuint amount = 100000;
 
-class TextureApp: public byhj::Application
+class InstanceApp: public byhj::Application
 {
 public:
-	TextureApp(): camera(glm::vec3(100.0f, 100.0f, 1000.0f))
+	InstanceApp(): camera(glm::vec3(100.0f, 100.0f, 1000.0f))
 	{
 		lastX = GetScreenWidth() / 2.0f;
 		lastY = GetScreenHeight() / 2.0f;
@@ -23,7 +23,7 @@ public:
 		for (int i = 0; i != 1024; ++ i)
 			keys[i] = false;
 	};
-	~TextureApp() {};
+	~InstanceApp() {};
 
 	void v_Init()
 	{			
@@ -104,7 +104,7 @@ private:
 	GLuint instanceVBO;
 };
 
-CALL_MAIN(TextureApp);
+CALL_MAIN(InstanceApp);
 
 #pragma region VertexData
 
@@ -123,7 +123,7 @@ const static GLfloat VertexData[VertexCount] = { //vertex data
 
 #pragma endregion
 
-void TextureApp::init_shader()
+void InstanceApp::init_shader()
 {
 	AsteroidShader.init();
 	AsteroidShader.attach(GL_VERTEX_SHADER, "asteroid.vert");
@@ -139,7 +139,7 @@ void TextureApp::init_shader()
 
 }
 
-void TextureApp::init_buffer()
+void InstanceApp::init_buffer()
 {
 	rock.loadModel("../../../media/objects/rock/rock.obj");
 	planet.loadModel("../../../media/objects/planet/planet.obj");
@@ -204,13 +204,13 @@ void TextureApp::init_buffer()
 
 }
 
-void TextureApp::init_vertexArray()
+void InstanceApp::init_vertexArray()
 {
 }
 
 
 // Moves/alters the camera positions based on user input
-void TextureApp::v_Movement(GLFWwindow *window)
+void InstanceApp::v_Movement(GLFWwindow *window)
 {
 	// Camera controls
 	if(keys[GLFW_KEY_W])
@@ -229,7 +229,7 @@ void TextureApp::v_Movement(GLFWwindow *window)
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void InstanceApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	//cout << key << std::endl;
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -241,7 +241,7 @@ void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int ac
 		keys[key] = false;	
 }
 
-void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
+void InstanceApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
 	if(firstMouse)
 	{
@@ -259,7 +259,7 @@ void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 }	
 
 
-void TextureApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+void InstanceApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 
 	camera.ProcessMouseScroll(yoffset);

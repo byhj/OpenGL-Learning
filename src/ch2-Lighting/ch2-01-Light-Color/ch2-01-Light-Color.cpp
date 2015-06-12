@@ -55,10 +55,10 @@ static const  GLfloat VertexData[] = {
 
 glm::vec3 g_lightPos(1.0f, 0.5f, 1.0f);
 
-class TextureApp: public byhj::Application
+class LightColorApp: public byhj::Application
 {
 public:
-	TextureApp():prog_app(0),prog_light(0), AppShader("Cube Shader"), LightShader("Light Shader")
+	LightColorApp():prog_app(0), prog_light(0), AppShader("Cube Shader"), LightShader("Light Shader")
 	{
 		camera.Position = glm::vec3(0.0f, 0.0f, 3.0f);
 		lastX = GetScreenWidth() / 2.0f;
@@ -69,7 +69,7 @@ public:
 		for (int i = 0; i != 1024; ++ i)
 			keys[i] = false;
 	};
-	~TextureApp() {};
+	~LightColorApp() {};
 
 	void v_Init()
 	{			
@@ -153,10 +153,10 @@ private:
 	GLuint vao_light, vao_app, vbo, ibo;
 };
 
-CALL_MAIN(TextureApp);
+CALL_MAIN(LightColorApp);
 
 
-void TextureApp::init_shader()
+void LightColorApp::init_shader()
 {
 	LightShader.init();
 	LightShader.attach(GL_VERTEX_SHADER, "light.vert");
@@ -172,7 +172,7 @@ void TextureApp::init_shader()
 
 }
 
-void TextureApp::init_buffer()
+void LightColorApp::init_buffer()
 {
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);    //load the vertex data
@@ -181,7 +181,7 @@ void TextureApp::init_buffer()
 
 }
 
-void TextureApp::init_vertexArray()
+void LightColorApp::init_vertexArray()
 {
 	//light data
 	glGenVertexArrays(1, &vao_light);
@@ -202,7 +202,7 @@ void TextureApp::init_vertexArray()
 
 
 // Moves/alters the camera positions based on user input
-void TextureApp::v_Movement(GLFWwindow *window)
+void LightColorApp::v_Movement(GLFWwindow *window)
 {
 	// Camera controls
 	if(keys[GLFW_KEY_W])
@@ -221,7 +221,7 @@ void TextureApp::v_Movement(GLFWwindow *window)
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void LightColorApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -232,7 +232,7 @@ void TextureApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int ac
 		keys[key] = false;	
 }
 
-void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
+void LightColorApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
 	if(firstMouse)
 	{
@@ -251,7 +251,7 @@ void TextureApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 }	
 
 
-void TextureApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+void LightColorApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera.ProcessMouseScroll(yoffset);
 }
