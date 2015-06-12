@@ -63,6 +63,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="cube.frag" />
+    <None Include="cube.vert" />
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ch4-08-Environment.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

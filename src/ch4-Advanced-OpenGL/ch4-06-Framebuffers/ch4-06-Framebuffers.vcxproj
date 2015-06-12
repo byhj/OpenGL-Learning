@@ -63,6 +63,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ch4-06-FrameBuffers.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fbo.frag" />
+    <None Include="fbo.vert" />
+    <None Include="screen.frag" />
+    <None Include="screen.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

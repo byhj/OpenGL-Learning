@@ -9,7 +9,7 @@
 class TextureApp: public byhj::Application
 {
 public:
-	TextureApp():program(0), TriangleShader("Triangle Shader"), camera(glm::vec3(0.0f, 0.0f, 3.0f))
+	TextureApp():program(0), TriangleShader("Triangle Shader"), camera(glm::vec3(0.0f, 0.0f, 1.0f))
 	{
 		lastX = GetScreenWidth() / 2.0f;
 		lastY = GetScreenHeight() / 2.0f;
@@ -28,8 +28,8 @@ public:
 		glEnable(GL_DEPTH_TEST);  
 
 		glEnable(GL_CULL_FACE);
-		glCullFace(GL_FRONT);
 		glFrontFace(GL_CCW); 
+		glCullFace(GL_BACK); 
 
 		init_shader();
 		init_buffer();
@@ -53,7 +53,7 @@ public:
 		glm::mat4 view;
 		glm::mat4 proj;
 		float time = glfwGetTime();
-		model = glm::rotate(model, glm::radians(time * 50.0f), glm::vec3(0.5f, 1.0f, 1.0f));
+		model = glm::rotate(model, glm::radians( 50.0f), glm::vec3(0.5f, 1.0f, 1.0f));
 		view  = camera.GetViewMatrix();
 		proj  = glm::perspective(camera.Zoom, GetAspect(), 0.1f, 100.0f);
 		glm::mat4 mvp = proj * view * model;
