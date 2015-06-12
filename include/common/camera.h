@@ -75,7 +75,7 @@ public:
     // Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
     void ProcessKeyboard(Camera_Movement direction, GLfloat deltaTime)
     {
-        GLfloat velocity = this->MovementSpeed * deltaTime * 5.0f;
+        GLfloat velocity = this->MovementSpeed * deltaTime * 3.0f;
         if (direction == FORWARD)
             this->Position += this->Front * velocity;
         if (direction == BACKWARD)
