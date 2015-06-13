@@ -2,6 +2,7 @@
 #include <common/learnApp.h>
 #include <common/shader.h>
 #include <common/camera.h>
+#include <common/glDebug.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -37,14 +38,13 @@ public:
 		init_vertexArray();
 		init_texture();
 		init_fbo();
+
 	}
 
 	void v_Render()
 	{
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		glBindVertexArray(planeVAO);
 
 		GLfloat currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
@@ -90,7 +90,7 @@ public:
 		glUniformMatrix4fv(glGetUniformLocation(scene_prog, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
 	
 		// Enable/Disable shadows by pressing 'SPscene_progACE'
-		glUniform1i(glGetUniformLocation(scene_prog, "shadows"), 0);
+		glUniform1i(glGetUniformLocation(scene_prog, "shadows"), shadows);
 		glUniform1i(glGetUniformLocation(scene_prog, "diffuseTexture"), 0);
 		glUniform1i(glGetUniformLocation(scene_prog, "shadowMap"), 1);
 
@@ -109,6 +109,7 @@ public:
 		//RenderQuad();
 
 		glBindVertexArray(0);
+
 	}
 	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 	void do_movement();
@@ -365,13 +366,13 @@ void CullingApp::init_fbo()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 	GLfloat borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-
+	
 	glGenFramebuffers(1, &fbo);
+	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depth_tex, 0);
 	glDrawBuffer(GL_NONE);
 	glReadBuffer(GL_NONE);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
 }
 // Moves/alters the camera positions based on user input
 void CullingApp::v_Movement(GLFWwindow *window)
