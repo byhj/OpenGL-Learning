@@ -14,4 +14,29 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ch5-03-Shadow-Mapping.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="scene.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="scene.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shadow.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shadow.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="debug.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="debug.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
