@@ -63,6 +63,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="parallax_mapping.frag" />
+    <None Include="parallax_mapping.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ch5-07-Parallax-Mapping.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -63,6 +63,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ch5-06-Normal-Mapping.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="normal_mapping.frag" />
+    <None Include="normal_mapping.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
