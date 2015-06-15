@@ -17,7 +17,7 @@ const int PosX = (GetSystemMetrics(SM_CXSCREEN) - ScreenWidth)  / 2;
 const int PosY = (GetSystemMetrics(SM_CYSCREEN) - ScreenHeight) / 2;
 #else
 const int ScreenWidth = 1200;
-const int ScreenHeight = 800;
+const int ScreenHeight = 1000;
 const int PosX = 300;
 const int PosY = 100;
 #endif

@@ -44,13 +44,12 @@ public:
 		// Draw skybox first, disable depth writing. 
 		// This way the skybox will always be drawn at the background of all the other objects.
 
-
 		glDepthMask(GL_FALSE);
 		// Remove any translation component of the view matrix
 		glm::mat4 view = glm::mat4(glm::mat3(camera.GetViewMatrix()));
 		glm::mat4 proj = glm::perspective(camera.Zoom, GetAspect(), 0.1f, 100.0f);
 		glUseProgram(skybox_program);
-		glm::mat4 mvp =  view * proj;
+		glm::mat4 mvp =  proj * view;
 		glUniformMatrix4fv(glGetUniformLocation(skybox_program, "mvp_matrix"), 1, GL_FALSE, glm::value_ptr(mvp));
 		glBindVertexArray(skybox_vao);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, modelmap_texture);

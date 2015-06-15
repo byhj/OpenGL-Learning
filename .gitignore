@@ -30,12 +30,9 @@ $RECYCLE.BIN/
 *.sbm
 *.jpg
 *.png
-<<<<<<< HEAD
 *.DDS
-=======
 *.trace
 
->>>>>>> origin
 # =========================
 # Operating System Files
 # =========================

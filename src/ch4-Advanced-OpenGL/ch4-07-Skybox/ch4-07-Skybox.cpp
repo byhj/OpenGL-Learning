@@ -27,7 +27,7 @@ public:
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClearDepth(1.0f);
 		glEnable(GL_DEPTH_TEST);  
-
+		glDepthFunc(GL_LESS);
 		init_shader();
 		init_buffer();
 		init_vertexArray();
@@ -36,21 +36,23 @@ public:
 
 	void v_Render()
 	{
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		GLfloat currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
+
+		glUseProgram(skybox_program);
+		glBindVertexArray(skybox_vao);
 		// Draw skybox first, disable depth writing. 
 		// This way the skybox will always be drawn at the background of all the other objects.
 		glDepthMask(GL_FALSE);
 		// Remove any translation component of the view matrix
 		glm::mat4 view = glm::mat4(glm::mat3(camera.GetViewMatrix()));
 		glm::mat4 proj = glm::perspective(camera.Zoom, GetAspect(), 0.1f, 100.0f);
-
-		glUseProgram(skybox_program);
-		glm::mat4 mvp =  view * proj;
+		glm::mat4 mvp =  proj * view;
 		glUniformMatrix4fv(glGetUniformLocation(skybox_program, "mvp_matrix"), 1, GL_FALSE, glm::value_ptr(mvp));
-		glBindVertexArray(skybox_vao);
+
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemap_texture);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
