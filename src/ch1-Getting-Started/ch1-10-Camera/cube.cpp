@@ -80,24 +80,20 @@ void Cube::Init()
 	init_texture();
 }
 
-void Cube::Render()
+void Cube::Render(const glm::mat4 &viewMat, float zoom, float aspect)
 {
 	glUseProgram(program);
 	glBindVertexArray(vao);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, faceTex);
-	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, containerTex);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, faceTex);
 
-
-	GLfloat currentFrame = glfwGetTime();
-	deltaTime = currentFrame - lastFrame;
-	lastFrame = currentFrame;
 
 #ifdef MANY_CUBES
-	glm::mat4 view = camera.GetViewMatrix();
-	glm::mat4 proj = glm::perspective(camera.Zoom, 1.0f, 0.1f, 1000.0f);
+	glm::mat4 view = viewMat;
+	glm::mat4 proj = glm::perspective(zoom, aspect, 0.1f, 1000.0f);
 
 	for(GLuint i = 0; i < 10; i++) 
 	{
@@ -144,8 +140,9 @@ void Cube::init_shader()
 	mvp_loc = glGetUniformLocation(program, "mvp_matrix");
 	faceTex_loc = glGetUniformLocation(program, "faceTex");
 	contaninerTex_loc = glGetUniformLocation(program, "contaninerTex");
-	glUniform1i(faceTex_loc, 0);
-	glUniform1i(contaninerTex_loc, 1);
+	
+	glUniform1i(contaninerTex_loc, 0);
+	glUniform1i(faceTex_loc, 1);
 
 	glUseProgram(0);
 }
@@ -178,60 +175,6 @@ void Cube::init_texture()
 	faceTex = loadTexture("../../../media/textures/awesomeface.png");
 }
 
-// Moves/alters the camera positions based on user input
-void Cube::movement(GLFWwindow *window)
-{
-	// Camera controls
-	if(keys[GLFW_KEY_W])
-		camera.ProcessKeyboard(FORWARD, deltaTime);
-	if(keys[GLFW_KEY_S])
-		camera.ProcessKeyboard(BACKWARD, deltaTime);
-	if(keys[GLFW_KEY_A])
-		camera.ProcessKeyboard(LEFT, deltaTime);
-	if(keys[GLFW_KEY_D])
-		camera.ProcessKeyboard(RIGHT, deltaTime);
-	if (keys[GLFW_KEY_C])
-	{
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		camera.ctr = false;
-	}
-}
-
-// Is called whenever a key is pressed/released via GLFW
-void Cube::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
-{
-	//cout << key << std::endl;
-	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-
-	if(action == GLFW_PRESS)
-		keys[key] = true;
-	else if(action == GLFW_RELEASE)
-		keys[key] = false;	
-}
-
-void Cube::mouse_callback(GLFWwindow* window, double xpos, double ypos)
-{
-	if(firstMouse)
-	{
-		lastX = xpos;
-		lastY = ypos;
-		firstMouse = false;
-	}
-
-	GLfloat xoffset = xpos - lastX;
-	GLfloat yoffset = lastY - ypos;  // Reversed since y-coordinates go from bottom to left
-
-	lastX = xpos;
-	lastY = ypos;
-	camera.ProcessMouseMovement(xoffset, yoffset);
-}	
-
-
-void Cube::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-{
-	camera.ProcessMouseScroll(yoffset);
-}
 
 
 }//Namespace

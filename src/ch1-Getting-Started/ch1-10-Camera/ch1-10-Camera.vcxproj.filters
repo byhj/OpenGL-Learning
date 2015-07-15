@@ -41,6 +41,9 @@
     <ClCompile Include="..\..\..\include\ogl\oglShader.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\include\ogl\camera.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cube.h">
@@ -53,6 +56,9 @@
       <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\ogl\oglShader.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\camera.h">
       <Filter>Framework</Filter>
     </ClInclude>
   </ItemGroup>
