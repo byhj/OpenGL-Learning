@@ -21,6 +21,12 @@
     <None Include="deferred.frag">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="light.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light.frag">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ch5-10-Deferred-Shading.cpp">

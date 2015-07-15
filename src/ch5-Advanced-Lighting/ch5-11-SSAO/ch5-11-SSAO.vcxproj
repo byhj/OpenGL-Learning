@@ -66,6 +66,12 @@
     <ClCompile Include="ch5-11-SSAO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="blur.frag" />
+    <None Include="blur.vert" />
+    <None Include="light.frag" />
+    <None Include="light.vert" />
+    <None Include="model.frag" />
+    <None Include="model.vert" />
     <None Include="ssao.frag" />
     <None Include="ssao.vert" />
   </ItemGroup>

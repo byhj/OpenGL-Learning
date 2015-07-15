@@ -26,5 +26,23 @@
     <None Include="ssao.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="blur.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="blur.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="model.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="model.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

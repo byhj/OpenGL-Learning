@@ -65,6 +65,8 @@
   <ItemGroup>
     <None Include="deferred.frag" />
     <None Include="deferred.vert" />
+    <None Include="light.frag" />
+    <None Include="light.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ch5-10-Deferred-Shading.cpp" />

@@ -10,7 +10,7 @@
 class DepthApp: public byhj::Application
 {
 public:
-	DepthApp():camera(glm::vec3(0.0f, 0.0f, 3.0f))
+	DepthApp():camera(glm::vec3(0.0f, 0.0f, 15.0f))
 	{
 		lastX = GetScreenWidth() / 2.0f;
 		lastY = GetScreenHeight() / 2.0f;
@@ -97,7 +97,7 @@ public:
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, colorBuffer);
 		glUniform1i(glGetUniformLocation(hdr_prog, "hdr"), 1);
-		glUniform1f(glGetUniformLocation(hdr_prog, "exposure"), 0.7);
+		glUniform1f(glGetUniformLocation(hdr_prog, "exposure"), 10.0);
 
 		glBindVertexArray(plane_vao);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -287,7 +287,7 @@ void DepthApp::init_fbo()
 	glBindFramebuffer(GL_FRAMEBUFFER, hdrFbo);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorBuffer, 0);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
-    
+
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		std::cout << "Framebuffer not complete!" << std::endl;
 
