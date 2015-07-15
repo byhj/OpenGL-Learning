@@ -147,6 +147,9 @@ private:
 	GLuint tex;
 	GLuint colorBuffer;
 	GLuint rboDepth;
+
+    float exposure;
+
 };
 
 CALL_MAIN(DepthApp);

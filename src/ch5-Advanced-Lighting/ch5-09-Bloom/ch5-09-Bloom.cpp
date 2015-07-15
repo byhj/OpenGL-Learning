@@ -119,6 +119,7 @@ int main()
 		// attach texture to framebuffer
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, colorBuffers[i], 0);
 	}
+
 	// - Create and attach depth buffer (renderbuffer)
 	GLuint rboDepth;
 	glGenRenderbuffers(1, &rboDepth);
@@ -128,6 +129,7 @@ int main()
 	// - Tell OpenGL which color attachments we'll use (of this framebuffer) for rendering 
 	GLuint attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 	glDrawBuffers(2, attachments);
+
 	// - Finally check if framebuffer is complete
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		std::cout << "Framebuffer not complete!" << std::endl;
@@ -148,6 +150,7 @@ int main()
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // We clamp to the edge as the blur filter would otherwise sample repeated texture values!
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, pingpongColorbuffers[i], 0);
+		
 		// Also check if framebuffers are complete (no need for depth buffer)
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 			std::cout << "Framebuffer not complete!" << std::endl;
@@ -224,6 +227,8 @@ int main()
 		model = glm::translate(model, glm::vec3(-3.0f, 0.0f, 0.0));
 		glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		RenderCube();
+	
+		
 		// - finally show all the light sources as bright cubes
 		shaderLight.Use();
 		glUniformMatrix4fv(glGetUniformLocation(shaderLight.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -239,6 +244,7 @@ int main()
 			RenderCube();
 		}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 
 		// 2. Blur bright fragments w/ two-pass Gaussian Blur 
 		GLboolean horizontal = true, first_iteration = true;
@@ -256,7 +262,8 @@ int main()
 		}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-		// 2. Now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
+
+		// 3. Now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		shaderBloomFinal.Use();
 		glActiveTexture(GL_TEXTURE0);

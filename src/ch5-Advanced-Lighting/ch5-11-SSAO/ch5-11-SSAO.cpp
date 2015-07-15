@@ -6,9 +6,9 @@
 #include <GLFW/glfw3.h>
 
 // GL includes
-#include <learnopengl/shader.h>
-#include <learnopengl/camera.h>
-#include <learnopengl/model.h>
+#include "common/shader.h"
+#include "common/camera.h"
+#include "common/model.h"
 
 // GLM Mathemtics
 #include <glm/glm.hpp>
@@ -96,7 +96,7 @@ int main()
 	glUniform1i(glGetUniformLocation(shaderSSAO.Program, "texNoise"), 2);
 
 	// Objects
-	Model nanosuit("../../../resources/objects/nanosuit/nanosuit.obj");
+	Model nanosuit("../../media/objects/nanosuit/nanosuit.obj");
 
 	// Lights
 	glm::vec3 lightPos = glm::vec3(2.0, 4.0, -2.0);
