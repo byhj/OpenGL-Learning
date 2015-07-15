@@ -14,4 +14,35 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="final.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="final.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="blur.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="blur.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="bloom.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="bloom.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ch5-09-Bloom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

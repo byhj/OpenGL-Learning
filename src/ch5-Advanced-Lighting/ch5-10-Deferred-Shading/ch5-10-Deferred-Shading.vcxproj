@@ -63,6 +63,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="deferred.frag" />
+    <None Include="deferred.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ch5-10-Deferred-Shading.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,6 +2,7 @@
 // FreeType
 #include <freetype/ft2build.h>
 #include FT_FREETYPE_H
+
 // GL includes
 #include "common/Shader.h"
 #include <glm/glm.hpp>
@@ -46,8 +47,7 @@ void WindowApp::v_Init()
 
 	// Set OpenGL options
 	glEnable(GL_CULL_FACE);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 }
 
 void WindowApp::v_Render()
@@ -157,6 +157,10 @@ void WindowApp::init_buffer()
 
 void WindowApp::RenderText(GLuint program, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
 {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
 	// Activate corresponding render state	
 	glUseProgram(program);
 	glUniform3f(glGetUniformLocation(program, "textColor"), color.x, color.y, color.z);
@@ -198,4 +202,5 @@ void WindowApp::RenderText(GLuint program, std::string text, GLfloat x, GLfloat 
 	}
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_BLEND);
 }
