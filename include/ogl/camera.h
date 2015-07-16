@@ -75,26 +75,18 @@ public:
     }
 
 public:
-    glm::mat4 GetViewMatrix();
+
 
 	// Moves/alters the camera positions based on user input
 	void movement(GLFWwindow *window);
 	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-	void update(GLfloat dt)
-	{
-		deltaTime = dt;
-	}
 
-	float GetZoom()
-	{
-		return Zoom;
-	}
-	void SetPos(const glm::vec3 &pos)
-	{
-		Position = pos;
-	}
+	float GetZoom() const;
+    glm::mat4 GetViewMatrix() const;
+	void update(GLfloat dt);
+	void SetPos(const glm::vec3 &pos);
 
 private:
 

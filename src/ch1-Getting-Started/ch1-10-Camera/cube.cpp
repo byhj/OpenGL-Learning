@@ -176,5 +176,4 @@ void Cube::init_texture()
 }
 
 
-
 }//Namespace

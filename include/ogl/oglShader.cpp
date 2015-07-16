@@ -85,12 +85,15 @@ void OGLShader::link()
 
 		while(1);;
 	}
+	std::cout << "--------------------------------------------------------------------------------" << std::endl;
 	printf("%s linked successful\n",name.c_str());
 
 }
 
 void OGLShader::interfaceInfo()
 {
+	std::cout << "------------------------------" << name << " Interface----------------------------" << std::endl;
+
 	GLint outputs = 0;
 	glGetProgramInterfaceiv(program, GL_PROGRAM_INPUT,  GL_ACTIVE_RESOURCES, &outputs);
 	static const GLenum props[] = {GL_TYPE, GL_LOCATION};
@@ -99,7 +102,7 @@ void OGLShader::interfaceInfo()
 	const char *type_name;
 
 	if (outputs > 0)
-		std::cout << "----------Input-----------" << std::endl;
+		std::cout << "***Input***" << std::endl;
 
 	for (int i = 0; i != outputs; ++i)
 	{
@@ -112,7 +115,7 @@ void OGLShader::interfaceInfo()
 
 	glGetProgramInterfaceiv(program, GL_PROGRAM_OUTPUT,  GL_ACTIVE_RESOURCES, &outputs);
 	if (outputs > 0)
-		std::cout << "----------Onput-----------" << std::endl;
+		std::cout << "***Onput***" << std::endl;
 
 	for (int i = 0; i != outputs; ++i)
 	{
@@ -127,7 +130,7 @@ void OGLShader::interfaceInfo()
 
 	glGetProgramInterfaceiv(program, GL_UNIFORM_BLOCK,  GL_ACTIVE_RESOURCES, &outputs);
 	if (outputs > 0)
-		std::cout << "------Uniform Block-------" << std::endl;
+		std::cout << "***Uniform Block***" << std::endl;
 
 	for (int i = 0; i != outputs; ++i)
 	{
@@ -141,7 +144,7 @@ void OGLShader::interfaceInfo()
 
 	glGetProgramInterfaceiv(program, GL_UNIFORM,  GL_ACTIVE_RESOURCES, &outputs);
 	if (outputs > 0)
-		std::cout << "----------Uniform---------" << std::endl;
+		std::cout << "***Uniform***" << std::endl;
 	if (outputs > 100)
 		return ;
 	for (int i = 0; i != outputs; ++i)

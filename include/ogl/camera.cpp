@@ -2,11 +2,6 @@
 
 namespace byhj
 {
-	// Returns the view matrix calculated using Eular Angles and the LookAt Matrix
-	glm::mat4 Camera::GetViewMatrix()
-	{
-		return glm::lookAt(this->Position, this->Position + this->Front, this->Up);
-	}
 
 	// Processes input received from any keyboard-like input system. 
 	//Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
@@ -73,6 +68,9 @@ namespace byhj
 	// Moves/alters the camera positions based on user input
 	void Camera::movement(GLFWwindow *window)
 	{
+		if (keys[GLFW_KEY_ESCAPE] )
+			glfwSetWindowShouldClose(window, GL_TRUE);
+
 		// Camera controls
 		if(keys[GLFW_KEY_W])
 			ProcessKeyboard(FORWARD, deltaTime);
@@ -123,5 +121,25 @@ namespace byhj
 	void Camera::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	{
 		ProcessMouseScroll(yoffset);
+	}
+
+	// Returns the view matrix calculated using Eular Angles and the LookAt Matrix
+	glm::mat4 Camera::GetViewMatrix() const
+	{
+		return glm::lookAt(this->Position, this->Position + this->Front, this->Up);
+	}
+	float Camera::GetZoom() const
+	{
+		return Zoom;
+	}
+
+	void Camera::update(GLfloat dt)
+	{
+		deltaTime = dt;
+	}
+
+	void Camera::SetPos(const glm::vec3 &pos)
+	{
+		Position = pos;
 	}
 }

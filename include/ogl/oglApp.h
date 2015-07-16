@@ -99,4 +99,4 @@ namespace byhj {
 	return 0;                                       \
 }
 
-#endif  //SB6_H
+#endif  //
