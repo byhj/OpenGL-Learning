@@ -3,7 +3,7 @@
 in vec2 tc;
 out vec4 color;
 
-uniform sampler2D Texture1;
+uniform sampler2D tex;
 
 const float offset = 1.0 / 300;  
 
@@ -30,7 +30,7 @@ void main()
     vec3 sample[9];
     for(int i = 0; i < 9; i++)
     {
-        sample[i] = vec3(texture(Texture1, tc.st + offsets[i]));
+        sample[i] = vec3(texture(tex, tc.st + offsets[i]));
     }
     vec3 col;
     for(int i = 0; i < 9; i++)
