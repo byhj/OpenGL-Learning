@@ -147,4 +147,8 @@ namespace byhj
 	{
 		return Position;
 	}
+	glm::vec3 Camera::GetFront() const 
+	{
+		return Front;
+	}
 }
