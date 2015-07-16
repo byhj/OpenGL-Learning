@@ -4,10 +4,10 @@ layout (location = 0) out vec4 fragColor;
 
 in vec2 tc;
 
-uniform sampler2D tex1;
-uniform sampler2D tex2;
+uniform sampler2D containerTex;
+uniform sampler2D faceTex;
 
 void main()
 {
-    fragColor = mix(texture(tex1, tc), texture(tex2, tc), 0.2);
+    fragColor = mix(texture(containerTex, tc), texture(faceTex, tc), 0.2);
 }

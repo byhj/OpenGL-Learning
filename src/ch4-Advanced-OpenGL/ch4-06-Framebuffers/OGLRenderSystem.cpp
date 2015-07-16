@@ -75,9 +75,11 @@ namespace byhj
 		glGenTextures(1, &textureID);
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		if(!depth && !stencil)
-			glTexImage2D(GL_TEXTURE_2D, 0, attachment_type, GetScreenWidth(), GetScreenHeight(), 0, attachment_type, GL_UNSIGNED_BYTE, NULL);
+			glTexImage2D(GL_TEXTURE_2D, 0, attachment_type, GetScreenWidth(), GetScreenHeight(), 
+			             0, attachment_type, GL_UNSIGNED_BYTE, NULL);
 		else // Using both a stencil and depth test, needs special format arguments
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, GetScreenWidth(), GetScreenHeight(), 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, GetScreenWidth(), GetScreenHeight(),
+			             0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -96,7 +98,8 @@ namespace byhj
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
 		// Create a renderbuffer object for depth and stencil attachment (we won't be sampling these)
 
-		// Now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
+		// Now that we actually created the framebuffer and added all attachments 
+		//we want to check if it is actually complete now
 		if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 			std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
