@@ -68,12 +68,11 @@ namespace byhj
 	void Cube::Render(const byhj::MvpMatrix matrix)
 	{
 		glUseProgram(cube_prog);
-
 		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture);  // We omit the glActiveTexture part since TEXTURE0 is already the default active texture unit. (sampler used in fragment is set to 0 as well as default)		
-		
+
 		glm::mat4 view  = matrix.view;
 		glm::mat4 proj  = matrix.proj;
 		glUniformMatrix4fv(view_loc, 1, GL_FALSE,  &view[0][0]);
@@ -101,21 +100,21 @@ namespace byhj
 
 		glm::mat4 view  = matrix.view;
 		glm::mat4 proj  = matrix.proj;
-		glUniformMatrix4fv(view_loc, 1, GL_FALSE,  &view[0][0]);
-		glUniformMatrix4fv(proj_loc, 1, GL_FALSE,  &proj[0][0]);
+		glUniformMatrix4fv(color_view_loc, 1, GL_FALSE,  &view[0][0]);
+		glUniformMatrix4fv(color_proj_loc, 1, GL_FALSE,  &proj[0][0]);
 
 		static const float scale = 1.05f;
 
 		//Cube 1
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(-1.0f, 0.0f, -1.0f));
 		model = glm::scale(model, glm::vec3(scale, scale, scale));
-		glUniformMatrix4fv(model_loc, 1, GL_FALSE, &model[0][0]);
+		glUniformMatrix4fv(color_model_loc, 1, GL_FALSE, &model[0][0]);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		//Cube 2
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(2.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(scale, scale, scale));
-		glUniformMatrix4fv(model_loc, 1, GL_FALSE, &model[0][0]);
+		glUniformMatrix4fv(color_model_loc, 1, GL_FALSE, &model[0][0]);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		glBindVertexArray(0);
@@ -149,9 +148,9 @@ namespace byhj
 		ColorShader.link();
 		ColorShader.interfaceInfo();
 		color_prog = ColorShader.GetProgram();
-		model_loc = glGetUniformLocation(color_prog, "model");
-		view_loc  = glGetUniformLocation(color_prog, "view");
-		proj_loc  = glGetUniformLocation(color_prog, "proj");
+		color_model_loc = glGetUniformLocation(color_prog, "model");
+		color_view_loc  = glGetUniformLocation(color_prog, "view");
+		color_proj_loc  = glGetUniformLocation(color_prog, "proj");
 	}
 
 	void Cube::init_buffer()

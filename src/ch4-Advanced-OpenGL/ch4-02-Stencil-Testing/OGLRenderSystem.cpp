@@ -47,7 +47,7 @@ namespace byhj
 		m_Plane.Render(matrix);
 
 		// 1st. Render pass, draw objects as normal, filling the stencil buffer
-		//将像素与后两位与1比较，比较模式GL_ALWAYS，即像素区域模板值都是1
+		//将模板值和参考值与Mask 0XFF进行与操作，然后比较，因为比较模式GL_ALWAYS，即把像素区域模板值都设为参考值（GL_REPLACE)
 		glStencilFunc(GL_ALWAYS, 1, 0xFF);
 		glStencilMask(0xFF);		//enable write stencil buffer,fill the stencil buffer with 1
 
@@ -56,7 +56,7 @@ namespace byhj
 		// 2nd. Render pass, now draw slightly scaled versions of the objects, this time disabling stencil writing.
 		// Because stencil buffer is now filled with several 1s. The parts of the buffer that are 1 are now not drawn, thus only drawing 
 		// the objects' size differences, making it look like borders.
-		//将模式放大一些，将后两位与1比较，不等于1的通过绘制，因为前面讲特定区域绘制成1了，所以只有边界
+		//现在，模型像素区域模板值为1，其他区域为0，因为不等于参考值的通过绘制，也就是在值为1的模板区域外的像素会进行绘制
 		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
 		glStencilMask(0x00);
 		glDisable(GL_DEPTH_TEST);

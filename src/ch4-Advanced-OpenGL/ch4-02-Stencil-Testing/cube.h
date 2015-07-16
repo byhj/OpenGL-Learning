@@ -31,6 +31,8 @@ namespace byhj
 		GLuint color_prog, cube_prog;
 		GLuint texture, tex_loc;
 		GLuint model_loc, view_loc, proj_loc;
+		GLuint color_model_loc, color_view_loc, color_proj_loc; 
+
 		OGLShader CubeShader;		
 		OGLShader ColorShader;
 	};
