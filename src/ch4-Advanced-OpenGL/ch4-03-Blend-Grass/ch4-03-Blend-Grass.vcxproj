@@ -63,11 +63,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="blend.frag" />
-    <None Include="blend.vert" />
+    <None Include="grass.frag" />
+    <None Include="grass.vert" />
+    <None Include="cube.frag" />
+    <None Include="cube.vert" />
+    <None Include="plane.frag" />
+    <None Include="plane.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\include\ogl\camera.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\loadTexture.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglApp.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
     <ClCompile Include="ch4-03-Blend-Grass.cpp" />
+    <ClCompile Include="cube.cpp" />
+    <ClCompile Include="grass.cpp" />
+    <ClCompile Include="OGLRenderSystem.cpp" />
+    <ClCompile Include="plane.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\ogl\camera.h" />
+    <ClInclude Include="..\..\..\include\ogl\loadTexture.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
+    <ClInclude Include="cube.h" />
+    <ClInclude Include="grass.h" />
+    <ClInclude Include="OGLRenderSystem.h" />
+    <ClInclude Include="plane.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
