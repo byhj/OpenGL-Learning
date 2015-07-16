@@ -7,10 +7,12 @@ out vec2 TexCoords;
 
 uniform mat4 model;
 uniform mat4 view;
-uniform mat4 projection;
+uniform mat4 proj;
 
 void main()
 {
-    gl_Position = projection * view * model * vec4(position, 1.0f);
+    mat4 mvp  = proj * view * model;
+    gl_Position = mvp * vec4(position, 1.0f);
+
     TexCoords = texCoords;
 }

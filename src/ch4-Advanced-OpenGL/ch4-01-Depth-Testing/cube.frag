@@ -3,7 +3,7 @@
 in vec2 TexCoords;
 out vec4 color;
 
-uniform sampler2D texture1;
+uniform sampler2D tex;
 
 float LinearizeDepth(float depth)
 {
@@ -15,7 +15,7 @@ float LinearizeDepth(float depth)
 
 void main()
 {             
-    color = texture(texture1, TexCoords);
+    color = texture(tex, TexCoords);
    // color = vec4(vec3(gl_FragCoord.z), 1.0f);
       // float depth = LinearizeDepth(gl_FragCoord.z);
       // color = vec4(vec3(depth), 1.0f);
