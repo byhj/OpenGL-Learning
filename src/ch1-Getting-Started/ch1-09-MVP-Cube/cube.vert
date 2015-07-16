@@ -9,6 +9,7 @@ uniform mat4 mvp_matrix;
 
 void main()
 {
+
    gl_Position = mvp_matrix * vec4(position, 1.0f);
    tc = vec2(texCoord.x, 1.0 - texCoord.y);
 }
