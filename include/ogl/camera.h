@@ -87,7 +87,7 @@ public:
     glm::mat4 GetViewMatrix() const;
 	void update(GLfloat dt);
 	void SetPos(const glm::vec3 &pos);
-
+	glm::vec3 Camera::GetPos() const;
 private:
 
 	void ProcessKeyboard(Camera_Movement direction, GLfloat deltaTime);

@@ -142,4 +142,9 @@ namespace byhj
 	{
 		Position = pos;
 	}
+
+	glm::vec3 Camera::GetPos() const
+	{
+		return Position;
+	}
 }

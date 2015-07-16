@@ -23,5 +23,6 @@ void main()
 	vs_out.view_pos = mat3(model) * Position;
 	vs_out.normal   = mat3(transpose(inverse(model))) * Normal;
 	vs_out.tc       = TexCoord;
+
     gl_Position = mvp * vec4(Position, 1.0f);
 } 

@@ -21,7 +21,8 @@ void main()
 	mat4 mvp = proj * mv;
 
 	vs_out.view_pos = mat3(mv) * Position;
-	vs_out.normal   = mat3(mv) * Normal;
+	vs_out.normal   = transpose( inverse( mat3(mv) ) ) * Normal;
 	vs_out.tc       = TexCoord;
+
     gl_Position = mvp * vec4(Position, 1.0f);
 } 

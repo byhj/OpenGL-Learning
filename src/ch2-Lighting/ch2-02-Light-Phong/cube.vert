@@ -16,10 +16,9 @@ out VS_FS
 void main()
 {
     mat4 mv = view * model;
-	mat4 mvp = proj * mv;
-
 	vs_out.view_pos = mat3(mv) * Position;
-	vs_out.normal   = mat3(mv) * Normal;
-	 
+	vs_out.normal   = transpose( inverse( mat3(mv) ) ) * Normal;
+
+	mat4 mvp = proj * mv;
     gl_Position = mvp * vec4(Position, 1.0f);
 } 

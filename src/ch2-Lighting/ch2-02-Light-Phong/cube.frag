@@ -16,6 +16,7 @@ in VS_FS
 void main()
 {
     vec3 normal   = normalize(fs_in.normal);
+
     //ambient
 	float ambientIntensity = 0.3f;
 	vec3 ambient = ambientIntensity * lightColor;
