@@ -11,7 +11,7 @@ out VS_OUT
     vec2 TexCoord;
 } vs_out;
 
-uniform mat4 projection;
+uniform mat4 proj;
 uniform mat4 view;
 uniform mat4 model;
 
@@ -19,7 +19,7 @@ uniform bool inverse_normals;
 
 void main()
 {
-    gl_Position = projection * view * model * vec4(Position, 1.0f);
+    gl_Position = proj* view * model * vec4(Position, 1.0f);
     vs_out.FragPos = vec3(model * vec4(Position, 1.0));   
     vs_out.TexCoord = TexCoord;
     

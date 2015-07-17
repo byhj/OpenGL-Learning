@@ -7,7 +7,7 @@ in VS_OUT {
     vec2 TexCoords;
 } fs_in;
 
-uniform sampler2D tex;
+uniform sampler2D woodTex;
 uniform vec3 lightPos;
 uniform vec3 viewPos;
 
@@ -17,7 +17,7 @@ uniform bool blinn;
 
 void main()
 {           
-    vec3 color = texture(tex, fs_in.TexCoords).rgb;
+    vec3 color = texture(woodTex, fs_in.TexCoords).rgb;
 
     // Ambient
     vec3 ambient = 0.05 * color;

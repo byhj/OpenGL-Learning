@@ -7,7 +7,7 @@ in VS_OUT {
     vec2 TexCoords;
 } fs_in;
 
-uniform sampler2D floorTexture;
+uniform sampler2D woodTex;
 
 uniform vec3 lightPositions[4];
 uniform vec3 lightColors[4];
@@ -42,7 +42,7 @@ vec3 BlinnPhong(vec3 normal, vec3 fragPos, vec3 lightPos, vec3 lightColor)
 
 void main()
 {           
-    vec3 color = texture(floorTexture, fs_in.TexCoords).rgb;
+    vec3 color = texture(woodTex, fs_in.TexCoords).rgb;
     vec3 lighting = vec3(0.0);
 
     for(int i = 0; i < 4; ++i)
