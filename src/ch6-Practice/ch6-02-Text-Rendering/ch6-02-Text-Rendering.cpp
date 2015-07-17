@@ -1,10 +1,11 @@
-#include <common/learnApp.h>
+#include "ogl/oglApp.h"
+#include "ogl/oglShader.h"
+
 // FreeType
 #include <freetype/ft2build.h>
 #include FT_FREETYPE_H
 
 // GL includes
-#include "common/Shader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <map>
@@ -17,6 +18,10 @@ public:
 
 	void v_Init();
 	void v_Render();
+
+	void v_InitInfo() {}
+	void v_Shutdown() {}
+
 	void init_shader();
 	void init_buffer();
 
@@ -35,7 +40,7 @@ private:
 	std::map<GLchar, Character> Characters;
 	GLuint vao, vbo;
 	GLuint program;
-	Shader TextShader;
+	OGLShader TextShader;
 };
 
 CALL_MAIN(WindowApp);

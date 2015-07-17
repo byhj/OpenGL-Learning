@@ -21,6 +21,10 @@ public:
 	void v_Render();
 	void v_Shutdown();
 
+	void init_fbo();
+	// Generates a texture that is suited for attachments to a framebuffer
+	GLuint generateMultiSampleTexture(GLuint samples);
+
 	/////////////////////////////////Key and Mouse//////////////////////////////////
 	void v_Movement(GLFWwindow *window);
 	void v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -30,7 +34,8 @@ public:
 
 private:
 	void update();
-
+	GLuint textureColorBufferMultiSampled;
+	GLuint framebuffer;
 	byhj::Cube  m_Cube;
 	byhj::Camera m_Camera;
 };

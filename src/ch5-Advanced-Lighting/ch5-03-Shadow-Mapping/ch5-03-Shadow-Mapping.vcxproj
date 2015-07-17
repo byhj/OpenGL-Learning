@@ -64,6 +64,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ch5-03-Shadow-Mapping.cpp" />
+    <ClCompile Include="debug.cpp" />
+    <ClCompile Include="scene.cpp" />
+    <ClCompile Include="shadow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="debug.frag" />
@@ -72,6 +75,11 @@
     <None Include="scene.vert" />
     <None Include="shadow.frag" />
     <None Include="shadow.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="debug.h" />
+    <ClInclude Include="scene.h" />
+    <ClInclude Include="shadow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
