@@ -68,6 +68,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ch4-19-Multi-Sample.cpp" />
+    <ClCompile Include="cube.cpp" />
+    <ClCompile Include="OGLRenderSystem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cube.h" />
+    <ClInclude Include="OGLRenderSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

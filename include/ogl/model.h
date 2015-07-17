@@ -41,7 +41,7 @@ public:
 	Mesh processMesh(aiMesh* mesh, const aiScene* scene);
 	std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 
-private:
+public:
 
 	/*  Model Data  */
 	std::vector<Mesh> meshes;

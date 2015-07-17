@@ -69,7 +69,26 @@
     <None Include="planet.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\include\ogl\camera.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\mesh.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\model.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglApp.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
+    <ClCompile Include="asteroid.cpp" />
     <ClCompile Include="ch4-16-Instance-Asteroid.cpp" />
+    <ClCompile Include="OGLRenderSystem.cpp" />
+    <ClCompile Include="planet.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\ogl\camera.h" />
+    <ClInclude Include="..\..\..\include\ogl\mesh.h" />
+    <ClInclude Include="..\..\..\include\ogl\model.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
+    <ClInclude Include="Asteroid.h" />
+    <ClInclude Include="OGLRenderSystem.h" />
+    <ClInclude Include="Planet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
