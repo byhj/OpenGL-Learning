@@ -8,8 +8,9 @@ out vec3 n;
 out vec3 FragPos;
 out vec2 TexCoords;
 
-uniform mat4 mvp_matrix;
-uniform mat4 model_matrix;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 proj;
 
 out VS_OUT {
     vec3 normal;
@@ -17,9 +18,13 @@ out VS_OUT {
 
 void main()
 {
-    gl_Position = mvp_matrix * vec4(position, 1.0f);
+
+    mat4 mvp = proj * view * model;
+
+
     TexCoords = texCoords;
-	n = mat3(model_matrix) * normal;
-	vs_out.normal = n;
-	FragPos = mat3(model_matrix)  * position;
+	vs_out.normal = mat3( transpose( inverse(model) ) ) * normal;
+	FragPos = mat3(model)  * position;
+
+	gl_Position = mvp * vec4(position, 1.0f);
 }
