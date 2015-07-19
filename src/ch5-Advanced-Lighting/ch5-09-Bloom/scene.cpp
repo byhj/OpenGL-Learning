@@ -1,6 +1,7 @@
 #include "Scene.h"
 
 #include "ogl/loadTexture.h"
+#include "ogl/glDebug.h"
 
 namespace byhj
 {
@@ -66,6 +67,8 @@ namespace byhj
 		init_vertexArray();
 		init_shader();
 		init_texture();
+
+
 	}
 
 	// RenderQuad() Renders a 1x1 quad in NDC, best used for framebuffer color targets
@@ -172,8 +175,8 @@ namespace byhj
 
 		// - finally show all the light sources as bright cubes
 		glUseProgram(light_prog);
-		glUniformMatrix4fv(glGetUniformLocation(bloom_prog, "view"),  1, GL_FALSE, &view[0][0]);
-		glUniformMatrix4fv(glGetUniformLocation(bloom_prog, "proj"),  1, GL_FALSE, &proj[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(light_prog, "view"),  1, GL_FALSE, &view[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(light_prog, "proj"),  1, GL_FALSE, &proj[0][0]);
 
 		for (GLuint i = 0; i < lightPositions.size(); i++)
 		{
@@ -222,6 +225,7 @@ namespace byhj
 		glUniform1f(glGetUniformLocation(final_prog, "exposure"), exposure);
 		RenderQuad();
 
+		//CheckDebugLog();
 	}
 
 	void Scene::Shutdown()
