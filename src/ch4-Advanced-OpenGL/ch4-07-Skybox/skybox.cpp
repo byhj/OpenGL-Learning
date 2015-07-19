@@ -101,7 +101,7 @@ namespace byhj
 		SkyboxShader.attach(GL_VERTEX_SHADER,  "Skybox.vert");
 		SkyboxShader.attach(GL_FRAGMENT_SHADER, "Skybox.frag");
 		SkyboxShader.link();
-		SkyboxShader.interfaceInfo();
+		SkyboxShader.info();
 		program = SkyboxShader.GetProgram();
 		model_loc = glGetUniformLocation(program, "model");
 		view_loc  = glGetUniformLocation(program, "view");

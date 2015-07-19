@@ -16,7 +16,7 @@ void Triangle::init_shader()
 	TriangleShader.attach(GL_VERTEX_SHADER, "triangle.vert");
 	TriangleShader.attach(GL_FRAGMENT_SHADER, "triangle.frag");
 	TriangleShader.link();
-	TriangleShader.interfaceInfo();
+	TriangleShader.info();
 	program = TriangleShader.GetProgram();
 	color_loc = glGetUniformLocation(program, "color");
 }

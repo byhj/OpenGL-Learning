@@ -58,7 +58,7 @@ void Plane::init_shader()
 	PlaneShader.attach(GL_VERTEX_SHADER,   "hdr.vert");
 	PlaneShader.attach(GL_FRAGMENT_SHADER, "hdr.frag");
 	PlaneShader.link();
-	PlaneShader.interfaceInfo();
+	PlaneShader.info();
 	program = PlaneShader.GetProgram();
 }
 

@@ -138,7 +138,7 @@ void Cube::init_shader()
 	CubeShader.attach(GL_FRAGMENT_SHADER, "cube.frag");
 	CubeShader.link();
 	CubeShader.use();
-	CubeShader.interfaceInfo();
+	CubeShader.info();
 
 	program = CubeShader.GetProgram();
 	mvp_loc = glGetUniformLocation(program, "mvp_matrix");

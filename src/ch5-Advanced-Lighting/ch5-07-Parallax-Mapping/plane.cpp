@@ -80,7 +80,7 @@ namespace byhj
 		PlaneShader.attach(GL_VERTEX_SHADER,   "parallax_mapping.vert");
 		PlaneShader.attach(GL_FRAGMENT_SHADER, "parallax_mapping.frag");
 		PlaneShader.link();
-		PlaneShader.interfaceInfo();
+		PlaneShader.info();
 		program = PlaneShader.GetProgram();
 
 		model_loc = glGetUniformLocation(program, "model");

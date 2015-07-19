@@ -274,28 +274,28 @@ namespace byhj
 		bloomShader.attach(GL_VERTEX_SHADER,   "bloom.vert");
 		bloomShader.attach(GL_FRAGMENT_SHADER, "bloom.frag");
 		bloomShader.link();
-		bloomShader.interfaceInfo();
+		bloomShader.info();
 		bloom_prog =  bloomShader.GetProgram();
 
 		lightShader.init();
 		lightShader.attach(GL_VERTEX_SHADER,   "light.vert");
 		lightShader.attach(GL_FRAGMENT_SHADER, "light.frag");
 		lightShader.link();
-		lightShader.interfaceInfo();
+		lightShader.info();
 		light_prog =  lightShader.GetProgram();
 
 		blurShader.init();
 		blurShader.attach(GL_VERTEX_SHADER,   "blur.vert");
 		blurShader.attach(GL_FRAGMENT_SHADER, "blur.frag");
 		blurShader.link();
-		blurShader.interfaceInfo();
+		blurShader.info();
 		blur_prog =  blurShader.GetProgram();
 
 		finalShader.init();
 		finalShader.attach(GL_VERTEX_SHADER,   "final.vert");
 		finalShader.attach(GL_FRAGMENT_SHADER, "final.frag");
 		finalShader.link();
-		finalShader.interfaceInfo();
+		finalShader.info();
 		final_prog =  finalShader.GetProgram();
 	}
 

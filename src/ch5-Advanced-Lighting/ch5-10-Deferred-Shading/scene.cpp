@@ -214,14 +214,14 @@ namespace byhj
 		lightShader.attach(GL_VERTEX_SHADER,   "light.vert");
 		lightShader.attach(GL_FRAGMENT_SHADER, "light.frag");
 		lightShader.link();
-		lightShader.interfaceInfo();
+		lightShader.info();
 		light_prog =  lightShader.GetProgram();
 
 		deferredShader.init();
 		deferredShader.attach(GL_VERTEX_SHADER,   "deferred.vert");
 		deferredShader.attach(GL_FRAGMENT_SHADER, "deferred.frag");
 		deferredShader.link();
-		deferredShader.interfaceInfo();
+		deferredShader.info();
 		deferred_prog =  deferredShader.GetProgram();
 	}
 

@@ -17,7 +17,7 @@ float radius = 1.0;
 // tile noise texture over screen based on screen dimensions divided by noise size
 const vec2 noiseScale = vec2(800.0f/4.0f, 600.0f/4.0f); 
 
-uniform mat4 projection;
+uniform mat4 proj;
 
 void main()
 {
@@ -41,7 +41,7 @@ void main()
         
         // project sample position (to sample texture) (to get position on screen/texture)
         vec4 offset = vec4(sample, 1.0);
-        offset = projection * offset; // from view to clip-space
+        offset = proj * offset; // from view to clip-space
         offset.xyz /= offset.w; // perspective divide
         offset.xyz = offset.xyz * 0.5 + 0.5; // transform to range 0.0 - 1.0
         

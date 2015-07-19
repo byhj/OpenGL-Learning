@@ -157,7 +157,7 @@ void Cube::init_shader()
 	CubeShader.attach(GL_VERTEX_SHADER, "cube.vert");
 	CubeShader.attach(GL_FRAGMENT_SHADER, "cube.frag");
 	CubeShader.link();
-	CubeShader.interfaceInfo();
+	CubeShader.info();
 	program = CubeShader.GetProgram();
 
 	model_loc = glGetUniformLocation(program, "model");

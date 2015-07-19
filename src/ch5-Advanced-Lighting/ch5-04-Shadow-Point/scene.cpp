@@ -211,14 +211,14 @@ namespace byhj
 		SceneShader.attach(GL_VERTEX_SHADER,   "scene.vert");
 		SceneShader.attach(GL_FRAGMENT_SHADER, "scene.frag");
 		SceneShader.link();
-		SceneShader.interfaceInfo();
+		SceneShader.info();
 		scene_prog = SceneShader.GetProgram();
 
 		ShadowShader.init();
 		ShadowShader.attach(GL_VERTEX_SHADER,   "shadow.vert");
 		ShadowShader.attach(GL_FRAGMENT_SHADER, "shadow.frag");
 		ShadowShader.link();
-		ShadowShader.interfaceInfo();
+		ShadowShader.info();
 		shadow_prog = ShadowShader.GetProgram();
 	}
 

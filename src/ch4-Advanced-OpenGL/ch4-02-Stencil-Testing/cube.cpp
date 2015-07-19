@@ -135,7 +135,7 @@ namespace byhj
 		CubeShader.attach(GL_VERTEX_SHADER,  "cube.vert");
 		CubeShader.attach(GL_FRAGMENT_SHADER, "cube.frag");
 		CubeShader.link();
-		CubeShader.interfaceInfo();
+		CubeShader.info();
 		cube_prog = CubeShader.GetProgram();
 		model_loc = glGetUniformLocation(cube_prog, "model");
 		view_loc  = glGetUniformLocation(cube_prog, "view");
@@ -146,7 +146,7 @@ namespace byhj
 		ColorShader.attach(GL_VERTEX_SHADER,  "color.vert");
 		ColorShader.attach(GL_FRAGMENT_SHADER, "color.frag");
 		ColorShader.link();
-		ColorShader.interfaceInfo();
+		ColorShader.info();
 		color_prog = ColorShader.GetProgram();
 		color_model_loc = glGetUniformLocation(color_prog, "model");
 		color_view_loc  = glGetUniformLocation(color_prog, "view");

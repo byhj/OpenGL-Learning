@@ -58,7 +58,7 @@ namespace byhj
 		modelShader.attach(GL_FRAGMENT_SHADER, "model.frag");
 		modelShader.link();
 		modelShader.use();
-		modelShader.interfaceInfo();
+		modelShader.info();
 
 		program = modelShader.GetProgram();
 

@@ -1,49 +1,42 @@
-#ifndef SHADER_H
-#define SHADER_H
+#ifndef OGLSHADER_H
+#define OGLSHADER_H
 
 #include <GL/glew.h>
 #include <iostream>
 #include <vector>
 #include <string>
 #include <windows.h>
+#include <memory>
 
-char *textFileRead(const char *fn);  
-
+#ifdef _WIN32
 #define WINDOW_PLATFORM
-
+#endif
 
 class OGLShader 
 {
 
 public:
-	OGLShader(){}
+	OGLShader(): m_Program(0), m_Name("Shader") {}
+	OGLShader(std::string shaderName):m_Program(0), m_Name(shaderName) {}
+
 	~OGLShader(){}
-	OGLShader(std::string shaderName):name(shaderName) {}
 
 public:
 	void init();
 	void attach(int type, char *filename);
 	void link();
-	void interfaceInfo();
+	void info();
+	void use() const; 
+	void end() const;
 
-	void use(void) 
-	{
-		glUseProgram(program);
-	}
-	void end(void) 
-	{
-		glUseProgram(0);
-	}
+	GLuint GetProgram() const;
 
-	GLuint GetProgram()
-	{
-        return program;
-	}
 
 private:
-	std::vector<GLuint> handles; //OGLShader handle
-	GLuint program;   //OGLShader program
-	std::string name;   //OGLShader class name
+	char *textFileRead( char *fn) ;
+
+	GLuint m_Program;   //OGLShader program
+	std::string m_Name;   //OGLShader class name
 };
 
 #endif

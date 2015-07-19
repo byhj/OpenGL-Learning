@@ -44,7 +44,7 @@ void ObjModel::init_shader()
 	ObjShader.attach(GL_FRAGMENT_SHADER, "model.frag");
 	ObjShader.link();
 	ObjShader.use();
-	ObjShader.interfaceInfo();
+	ObjShader.info();
 	program = ObjShader.GetProgram();
 
 	view_loc = glGetUniformLocation(program, "view");

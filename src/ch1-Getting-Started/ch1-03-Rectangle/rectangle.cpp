@@ -28,7 +28,7 @@ void Rectangle::init_shader()
 	RectangleShader.attach(GL_VERTEX_SHADER, "rectangle.vert");
 	RectangleShader.attach(GL_FRAGMENT_SHADER, "rectangle.frag");
 	RectangleShader.link();
-	RectangleShader.interfaceInfo();
+	RectangleShader.info();
 	program = RectangleShader.GetProgram();
 }
 

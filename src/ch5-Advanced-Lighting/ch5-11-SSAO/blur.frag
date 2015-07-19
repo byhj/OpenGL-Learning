@@ -1,4 +1,5 @@
 #version 330 core
+
 in vec2 TexCoords;
 
 out float fragColor;
@@ -20,3 +21,4 @@ void main()
    }
  
    fragColor = result / float(blurSize * blurSize);
+}

@@ -1,14 +1,46 @@
 #include "triangle.h"
+#include "ogl/glDebug.h"
 
 namespace byhj
 {
 
-	const static GLfloat VertexData[] = {
-		// Positions    // Colors
-		 0.5f, -0.5f,   1.0f, 0.0f, 0.0f,   // Bottom Right
-		-0.5f, -0.5f,   0.0f, 1.0f, 0.0f,   // Bottom Left
-		 0.0f,  0.5f,   0.0f, 0.0f, 1.0f    // Top 
-	};
+void Triangle::Init()
+{
+	init_shader();
+	init_buffer();
+	init_vertexArray();
+
+	glUniform1i(0, 0);
+	CheckDebugLog();
+}
+
+void Triangle::Render() 
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glUseProgram(program);
+	glBindVertexArray(vao);
+
+	//Draw the Triangle
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+
+	glUseProgram(0);
+	glBindVertexArray(0);
+}
+
+void Triangle::Shutdown() 
+{
+	glDeleteProgram(program);
+	glDeleteVertexArrays(1, &vao);
+	glDeleteBuffers(1, &vbo);
+}
+
+const static GLfloat VertexData[] = 
+{
+	-0.5f, -0.5f,
+	0.5f, -0.5f,
+	0.0f,  0.5f
+};
 
 void Triangle::init_shader()
 {
@@ -18,6 +50,7 @@ void Triangle::init_shader()
 	TriangleShader.link();
 	TriangleShader.info();
 	program = TriangleShader.GetProgram();
+
 }
 
 void Triangle::init_buffer()
@@ -34,13 +67,8 @@ void Triangle::init_vertexArray()
 	glBindVertexArray(vao);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);   //bind the vbo to vao, send the data to shader
-	// Position attribute
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
-
-	// Color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(2* sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
 
 	glBindVertexArray(0);
 	glDisableVertexAttribArray(0);

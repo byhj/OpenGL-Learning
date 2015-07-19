@@ -115,7 +115,7 @@ namespace byhj
 		LightShader.attach(GL_VERTEX_SHADER, "Light.vert");
 		LightShader.attach(GL_FRAGMENT_SHADER, "Light.frag");
 		LightShader.link();
-		LightShader.interfaceInfo();
+		LightShader.info();
 
 		program = LightShader.GetProgram();
 		mvp_loc = glGetUniformLocation(program, "mvp");

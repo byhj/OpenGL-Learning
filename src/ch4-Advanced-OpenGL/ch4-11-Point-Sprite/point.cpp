@@ -49,7 +49,7 @@ namespace byhj
 		PointShader.attach(GL_VERTEX_SHADER,  "Point.vert");
 		PointShader.attach(GL_FRAGMENT_SHADER, "Point.frag");
 		PointShader.link();
-		PointShader.interfaceInfo();
+		PointShader.info();
 		program = PointShader.GetProgram();
 	}
 

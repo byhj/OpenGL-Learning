@@ -77,7 +77,7 @@ namespace byhj
 		GrassShader.attach(GL_VERTEX_SHADER,   "Grass.vert");
 		GrassShader.attach(GL_FRAGMENT_SHADER, "Grass.frag");
 		GrassShader.link();
-		GrassShader.interfaceInfo();
+		GrassShader.info();
 		program = GrassShader.GetProgram();
 
 		model_loc = glGetUniformLocation(program, "model");

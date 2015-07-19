@@ -75,7 +75,7 @@ namespace byhj
 		PlaneShader.attach(GL_VERTEX_SHADER,   "normal_mapping.vert");
 		PlaneShader.attach(GL_FRAGMENT_SHADER, "normal_mapping.frag");
 		PlaneShader.link();
-		PlaneShader.interfaceInfo();
+		PlaneShader.info();
 		program = PlaneShader.GetProgram();
 
 		model_loc = glGetUniformLocation(program, "model");

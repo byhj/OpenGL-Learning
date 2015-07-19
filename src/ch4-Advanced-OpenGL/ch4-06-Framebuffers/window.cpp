@@ -61,7 +61,7 @@ namespace byhj
 		WindowShader.attach(GL_VERTEX_SHADER,   "Window.vert");
 		WindowShader.attach(GL_FRAGMENT_SHADER, "Window.frag");
 		WindowShader.link();
-		WindowShader.interfaceInfo();
+		WindowShader.info();
 		program = WindowShader.GetProgram();
 
 		tex_loc   = glGetUniformLocation(program, "tex");

@@ -1,7 +1,8 @@
 #include "oglShader.h"
+#include <fstream>
 
-
-char *textFileRead( char *fn) {  //read the OGLShader code
+//read the OGLShader code
+char * OGLShader::textFileRead( char *fn) {  //read the shader code
 	FILE *fp;  
 	char *content = NULL;  
 	int count=0;  
@@ -12,9 +13,9 @@ char *textFileRead( char *fn) {  //read the OGLShader code
 		if (!fp){
 
 #ifdef WINDOW_PLATFORM
-			MessageBox(NULL, "Can not open the OGLShader file", "Error",  MB_OK | MB_ICONERROR | MB_TASKMODAL);
+			MessageBox(NULL, "Can not open the shader file", "Error",  MB_OK | MB_ICONERROR | MB_TASKMODAL);
 #else
-			std::cerr << "Can not open the OGLShader file:" << fn << std::endl;
+			std::cerr << "Can not open the shader file:" << fn << std::endl;
 
 #endif
 			return NULL;
@@ -32,23 +33,23 @@ char *textFileRead( char *fn) {  //read the OGLShader code
 			fclose(fp);  
 		} 
 		else 
-			std::cout << "Fail to open the OGLShader file" << std::endl;
+			std::cout << "Fail to open the shader file" << std::endl;
 	}  
 	return content;  
 }  
 
 
+
 void OGLShader::init()
 {
-
+	m_Program = glCreateProgram();
 }
 
 void OGLShader::attach(int type, char* filename) //连接不同种类OGLShader
 {
-	char* mem = textFileRead(filename);
+	auto mem = textFileRead(filename);
 	GLuint handle = glCreateShader(type);
 	glShaderSource(handle, 1, (const GLchar**)(&mem), 0);
-
 
 	glCompileShader(handle);
 
@@ -57,45 +58,42 @@ void OGLShader::attach(int type, char* filename) //连接不同种类OGLShader
 
 	glGetShaderiv(handle, GL_COMPILE_STATUS, &compileSuccess);
 
-	if (!compileSuccess) {
+	if (!compileSuccess) 
+	{
 		glGetShaderInfoLog(handle, sizeof(compilerSpew), 0, compilerSpew);
 		printf("OGLShader %s\n%s\ncompileSuccess=%d\n",filename, compilerSpew, compileSuccess);
 
 		while(1);;
 	}
-	handles.push_back(handle); //存储创建的OGLShader handle以供连接所用
+	glAttachShader(m_Program, handle); 
+
 }
 
 void OGLShader::link()
 {
-	program = glCreateProgram();
-	for (int i=0; i!=handles.size(); i++) {
-		glAttachShader(program, handles[i]); //将前面创建的OGLShader添加到program
-
-	}
-	glLinkProgram(program);  //连接OGLShader program
-
+	glLinkProgram(m_Program);  
 
 	GLint linkSuccess;
 	GLchar compilerSpew[256];
-	glGetProgramiv(program, GL_LINK_STATUS, &linkSuccess); //输出连接信息
-	if(!linkSuccess) {
-		glGetProgramInfoLog(program, sizeof(compilerSpew), 0, compilerSpew);
+	glGetProgramiv(m_Program, GL_LINK_STATUS, &linkSuccess); //输出连接信息
+	if(!linkSuccess) 
+	{
+		glGetProgramInfoLog(m_Program, sizeof(compilerSpew), 0, compilerSpew);
 		printf("OGLShader Linker:\n%s\nlinkSuccess=%d\n",compilerSpew,linkSuccess);
-
 		while(1);;
 	}
-	std::cout << "--------------------------------------------------------------------------------" << std::endl;
-	printf("%s linked successful\n",name.c_str());
 
+	std::cout << m_Name << " linked successful" << std::endl;
+	std::cout << "--------------------------------------------------------------------------------" << std::endl;
 }
 
-void OGLShader::interfaceInfo()
+void OGLShader::info()
 {
-	std::cout << "------------------------------" << name << " Interface----------------------------" << std::endl;
+	std::cout << "------------------------------" << m_Name << " Interface----------------------------" 
+		      << std::endl;
 
 	GLint outputs = 0;
-	glGetProgramInterfaceiv(program, GL_PROGRAM_INPUT,  GL_ACTIVE_RESOURCES, &outputs);
+	glGetProgramInterfaceiv(m_Program, GL_PROGRAM_INPUT,  GL_ACTIVE_RESOURCES, &outputs);
 	static const GLenum props[] = {GL_TYPE, GL_LOCATION};
 	GLint params[2];
 	GLchar name[64];
@@ -106,54 +104,68 @@ void OGLShader::interfaceInfo()
 
 	for (int i = 0; i != outputs; ++i)
 	{
-		glGetProgramResourceName(program, GL_PROGRAM_INPUT, i, sizeof(name), NULL, name);
-		glGetProgramResourceiv(program, GL_PROGRAM_INPUT, i, 2, props, 2, NULL, params);
+		glGetProgramResourceName(m_Program, GL_PROGRAM_INPUT, i, sizeof(name), NULL, name);
+		glGetProgramResourceiv(m_Program, GL_PROGRAM_INPUT, i, 2, props, 2, NULL, params);
 		type_name = name;
 		//std::cout << "Index " << i << std::endl;
 		std::cout <<  "(" <<  type_name  << ")" << " locatoin: " << params[1] << std::endl;
 	}
 
-	glGetProgramInterfaceiv(program, GL_PROGRAM_OUTPUT,  GL_ACTIVE_RESOURCES, &outputs);
+	glGetProgramInterfaceiv(m_Program, GL_PROGRAM_OUTPUT,  GL_ACTIVE_RESOURCES, &outputs);
 	if (outputs > 0)
 		std::cout << "***Onput***" << std::endl;
 
 	for (int i = 0; i != outputs; ++i)
 	{
-		glGetProgramResourceName(program, GL_PROGRAM_OUTPUT, i, sizeof(name), NULL, name);
-		glGetProgramResourceiv(program, GL_PROGRAM_OUTPUT, i, 2, props, 2, NULL, params);
+		glGetProgramResourceName(m_Program, GL_PROGRAM_OUTPUT, i, sizeof(name), NULL, name);
+		glGetProgramResourceiv(  m_Program, GL_PROGRAM_OUTPUT, i, 2, props, 2, NULL, params);
 
 		type_name = name;
 		//std::cout << "Index " << i << std::endl;
 		std::cout  <<  "(" <<  type_name  << ")" << " locatoin: " << params[1] << std::endl;
 	}
 
-
-	glGetProgramInterfaceiv(program, GL_UNIFORM_BLOCK,  GL_ACTIVE_RESOURCES, &outputs);
+	glGetProgramInterfaceiv(m_Program, GL_UNIFORM_BLOCK,  GL_ACTIVE_RESOURCES, &outputs);
 	if (outputs > 0)
 		std::cout << "***Uniform Block***" << std::endl;
 
 	for (int i = 0; i != outputs; ++i)
 	{
-		glGetProgramResourceName(program, GL_UNIFORM_BLOCK, i, sizeof(name), NULL, name);
-		glGetProgramResourceiv(program, GL_UNIFORM_BLOCK, i, 2, props, 2, NULL, params);
+		glGetProgramResourceName(m_Program, GL_UNIFORM_BLOCK, i, sizeof(name), NULL, name);
+		glGetProgramResourceiv(  m_Program, GL_UNIFORM_BLOCK, i, 2, props, 2, NULL, params);
 
 		type_name = name;
 		//std::cout << "Index " << i << std::endl;
 		std::cout  <<  "(" <<  type_name  << ")" << " locatoin: " << params[1] << std::endl;
 	}
 
-	glGetProgramInterfaceiv(program, GL_UNIFORM,  GL_ACTIVE_RESOURCES, &outputs);
+	glGetProgramInterfaceiv(m_Program, GL_UNIFORM,  GL_ACTIVE_RESOURCES, &outputs);
 	if (outputs > 0)
 		std::cout << "***Uniform***" << std::endl;
 	if (outputs > 100)
 		return ;
 	for (int i = 0; i != outputs; ++i)
 	{
-		glGetProgramResourceName(program, GL_UNIFORM, i, sizeof(name), NULL, name);
-		glGetProgramResourceiv(program, GL_UNIFORM, i, 2, props, 2, NULL, params);
+		glGetProgramResourceName(m_Program, GL_UNIFORM, i, sizeof(name), NULL, name);
+		glGetProgramResourceiv(  m_Program, GL_UNIFORM, i, 2, props, 2, NULL, params);
 
 		type_name = name;
 		//std::cout << "Index " << i << std::endl;
 		std::cout  <<  "(" <<  type_name  << ")" << " locatoin: " << params[1] << std::endl;
 	}
+	std::cout << "--------------------------------------------------------------------------------" << std::endl;
+}
+
+void OGLShader::use() const
+{
+	glUseProgram(m_Program);
+}
+void OGLShader::end() const
+{
+	glUseProgram(0);
+}
+
+GLuint OGLShader::GetProgram() const
+{
+	return m_Program;
 }

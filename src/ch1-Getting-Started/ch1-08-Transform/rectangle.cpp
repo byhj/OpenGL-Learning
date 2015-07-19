@@ -12,7 +12,7 @@ void Rectangle::init_shader()
 	RectangleShader.attach(GL_FRAGMENT_SHADER, "texture.frag");
 	RectangleShader.link();
 	RectangleShader.use();
-	RectangleShader.interfaceInfo();
+	RectangleShader.info();
 	program = RectangleShader.GetProgram();
 
 	tex1_loc = glGetUniformLocation(program, "tex1");

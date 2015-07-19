@@ -105,7 +105,7 @@ namespace byhj
 		CubeShader.attach(GL_VERTEX_SHADER,   "csm.vert");
 		CubeShader.attach(GL_FRAGMENT_SHADER, "csm.frag");
 		CubeShader.link();
-		CubeShader.interfaceInfo();
+		CubeShader.info();
 		program = CubeShader.GetProgram();
 		model_loc = glGetUniformLocation(program, "model");
 		view_loc  = glGetUniformLocation(program, "view");
