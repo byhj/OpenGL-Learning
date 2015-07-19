@@ -8,13 +8,13 @@ namespace byhj
 
 	GLfloat planeVertices[] = {
 		// Positions          // Normals         // Texture Coords
-		8.0f, -0.5f,  8.0f,  0.0f, 1.0f, 0.0f,  5.0f, 0.0f,
-		-8.0f, -0.5f,  8.0f,  0.0f, 1.0f, 0.0f,  0.0f, 0.0f,
-		-8.0f, -0.5f, -8.0f,  0.0f, 1.0f, 0.0f,  0.0f, 5.0f,
+		25.0f, -0.5f, 25.0f, 0.0f, 1.0f, 0.0f, 25.0f, 0.0f,
+		-25.0f, -0.5f, -25.0f, 0.0f, 1.0f, 0.0f, 0.0f, 25.0f,
+		-25.0f, -0.5f, 25.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
 
-		8.0f, -0.5f,  8.0f,  0.0f, 1.0f, 0.0f,  5.0f, 0.0f,
-		-8.0f, -0.5f, -8.0f,  0.0f, 1.0f, 0.0f,  0.0f, 5.0f,
-		8.0f, -0.5f, -8.0f,  0.0f, 1.0f, 0.0f,  5.0f, 5.0f
+		25.0f, -0.5f, 25.0f, 0.0f, 1.0f, 0.0f, 25.0f, 0.0f,
+		25.0f, -0.5f, -25.0f, 0.0f, 1.0f, 0.0f, 25.0f, 25.0f,
+		- 25.0f, -0.5f, -25.0f, 0.0f, 1.0f, 0.0f, 0.0f, 25.0f
 	};
 
 	GLfloat cubeVertices[] = {
@@ -71,85 +71,105 @@ namespace byhj
 		init_texture();
 	}
 
-	void Scene::Render(byhj::MvpMatrix matrix, const byhj::Camera &camera)
+	// RenderQuad() Renders a 1x1 quad in NDC, best used for framebuffer color targets
+	// and post-processing effects.
+	void Scene::RenderQuad()
 	{
+		glBindVertexArray(planeVAO);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		glBindVertexArray(0);
+	}
 
-		glUseProgram(program);
+	void  Scene::RenderCube()
+	{
+		glBindVertexArray(cubeVAO);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glBindVertexArray(0);
+	}
 
-		glm::mat4 model = matrix.model;
-		glm::mat4 view  = matrix.view;
-		glm::mat4 proj  = matrix.proj;
-
-		glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
-		// Change light position over time
-		//lightPos.x = sin(glfwGetTime()) * 3.0f;
-		//lightPos.z = cos(glfwGetTime()) * 2.0f;
-		//lightPos.y = 5.0 + cos(glfwGetTime()) * 1.0f;
-
-		// 1. Render depth of scene to texture (from light's perspective)
-		// - Get light projection/view matrix.
-		glm::mat4 lightProjection, lightView;
-		glm::mat4 lightSpaceMatrix;
-		GLfloat near_plane = 1.0f, far_plane = 7.5f;
-		lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-		//lightProjection = glm::perspective(45.0f, (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); // Note that if you use a perspective projection matrix you'll have to change the light position as the current light position isn't enough to reflect the whole scene.
-		lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(1.0));
-		lightSpaceMatrix = lightProjection * lightView;
-		glUniformMatrix4fv(glGetUniformLocation(shadow_prog, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
-		// Set light uniforms
-		glUniform3fv(glGetUniformLocation(scene_prog, "lightPos"), 1, &lightPos[0]);
-		glUniform3fv(glGetUniformLocation(scene_prog, "viewPos"), 1, &camera.Position[0]);
-		glUniformMatrix4fv(glGetUniformLocation(scene_prog, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
-
-		// Enable/Disable shadows by pressing 'SPscene_progACE'
-		glUniform1i(glGetUniformLocation(scene_prog, "shadows"), shadows);
-		glUniform1i(glGetUniformLocation(scene_prog, "diffuseTexture"), 0);
-		glUniform1i(glGetUniformLocation(scene_prog, "shadowMap"), 1);
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, depth_tex);
-		RenderScene(scene_prog);
-		glUniformMatrix4fv(glGetUniformLocation(program, "view"),  1, GL_FALSE, &view[0][0]);
-		glUniformMatrix4fv(glGetUniformLocation(program, "proj"),  1, GL_FALSE, &proj[0][0]);
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, woodTex);
-		glUniform1i(woodTex_loc, 0);
-
+	void Scene::RenderScene(GLuint program)
+	{
 		// Floor
-		glm::mat4 model = glm::mat4(1.0f);
+		glm::mat4 model;
 		glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, &model[0][0]);
 		glBindVertexArray(planeVAO);    
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 
 		// Cubes
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.5f, 0.0));
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(0.0f, 1.5f, 0.0));
 		glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, &model[0][0] );
-		glDrawArrays(GL_TRIANGLES, 0, 36);														
-
-		model = glm::mat4();													
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(2.0f, 0.0f, 1.0));				
+		RenderCube();
+		
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 1.0));
 		glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, &model[0][0] );
-		glDrawArrays(GL_TRIANGLES, 0, 36);			
-
+	    RenderCube();
+		
 		model = glm::mat4();
 		model = glm::translate(model, glm::vec3(-1.0f, 0.0f, 2.0));
 		model = glm::rotate(model, 60.0f, glm::normalize(glm::vec3(1.0, 0.0, 1.0)));
 		model = glm::scale(model, glm::vec3(0.5));
 		glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, &model[0][0] );
-		glDrawArrays(GL_TRIANGLES, 0, 36);		
+		RenderCube();
+	}
+
+	void Scene::Render(byhj::MvpMatrix matrix, const byhj::Camera &camera)
+	{		
+		
+		glm::mat4 model = matrix.model;
+	    glm::mat4 view  = matrix.view;
+	    glm::mat4 proj  = matrix.proj;
+
+		glm::mat4 lightProjection, lightView;
+		glm::mat4 lightSpaceMatrix;
+		GLfloat near_plane = 1.0f, far_plane = 7.5f;
+		lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+
+		glm::vec3 lightPos(-2.0f, 4.0f, -1.0f);
+		glm::vec3 camPos = camera.GetPos();
+		lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(1.0));
+		lightSpaceMatrix = lightProjection * lightView;
+
+		glUseProgram(shadow_prog);
+
+		glUniformMatrix4fv(glGetUniformLocation(shadow_prog, "lightSpaceMatrix"), 1, GL_FALSE, &lightSpaceMatrix[0][0] );
+		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+		glClear(GL_DEPTH_BUFFER_BIT);
+		RenderScene(shadow_prog);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 		glUseProgram(0);
-		glBindVertexArray(0);
+
+		//////////////////////////////////////////////////////////////////////////////////////
+		glUseProgram(scene_prog);
+
+		glUniformMatrix4fv(glGetUniformLocation(scene_prog, "view"),  1, GL_FALSE, &view[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(scene_prog, "proj"),  1, GL_FALSE, &proj[0][0]);
+		glUniform3fv(glGetUniformLocation(scene_prog, "lightPos"), 1, &lightPos[0]);
+		glUniform3fv(glGetUniformLocation(scene_prog, "viewPos"), 1, &camPos[0]);
+		glUniformMatrix4fv(glGetUniformLocation(scene_prog, "lightSpaceMatrix"), 1, GL_FALSE, &lightSpaceMatrix[0][0]);
+
+		// Enable/Disable shadows by pressing 'SPscene_progACE'
+		glUniform1i(glGetUniformLocation(scene_prog, "shadows"), shadowFlag);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, woodTex);
+		glUniform1i(glGetUniformLocation(scene_prog, "diffuseTexture"), 0);
+
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, depth_tex);
+		glUniform1i(glGetUniformLocation(scene_prog, "shadowMap"), 1);
+
+		RenderScene(scene_prog);
+
+		glUseProgram(0);
 
 	}
 
 	void Scene::Shutdown()
 	{
-		glDeleteProgram(program);
 	}
 
 	void Scene::init_buffer()
@@ -193,12 +213,18 @@ namespace byhj
 	void Scene::init_shader()
 	{
 		SceneShader.init();
-		SceneShader.attach(GL_VERTEX_SHADER, "light.vert");
-		SceneShader.attach(GL_FRAGMENT_SHADER, "light.frag");
+		SceneShader.attach(GL_VERTEX_SHADER,   "scene.vert");
+		SceneShader.attach(GL_FRAGMENT_SHADER, "scene.frag");
 		SceneShader.link();
-		SceneShader.use();
-		program = SceneShader.GetProgram();
-		woodTex_loc  = glGetUniformLocation(program, "woodTex");
+		SceneShader.interfaceInfo();
+		scene_prog = SceneShader.GetProgram();
+
+		ShadowShader.init();
+		ShadowShader.attach(GL_VERTEX_SHADER,   "shadow.vert");
+		ShadowShader.attach(GL_FRAGMENT_SHADER, "shadow.frag");
+		ShadowShader.link();
+		ShadowShader.interfaceInfo();
+		shadow_prog = ShadowShader.GetProgram();
 	}
 
 	void Scene::init_texture()
@@ -206,9 +232,29 @@ namespace byhj
 		woodTex = loadTexture("../../../media/textures/wood.png");
 	}
 
-	void Scene::ChangeLight()
+	void Scene::init_fbo(int sw, int sh)
 	{
-		blinn = !blinn;
+		glGenTextures(1, &depth_tex);
+		glBindTexture(GL_TEXTURE_2D, depth_tex);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, sw, sh, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER); 
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+		GLfloat borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
+		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+
+		glGenFramebuffers(1, &fbo);
+		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depth_tex, 0);
+		glDrawBuffer(GL_NONE);
+		glReadBuffer(GL_NONE);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	void Scene::ChangeShadow()
+	{
+		shadowFlag = !shadowFlag;
 	}
 
 }

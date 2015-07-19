@@ -9,13 +9,12 @@ namespace byhj
 
 	void OGLRenderSystem::v_Init()
 	{
-		glfwWindowHint(GLFW_SAMPLES, 4);
 		glEnable(GL_DEPTH_TEST);
-		glDepthFunc(GL_LESS);
-		glEnable(GL_MULTISAMPLE);  
 
-		m_Plane.Init();
-		m_Camera.SetPos( glm::vec3(0.0f, 0.0f, 3.0f) );
+		m_Scene.init_fbo(GetScreenWidth(), GetScreenHeight());
+		m_Scene.Init();
+		m_Debug.Init();
+		m_Camera.SetPos( glm::vec3(0.0f, 0.0f, 5.0f) );
 	}
 
 	void OGLRenderSystem::v_Render()
@@ -29,36 +28,19 @@ namespace byhj
 
 		static byhj::MvpMatrix matrix;
 		matrix.view  = m_Camera.GetViewMatrix();
-		matrix.proj  = glm::perspective(glm::radians(m_Camera.GetZoom() ), GetAspect(), 0.1f, 1000.0f);
+		matrix.proj  = glm::perspective(glm::radians(m_Camera.GetZoom() ), GetAspect(), 0.1f, 100.0f);
 		matrix.model = glm::mat4(1.0f);
 
-	    m_Plane.Render(matrix, m_Camera);
+	    m_Scene.Render(matrix, m_Camera);
+
+		//m_Debug.Render(matrix, m_Scene.GetDepthMap());
 
 	}
 
 	void OGLRenderSystem::v_Shutdown()
 	{
-		m_Plane.Shutdown();
-	}
-
-	void OGLRenderSystem::v_InitInfo()
-	{		
-		glGenTextures(1, &depth_tex);
-		glBindTexture(GL_TEXTURE_2D, depth_tex);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, GetScreenWidth(), GetScreenHeight(), 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER); 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-		GLfloat borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
-		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-
-		glGenFramebuffers(1, &fbo);
-		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depth_tex, 0);
-		glDrawBuffer(GL_NONE);
-		glReadBuffer(GL_NONE);
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		m_Scene.Shutdown();
+		m_Debug.Shutdown();
 	}
 
 	/////////////////////////////////Key and Mouse//////////////////////////////////
@@ -69,7 +51,7 @@ namespace byhj
 	void OGLRenderSystem::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 	{
 		if(key == GLFW_KEY_L && action == GLFW_PRESS)
-            m_Plane.ChangeLight();
+            m_Scene.ChangeShadow();
 
 		m_Camera.key_callback(window, key, scancode, action, mode);
 	}

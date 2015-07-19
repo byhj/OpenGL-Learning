@@ -4,7 +4,8 @@
 #include "ogl/oglApp.h"
 #include "ogl/camera.h"
 
-#include "Plane.h"
+#include "scene.h"
+#include "debug.h"
 
 namespace byhj
 {
@@ -21,8 +22,6 @@ public:
 	void v_Render();
 	void v_Shutdown();
 
-	void init_fbo();
-
 	/////////////////////////////////Key and Mouse//////////////////////////////////
 	void v_Movement(GLFWwindow *window);
 	void v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -33,7 +32,8 @@ public:
 private:
 	void update();
 
-	byhj::Plane  m_Plane;
+	byhj::Scene  m_Scene;
+	byhj::Debug  m_Debug;
 	byhj::Camera m_Camera;
 };
 

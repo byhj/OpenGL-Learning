@@ -6,12 +6,13 @@ namespace byhj
 {
 #pragma region VertexData
 
-	GLfloat DebugVertices[] = {
+	GLfloat DebugVertices[] = 
+	{
 		// Positions             // Texture Coords
 		-1.0f,  1.0f, 0.0f,  0.0f, 1.0f,
 		-1.0f, -1.0f, 0.0f,  0.0f, 0.0f,
-		1.0f,  1.0f, 0.0f,  1.0f, 1.0f,
-		1.0f, -1.0f, 0.0f,  1.0f, 0.0f,
+		 1.0f,  1.0f, 0.0f,  1.0f, 1.0f,
+		 1.0f, -1.0f, 0.0f,  1.0f, 0.0f,
 	};
 #pragma endregion
 
@@ -22,7 +23,7 @@ namespace byhj
 		init_shader();
 	}
 
-	void Debug::Render(byhj::MvpMatrix matrix)
+	void Debug::Render(byhj::MvpMatrix matrix, const GLuint &depth_tex)
 	{
 		glBindVertexArray(vao);
 		glUseProgram(program);
@@ -33,7 +34,6 @@ namespace byhj
 
 		glUseProgram(0);
 		glBindVertexArray(0);
-
 	}
 
 	void Debug::Shutdown()
