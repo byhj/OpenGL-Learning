@@ -70,8 +70,9 @@ namespace byhj
 		glUseProgram(program);
 		glBindVertexArray(vao);
 
+		glUniform1i(tex_loc, 0);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, tex_loc);  
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemap_texture);
 
 		glm::mat4 view  = matrix.view;
 		glm::mat4 proj  = matrix.proj;

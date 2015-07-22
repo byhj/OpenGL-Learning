@@ -78,7 +78,7 @@ namespace byhj
 	// Remove any translation component of the view matrix
 		glm::mat4 view  = glm::mat4( glm::mat3(matrix.view) );
 		glm::mat4 proj  = matrix.proj;
-		glm::mat4 model = matrix.model;
+		glm::mat4 model = glm::mat4(1.0f);
 		glUniformMatrix4fv(view_loc, 1, GL_FALSE,  &view[0][0]);
 		glUniformMatrix4fv(proj_loc, 1, GL_FALSE,  &proj[0][0]);
 		glUniformMatrix4fv(model_loc, 1, GL_FALSE, &model[0][0]);

@@ -71,9 +71,7 @@ namespace byhj
 		glm::mat4 proj  = matrix.proj;
 		glm::mat4 model = matrix.model;
 		glm::mat4 mvp   = proj * view * model;
-
 		glUseProgram(program);
-		glBindVertexArray(vao);
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, containerTex);
@@ -83,8 +81,11 @@ namespace byhj
 		glBindTexture(GL_TEXTURE_2D, faceTex);
 		glUniform1i(glGetUniformLocation(program, "faceTex"), 1);
 
+		glBindVertexArray(vao);
+
 		glUniformMatrix4fv(mvp_loc, 1, GL_FALSE, &mvp[0][0]);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+
 		glBindVertexArray(0);
 
 		//////////////////////////////////////////////////////
@@ -97,6 +98,7 @@ namespace byhj
 		glBindVertexArray(0);
 
 		glUseProgram(0);
+
 	}
 
 	void Cube::Shutdown()
@@ -122,12 +124,12 @@ namespace byhj
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);    //load the vertex data
 		glBufferData(GL_ARRAY_BUFFER, sizeof(VertexData), VertexData, GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		//glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		glGenBuffers(1, &copy_vbo);
-		glBindBuffer(GL_COPY_READ_BUFFER, vbo);
 		glBindBuffer(GL_COPY_WRITE_BUFFER, copy_vbo);
-		glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, sizeof(VertexData) / 6);
+		glBufferData(GL_COPY_WRITE_BUFFER, sizeof(VertexData) / 6, NULL, GL_STATIC_COPY);
+		glCopyBufferSubData(GL_ARRAY_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, sizeof(VertexData) / 6);
 	}
 
 	void Cube::init_vertexArray()

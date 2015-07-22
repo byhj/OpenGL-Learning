@@ -1,17 +1,24 @@
-#version 330 core
+#version 330
 
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
 
 out vec3 Normal;
-out vec3 Position;
+out vec3 WorldPos;
 
-uniform mat4 model_matrix;
-uniform mat4 mvp_matrix;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 proj;
 
 void main()
 {
-    gl_Position = mvp_matrix * vec4(position, 1.0f);
-    Normal = mat3(transpose(inverse(model_matrix))) * normal;
-    Position = vec3(model_matrix * vec4(position, 1.0f));
-}  
+
+    mat4 mvp  = proj * view * model;
+
+	Normal = mat3( transpose( inverse(model) ) ) * normal;
+	WorldPos = vec3(model * vec4(position, 1.0f));
+
+    gl_Position = mvp * vec4(position, 1.0f);
+}
+
+ 

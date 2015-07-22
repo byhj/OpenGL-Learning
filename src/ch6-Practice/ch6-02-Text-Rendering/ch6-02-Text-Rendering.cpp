@@ -43,17 +43,7 @@ private:
 	byhj::Shader TextShader;
 };
 
-#include "RenderSystem.h"
-#include <memory>
-
-int main(int argc, const char **argv)
-{
-	auto app = std::make_shared<byhj::RenderSystem>();
-
-	app->Run(app);
-
-	return 0;
-}
+CALL_MAIN(WindowApp);
 
 void WindowApp::v_Init()
 {
