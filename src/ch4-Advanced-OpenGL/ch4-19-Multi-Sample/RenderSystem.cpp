@@ -14,8 +14,8 @@ namespace byhj
 		glDepthFunc(GL_LESS);
 		glEnable(GL_MULTISAMPLE);  
 
-		init_fbo();
 		m_Cube.Init();
+		m_Framebuffer.init(GetScreenWidth(), GetScreenHeight());
 		m_Camera.SetPos( glm::vec3(0.0f, 0.0f, 3.0f) );
 	}
 
@@ -34,14 +34,16 @@ namespace byhj
 		matrix.model = glm::mat4(1.0f);
 
 		// 1. Draw scene as normal in multisampled buffers
-		glBindFramebuffer(GL_FRAMEBUFFER, framebuffer); 
+         
+		m_Framebuffer.Bind();
+
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	    m_Cube.Render(matrix);
 
 		// 2. Now blit multisampled buffer(s) to default framebuffers
-		glBindFramebuffer(GL_READ_FRAMEBUFFER, framebuffer);
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, m_Framebuffer.GetFbo());
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);				
 		glBlitFramebuffer(0, 0, GetScreenWidth(), GetScreenWidth(), 0, 0, GetScreenWidth(), GetScreenWidth(), GL_COLOR_BUFFER_BIT, GL_NEAREST);     
 	}
@@ -49,40 +51,6 @@ namespace byhj
 	void RenderSystem::v_Shutdown()
 	{
 		m_Cube.Shutdown();
-	}
-
-	void RenderSystem::init_fbo()
-	{
-
-		glGenFramebuffers(1, &framebuffer);
-		glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);  
-		// Create a multisampled color attachment texture
-		textureColorBufferMultiSampled = generateMultiSampleTexture(4);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, textureColorBufferMultiSampled, 0);
-		// Create a renderbuffer object for depth and stencil attachments
-
-		GLuint rbo;
-		glGenRenderbuffers(1, &rbo);
-		glBindRenderbuffer(GL_RENDERBUFFER, rbo); 
-		glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_DEPTH24_STENCIL8, GetScreenWidth(), GetScreenHeight()); 
-		glBindRenderbuffer(GL_RENDERBUFFER, 0);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo); 
-
-		if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-			std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	}
-
-	GLuint RenderSystem::generateMultiSampleTexture(GLuint samples)
-	{
-		GLuint texture;
-		glGenTextures(1, &texture);
-
-		glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, texture);
-		glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, GL_RGB, GetScreenWidth(), GetScreenHeight(), GL_TRUE);
-		glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
-
-		return texture;
 	}
 
 	/////////////////////////////////Key and Mouse//////////////////////////////////

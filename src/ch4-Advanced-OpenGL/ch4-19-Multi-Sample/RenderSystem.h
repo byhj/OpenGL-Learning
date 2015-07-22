@@ -5,6 +5,7 @@
 #include "ogl/camera.h"
 
 #include "cube.h"
+#include "framebuffer.h"
 
 namespace byhj
 {
@@ -21,9 +22,6 @@ public:
 	void v_Render();
 	void v_Shutdown();
 
-	void init_fbo();
-	// Generates a texture that is suited for attachments to a framebuffer
-	GLuint generateMultiSampleTexture(GLuint samples);
 
 	/////////////////////////////////Key and Mouse//////////////////////////////////
 	void v_Movement(GLFWwindow *window);
@@ -34,9 +32,8 @@ public:
 
 private:
 	void update();
-	GLuint textureColorBufferMultiSampled;
-	GLuint framebuffer;
 	byhj::Cube  m_Cube;
+	byhj::FrameBuffer m_Framebuffer;
 	byhj::Camera m_Camera;
 };
 

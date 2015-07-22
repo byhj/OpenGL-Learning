@@ -73,6 +73,7 @@
     <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
     <ClCompile Include="ch4-19-Multi-Sample.cpp" />
     <ClCompile Include="cube.cpp" />
+    <ClCompile Include="framebuffer.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +83,7 @@
     <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
     <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
     <ClInclude Include="cube.h" />
+    <ClInclude Include="framebuffer.h" />
     <ClInclude Include="RenderSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

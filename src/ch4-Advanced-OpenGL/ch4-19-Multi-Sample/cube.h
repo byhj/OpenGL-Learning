@@ -4,31 +4,32 @@
 #include "ogl/oglShader.h"
 #include "ogl/oglUtility.h"
 
+#include <glfw/glfw3.h>
+
 namespace byhj
 {
 
-class Cube
-{
-public:
-	Cube(): vao(0), vbo(0), ibo(0), ubo(0),  program(0) {}
-	~Cube(){}
+	class Cube
+	{
+	public:
+		Cube(): program(0), vao(0), vbo(0), CubeShader("Cube Shader") {}
+		~Cube() {}
 
-public:
-	void Init();
-	void Render(const byhj::MvpMatrix &matrix);
-	void Shutdown();
+	public:
+		void Init();
+		void Render(const const byhj::MvpMatrix &matrix);
+		void Shutdown();
 
-private:
+	private:
+		void init_shader();
+		void init_buffer();
+		void init_vertexArray();
+		void init_texture();
 
-	void init_buffer();
-	void init_vertexArray();
-	void init_shader();
-
-	GLuint vao, vbo, ibo, ubo;
-	GLuint program;
-	byhj::Shader CubeShader;
-};
-
+		GLuint vao, vbo, program;
+		GLuint model_loc, view_loc, proj_loc;
+		byhj::Shader CubeShader;			
+	};
 
 }
 
