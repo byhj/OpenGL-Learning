@@ -33,7 +33,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Plane::Render(const byhj::MvpMatrix matrix)
+	void Plane::Render(const const byhj::MvpMatrix &matrix)
 	{
 		glUseProgram(program);
 		glBindVertexArray(vao);

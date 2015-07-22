@@ -66,10 +66,10 @@ namespace byhj
 
 
 	// Moves/alters the camera positions based on user input
-	void Camera::movement(GLFWwindow *window)
+	void Camera::movement(GLFWwindow *Triangle)
 	{
 		if (keys[GLFW_KEY_ESCAPE] )
-			glfwSetWindowShouldClose(window, GL_TRUE);
+			glfwSetWindowShouldClose(Triangle, GL_TRUE);
 
 		// Camera controls
 		if(keys[GLFW_KEY_W])
@@ -82,17 +82,17 @@ namespace byhj
 			ProcessKeyboard(RIGHT, deltaTime);
 		if (keys[GLFW_KEY_C])
 		{
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			glfwSetInputMode(Triangle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 			ctr = false;
 		}
 	}
 
 	// Is called whenever a key is pressed/released via GLFW
-	void Camera::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+	void Camera::key_callback(GLFWwindow* Triangle, int key, int scancode, int action, int mode)
 	{
 		//cout << key << std::endl;
 		if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-			glfwSetWindowShouldClose(window, GL_TRUE);
+			glfwSetWindowShouldClose(Triangle, GL_TRUE);
 
 		if(action == GLFW_PRESS)
 			keys[key] = true;
@@ -100,7 +100,7 @@ namespace byhj
 			keys[key] = false;	
 	}
 
-	void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos)
+	void Camera::mouse_callback(GLFWwindow* Triangle, double xpos, double ypos)
 	{
 		if(firstMouse)
 		{
@@ -118,7 +118,7 @@ namespace byhj
 	}	
 
 
-	void Camera::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+	void Camera::scroll_callback(GLFWwindow* Triangle, double xoffset, double yoffset)
 	{
 		ProcessMouseScroll(yoffset);
 	}

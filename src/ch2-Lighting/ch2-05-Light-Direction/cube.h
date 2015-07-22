@@ -18,7 +18,7 @@ public:
 
 public:
 	void Init();
-	void Render(const byhj::MvpMatrix matrix, const byhj::Camera camera);
+	void Render(const const byhj::MvpMatrix &matrix, const byhj::Camera camera);
 	void Shutdown();
 
 private:

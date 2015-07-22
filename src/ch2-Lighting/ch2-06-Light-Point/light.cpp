@@ -63,7 +63,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Light::Render(const byhj::MvpMatrix matrix)
+	void Light::Render(const const byhj::MvpMatrix &matrix)
 	{
 		glUseProgram(program);
 		glBindVertexArray(vao);

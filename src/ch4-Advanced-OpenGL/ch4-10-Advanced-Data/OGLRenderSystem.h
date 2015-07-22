@@ -15,17 +15,17 @@ public:
 	OGLRenderSystem() {}
 	~OGLRenderSystem() {}
 
-	///////////////////////// Window and Render //////////////////////////////////
+	///////////////////////// Triangle and Render //////////////////////////////////
 	void v_InitInfo();
 	void v_Init();
 	void v_Render();
 	void v_Shutdown();
 
 	/////////////////////////////////Key and Mouse//////////////////////////////////
-	void v_Movement(GLFWwindow *window);
-	void v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
-	void v_MouseCallback(GLFWwindow* window, double xpos, double ypos);
-	void v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+	void v_Movement(GLFWwindow *Triangle);
+	void v_KeyCallback(GLFWwindow* Triangle, int key, int scancode, int action, int mode);
+	void v_MouseCallback(GLFWwindow* Triangle, double xpos, double ypos);
+	void v_ScrollCallback(GLFWwindow* Triangle, double xoffset, double yoffset);
 
 
 private:

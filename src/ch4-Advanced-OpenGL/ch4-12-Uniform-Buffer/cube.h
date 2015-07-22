@@ -15,7 +15,7 @@ public:
 
 public:
 	void Init();
-	void Render(byhj::MvpMatrix matrix);
+	void Render(const byhj::MvpMatrix &matrix);
 	void Shutdown();
 
 private:

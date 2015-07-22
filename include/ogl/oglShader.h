@@ -12,14 +12,17 @@
 #define WINDOW_PLATFORM
 #endif
 
-class OGLShader 
+namespace byhj
+{
+
+class Shader
 {
 
 public:
-	OGLShader(): m_Program(0), m_Name("Shader") {}
-	OGLShader(std::string shaderName):m_Program(0), m_Name(shaderName) {}
+	Shader() : m_Program(0), m_Name("Shader") {}
+	Shader(std::string shaderName) :m_Program(0), m_Name(shaderName) {}
 
-	~OGLShader(){}
+	~Shader(){}
 
 public:
 	void init();
@@ -35,9 +38,11 @@ public:
 private:
 	char *textFileRead( char *fn) ;
 
-	GLuint m_Program;   //OGLShader program
-	std::string m_Name;   //OGLShader class name
+	GLuint m_Program;   //Shaderprogram
+	std::string m_Name;   //Shaderclass name
 };
 
+
+}
 #endif
 

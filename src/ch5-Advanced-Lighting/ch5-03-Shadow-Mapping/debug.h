@@ -17,7 +17,7 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(byhj::MvpMatrix matrix, const GLuint &depth_tex);
+		void Render(const byhj::MvpMatrix &matrix, const GLuint &depth_tex);
 		void Shutdown();
 
 	private:

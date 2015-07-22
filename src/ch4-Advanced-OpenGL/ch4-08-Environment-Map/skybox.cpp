@@ -66,7 +66,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Skybox::Render(const byhj::MvpMatrix matrix)
+	void Skybox::Render(const const byhj::MvpMatrix &matrix)
 	{
 		glUseProgram(program);
 		glBindVertexArray(vao);

@@ -27,6 +27,9 @@
     <ClCompile Include="..\..\..\include\ogl\oglApp.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
+    <ClCompile Include="RenderSystem.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="window.h">
@@ -34,6 +37,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\ogl\oglApp.h">
       <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

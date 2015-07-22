@@ -3,6 +3,7 @@
 
 #include "ogl/oglApp.h"
 #include "ogl/oglShader.h"
+#include "ogl/oglUtility.h"
 
 namespace byhj
 {
@@ -10,40 +11,15 @@ namespace byhj
 class Rectangle
 {
 public:
-	Rectangle(): program(0), vao(0), vbo(0), ibo(0) { }
-	~Rectangle() {}
+	Rectangle() = default;
+	~Rectangle() = default;
 
 public:
 
-	void Init()
-	{
-		init_shader();
-		init_buffer();
-		init_vertexArray();
-	}
+	void Init()	   ;
+	void Render()  ;
+	void Shutdown();
 
-	void Render() 
-	{
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		glUseProgram(program);
-		glBindVertexArray(vao);
-
-		//We set the display mode is line
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-		glUseProgram(0);
-		glBindVertexArray(0);
-	}
-
-	void Shutdown() 
-	{
-		glDeleteProgram(program);
-		glDeleteVertexArrays(1, &vao);
-		glDeleteBuffers(1, &vbo);
-		glDeleteBuffers(1, &ibo);
-	}
 
 private:
 
@@ -51,8 +27,12 @@ private:
 	void init_shader();
 	void init_vertexArray();
 
-	GLuint vbo, vao, ibo, program;
-	OGLShader RectangleShader;
+	GLuint vao = byhj::OGL_VALUE;
+	GLuint vbo = byhj::OGL_VALUE;
+	GLuint ibo = byhj::OGL_VALUE;
+	GLuint program = byhj::OGL_VALUE;
+
+	byhj::Shader RectangleShader = { "Rectangle Shader" };
 };
 
 }

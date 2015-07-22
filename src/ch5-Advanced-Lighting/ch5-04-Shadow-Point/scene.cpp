@@ -111,7 +111,7 @@ namespace byhj
 		RenderCube();
 	}
 
-	void Scene::Render(byhj::MvpMatrix matrix, const byhj::Camera &camera, float aspect)
+	void Scene::Render(const byhj::MvpMatrix &matrix, const byhj::Camera &camera, float aspect)
 	{		
 		
 		glm::mat4 model = matrix.model;

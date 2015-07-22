@@ -17,7 +17,7 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(byhj::MvpMatrix matrix, const byhj::Camera &camera);
+		void Render(const byhj::MvpMatrix &matrix, const byhj::Camera &camera);
 		void Shutdown();
 		void ChangeShadow();
 		void init_fbo(int sw, int sh);

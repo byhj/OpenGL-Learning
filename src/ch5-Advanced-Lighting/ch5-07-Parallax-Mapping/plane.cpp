@@ -16,7 +16,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Plane::Render(const byhj::MvpMatrix matrix, const byhj::Camera camera)
+	void Plane::Render(const const byhj::MvpMatrix &matrix, const byhj::Camera camera)
 	{
 		glUseProgram(program);
 

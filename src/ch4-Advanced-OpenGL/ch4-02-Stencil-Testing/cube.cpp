@@ -65,7 +65,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Cube::Render(const byhj::MvpMatrix matrix)
+	void Cube::Render(const const byhj::MvpMatrix &matrix)
 	{
 		glUseProgram(cube_prog);
 		glBindVertexArray(vao);
@@ -92,7 +92,7 @@ namespace byhj
 		glUseProgram(0);
 	}
 
-	void Cube::RenderColor(const byhj::MvpMatrix matrix)
+	void Cube::RenderColor(const const byhj::MvpMatrix &matrix)
 	{
 		glUseProgram(color_prog);
 

@@ -17,8 +17,8 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(const byhj::MvpMatrix matrix);
-		void RenderColor(const byhj::MvpMatrix matrix);
+		void Render(const const byhj::MvpMatrix &matrix);
+		void RenderColor(const const byhj::MvpMatrix &matrix);
 		void Shutdown();
 	
 	private:

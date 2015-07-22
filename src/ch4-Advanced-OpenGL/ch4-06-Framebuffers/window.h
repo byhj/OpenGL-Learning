@@ -9,15 +9,15 @@
 namespace byhj
 {
 
-	class Window
+	class Triangle
 	{
 	public:
-		Window(): program(0), vao(0), vbo(0), WindowShader("Window Shader") {}
-		~Window() {}
+		Triangle(): program(0), vao(0), vbo(0), WindowShader("Triangle Shader") {}
+		~Triangle() {}
 
 	public:
 		void Init();
-		void Render(const byhj::MvpMatrix matrix, const GLuint &textureID);
+		void Render(const const byhj::MvpMatrix &matrix, const GLuint &textureID);
 		void Shutdown();
 
 	private:

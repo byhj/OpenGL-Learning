@@ -1,10 +1,38 @@
-#include "rectangle.h"
+#include "Rectangle.h"
 
 namespace byhj
 {
 
+void Rectangle::Init()
+{
+	init_shader();
+	init_buffer();
+	init_vertexArray();
+}
+
+void Rectangle::Render()
+{
+	glUseProgram(program);
+	glBindVertexArray(vao);
+
+	//We set the display mode is line
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+	glUseProgram(0);
+	glBindVertexArray(0);
+}
+
+void Rectangle::Shutdown()
+{
+	glDeleteProgram(program);
+	glDeleteVertexArrays(1, &vao);
+	glDeleteBuffers(1, &vbo);
+	glDeleteBuffers(1, &ibo);
+}
+
 //////////////////////////Data///////////////////////////
-const static GLfloat VertexData[] = 
+const static GLfloat VertexData[] =
 {
 	-0.5f, -0.5f,
 	0.5f, -0.5f,
@@ -13,7 +41,7 @@ const static GLfloat VertexData[] =
 };
 const static GLsizei VertexSize = sizeof(VertexData);
 
-const static GLuint IndexData[] = 
+const static GLuint IndexData[] =
 {
 	0, 1, 2,
 	2, 3, 0,
@@ -59,4 +87,4 @@ void Rectangle::init_vertexArray()
 	glDisableVertexAttribArray(0);
 }
 
-}//Namespace
+}

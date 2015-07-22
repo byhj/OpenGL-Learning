@@ -75,18 +75,18 @@ public:
 
 
 	}
-	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+	void key_callback(GLFWwindow* Triangle, int key, int scancode, int action, int mode);
 	void do_movement();
-	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+	void mouse_callback(GLFWwindow* Triangle, double xpos, double ypos);
+	void scroll_callback(GLFWwindow* Triangle, double xoffset, double yoffset);
 
 	void v_Shutdown()
 	{
 	}
-	void v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
-	void v_Movement(GLFWwindow *window);
-	void v_MouseCallback(GLFWwindow* window, double xpos, double ypos);
-	void v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+	void v_KeyCallback(GLFWwindow* Triangle, int key, int scancode, int action, int mode);
+	void v_Movement(GLFWwindow *Triangle);
+	void v_MouseCallback(GLFWwindow* Triangle, double xpos, double ypos);
+	void v_ScrollCallback(GLFWwindow* Triangle, double xoffset, double yoffset);
 
 private:
 	void init_shader();
@@ -219,7 +219,7 @@ void SkyboxApp::init_texture()
 }
 
 // Moves/alters the camera positions based on user input
-void SkyboxApp::v_Movement(GLFWwindow *window)
+void SkyboxApp::v_Movement(GLFWwindow *Triangle)
 {
 	// Camera controls
 	if(keys[GLFW_KEY_W])
@@ -232,17 +232,17 @@ void SkyboxApp::v_Movement(GLFWwindow *window)
 		camera.ProcessKeyboard(RIGHT, deltaTime);
 	if (keys[GLFW_KEY_C])
 	{
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		glfwSetInputMode(Triangle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		camera.ctr = false;
 	}
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void SkyboxApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void SkyboxApp::v_KeyCallback(GLFWwindow* Triangle, int key, int scancode, int action, int mode)
 {
 	//cout << key << std::endl;
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
+		glfwSetWindowShouldClose(Triangle, GL_TRUE);
 
 	if(action == GLFW_PRESS)
 		keys[key] = true;
@@ -250,7 +250,7 @@ void SkyboxApp::v_KeyCallback(GLFWwindow* window, int key, int scancode, int act
 		keys[key] = false;	
 }
 
-void SkyboxApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
+void SkyboxApp::v_MouseCallback(GLFWwindow* Triangle, double xpos, double ypos)
 {
 	if(firstMouse)
 	{
@@ -268,7 +268,7 @@ void SkyboxApp::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
 }	
 
 
-void SkyboxApp::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+void SkyboxApp::v_ScrollCallback(GLFWwindow* Triangle, double xoffset, double yoffset)
 {
 
 	camera.ProcessMouseScroll(yoffset);

@@ -1,8 +1,11 @@
 #include "oglShader.h"
 #include <fstream>
 
-//read the OGLShader code
-char * OGLShader::textFileRead( char *fn) {  //read the shader code
+namespace byhj
+{
+
+//read the Shadercode
+char * Shader::textFileRead( char *fn) {  //read the shader code
 	FILE *fp;  
 	char *content = NULL;  
 	int count=0;  
@@ -40,12 +43,12 @@ char * OGLShader::textFileRead( char *fn) {  //read the shader code
 
 
 
-void OGLShader::init()
+void Shader::init()
 {
 	m_Program = glCreateProgram();
 }
 
-void OGLShader::attach(int type, char* filename) //连接不同种类OGLShader
+void Shader::attach(int type, char* filename) //连接不同种类Shader
 {
 	auto mem = textFileRead(filename);
 	GLuint handle = glCreateShader(type);
@@ -61,7 +64,7 @@ void OGLShader::attach(int type, char* filename) //连接不同种类OGLShader
 	if (!compileSuccess) 
 	{
 		glGetShaderInfoLog(handle, sizeof(compilerSpew), 0, compilerSpew);
-		printf("OGLShader %s\n%s\ncompileSuccess=%d\n",filename, compilerSpew, compileSuccess);
+		printf("Shader%s\n%s\ncompileSuccess=%d\n",filename, compilerSpew, compileSuccess);
 
 		while(1);;
 	}
@@ -69,7 +72,7 @@ void OGLShader::attach(int type, char* filename) //连接不同种类OGLShader
 
 }
 
-void OGLShader::link()
+void Shader::link()
 {
 	glLinkProgram(m_Program);  
 
@@ -79,7 +82,7 @@ void OGLShader::link()
 	if(!linkSuccess) 
 	{
 		glGetProgramInfoLog(m_Program, sizeof(compilerSpew), 0, compilerSpew);
-		printf("OGLShader Linker:\n%s\nlinkSuccess=%d\n",compilerSpew,linkSuccess);
+		printf("ShaderLinker:\n%s\nlinkSuccess=%d\n",compilerSpew,linkSuccess);
 		while(1);;
 	}
 
@@ -87,9 +90,9 @@ void OGLShader::link()
 	std::cout << "--------------------------------------------------------------------------------" << std::endl;
 }
 
-void OGLShader::info()
+void Shader::info()
 {
-	std::cout << "------------------------------" << m_Name << " Interface----------------------------" 
+	std::cout << "------------------------------" << m_Name << " Interface-------------------------" 
 		      << std::endl;
 
 	GLint outputs = 0;
@@ -156,16 +159,19 @@ void OGLShader::info()
 	std::cout << "--------------------------------------------------------------------------------" << std::endl;
 }
 
-void OGLShader::use() const
+void Shader::use() const
 {
 	glUseProgram(m_Program);
 }
-void OGLShader::end() const
+void Shader::end() const
 {
 	glUseProgram(0);
 }
 
-GLuint OGLShader::GetProgram() const
+GLuint Shader::GetProgram() const
 {
 	return m_Program;
+}
+
+
 }

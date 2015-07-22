@@ -1,10 +1,11 @@
 #include "oglApp.h"
 
-byhj::Application * byhj::Application::app; 
+std::shared_ptr<byhj::Application> byhj::Application::app;
 
-void byhj::Application::Run(byhj::Application *the_app)
+void byhj::Application::Run(std::shared_ptr<byhj::Application> the_app)
 {	
-   app = the_app;
+    app = the_app;
+
 	std::cout << "Starting GLFW context" << std::endl;
 	if (!glfwInit()) 
 	{
@@ -14,26 +15,28 @@ void byhj::Application::Run(byhj::Application *the_app)
 
 	v_InitInfo();
 
-	GLFWwindow *window = glfwCreateWindow(windowInfo.Width, windowInfo.Height, windowInfo.title.c_str(), nullptr, nullptr);
-	glfwSetWindowPos(window, windowInfo.posX, windowInfo.posY);
-	glfwMakeContextCurrent(window);
+	GLFWwindow *Triangle = glfwCreateWindow(windowInfo.Width, windowInfo.Height,
+		                                  windowInfo.title.c_str(), nullptr, nullptr);
+	glfwSetWindowPos(Triangle, windowInfo.posX, windowInfo.posY);
+	glfwMakeContextCurrent(Triangle);
 
-	glfwSetKeyCallback(window, glfw_key);
-	glfwSetCursorPosCallback(window, glfw_mouse);
-	glfwSetScrollCallback(window, glfw_scroll);
+	//Key and Mouse callback function
+	glfwSetKeyCallback(Triangle, glfw_key);
+	glfwSetCursorPosCallback(Triangle, glfw_mouse);
+	glfwSetScrollCallback(Triangle, glfw_scroll);
 
 	// GLFW Options
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(Triangle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-	if (window == NULL)
+	if (Triangle == NULL)
 	{
-		std::cerr << "Failed to create GLFW window" << std::endl;
+		std::cerr << "Failed to create GLFW Triangle" << std::endl;
 		glfwTerminate();
 		return ;
 	}	
 	glewExperimental = GL_TRUE;
 
-	//1、查看GLSL和OpenGL的版本  
+	//Check the GLSL and OpenGL status 
 	if (glewInit() != GLEW_OK)
 	{
 		std::cerr << "Failed to initialize GLEW" << std::endl;
@@ -51,27 +54,30 @@ void byhj::Application::Run(byhj::Application *the_app)
 	std::cout << "GL Version (std::string)  : " << version << std::endl;  
 	std::cout << "GL Version (integer) : " << major << "." << minor << std::endl;  
 	std::cout << "GLSL Version : " << glslVersion << std::endl;    
-	std::cout << "--------------------------------------------------------------------------------" << std::endl;
+	std::cout << "--------------------------------------------------------------------------------" 
+		      << std::endl;
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major); //opengl 4.3
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //using opengl core file
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); 
 	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-	// Create a GLFWwindow object that we can use for GLFW's functions
 
+	// Create a GLFWwindow object that we can use for GLFW's functions
 	v_Init();
 
 	glViewport(0, 0, windowInfo.Width, windowInfo.Height);
 
-	while (!glfwWindowShouldClose(window)) 
+	while (!glfwWindowShouldClose(Triangle)) 
 	{
 		glfwPollEvents();
-		v_Movement(window);
+		v_Movement(Triangle);
 
+		//Render for the object
 		v_Render();
 
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(Triangle);
 	}
 	v_Shutdown();
+
 	glfwTerminate();
 }
 

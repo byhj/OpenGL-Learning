@@ -30,7 +30,7 @@ namespace byhj
 
 		update();
 
-		static byhj::MvpMatrix matrix;
+		static const byhj::MvpMatrix &matrix;
 		matrix.view  = m_Camera.GetViewMatrix();
 		matrix.proj  = glm::perspective(glm::radians(m_Camera.GetZoom() ), GetAspect(), 0.1f, 1000.0f);
 		matrix.model = glm::mat4(1.0f);
@@ -48,23 +48,23 @@ namespace byhj
 	}
 
 	/////////////////////////////////Key and Mouse//////////////////////////////////
-	void OGLRenderSystem::v_Movement(GLFWwindow *window)
+	void OGLRenderSystem::v_Movement(GLFWwindow *Triangle)
 	{
-		m_Camera.movement(window);
+		m_Camera.movement(Triangle);
 	}
-	void OGLRenderSystem::v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
+	void OGLRenderSystem::v_KeyCallback(GLFWwindow* Triangle, int key, int scancode, int action, int mode)
 	{
-		m_Camera.key_callback(window, key, scancode, action, mode);
-	}
-
-	void OGLRenderSystem::v_MouseCallback(GLFWwindow* window, double xpos, double ypos)
-	{
-		m_Camera.mouse_callback(window, xpos, ypos);
+		m_Camera.key_callback(Triangle, key, scancode, action, mode);
 	}
 
-	void OGLRenderSystem::v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+	void OGLRenderSystem::v_MouseCallback(GLFWwindow* Triangle, double xpos, double ypos)
 	{
-		m_Camera.scroll_callback(window, xoffset, yoffset);
+		m_Camera.mouse_callback(Triangle, xpos, ypos);
+	}
+
+	void OGLRenderSystem::v_ScrollCallback(GLFWwindow* Triangle, double xoffset, double yoffset)
+	{
+		m_Camera.scroll_callback(Triangle, xoffset, yoffset);
 	}
 
 	void OGLRenderSystem::update()

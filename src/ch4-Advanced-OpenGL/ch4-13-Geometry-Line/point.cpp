@@ -16,7 +16,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Point::Render(const byhj::MvpMatrix matrix)
+	void Point::Render(const const byhj::MvpMatrix &matrix)
 	{
 
 		glm::mat4 view  = matrix.view;

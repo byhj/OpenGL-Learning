@@ -17,7 +17,7 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(const byhj::MvpMatrix matrix, const GLuint &colorBuffer);
+		void Render(const const byhj::MvpMatrix &matrix, const GLuint &colorBuffer);
 		void Shutdown();
 
 		void AddExposure()

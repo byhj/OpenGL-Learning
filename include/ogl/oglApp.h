@@ -6,10 +6,10 @@
 
 #include <iostream>
 #include <string>
-#include <functional>
 #include <windows.h>
+#include <memory>
 
-#ifdef WIN32
+#ifdef _WIN32
 const int ScreenWidth = static_cast<int>( GetSystemMetrics(SM_CXSCREEN) * 0.75 );
 const int ScreenHeight = static_cast<int>(  GetSystemMetrics(SM_CYSCREEN) * 0.75 );
 const int PosX = (GetSystemMetrics(SM_CXSCREEN) - ScreenWidth)  / 2;
@@ -30,7 +30,7 @@ namespace byhj {
 		virtual ~Application() {}
 
 	public:
-		void Run(byhj::Application *the_app);
+		void Run(std::shared_ptr<byhj::Application> the_app);
 
 		//Override
 		virtual void v_InitInfo() = 0;
@@ -38,22 +38,22 @@ namespace byhj {
 		virtual void v_Render()	  = 0;
 		virtual void v_Shutdown() = 0;
 
-		virtual void v_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode) 
+		virtual void v_KeyCallback(GLFWwindow* Triangle, int key, int scancode, int action, int mode) 
 		{
 			if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-				glfwSetWindowShouldClose(window, GL_TRUE);
+				glfwSetWindowShouldClose(Triangle, GL_TRUE);
 			if (key ==  GLFW_KEY_C && action == GLFW_PRESS)
-				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+				glfwSetInputMode(Triangle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		}
 
-		virtual void v_Movement(GLFWwindow *window) {}
-		virtual void v_MouseCallback(GLFWwindow* window, double xpos, double ypos) {}
-		virtual void v_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset) {}
+		virtual void v_Movement(GLFWwindow *Triangle) {}
+		virtual void v_MouseCallback(GLFWwindow* Triangle, double xpos, double ypos) {}
+		virtual void v_ScrollCallback(GLFWwindow* Triangle, double xoffset, double yoffset) {}
 
 	protected:
 		struct WindowInfo
 		{
-			WindowInfo():title("LearnOpenGL"), 
+			WindowInfo():title("Learn OpenGL:"), 
 				        Width(ScreenWidth), 
 						Height(ScreenHeight),
 				        posX(PosX), 
@@ -70,19 +70,19 @@ namespace byhj {
 		int GetScreenHeight();
 
 	protected:
-	    static byhj::Application *app;
+	    static  std::shared_ptr<byhj::Application> app;
 
-	    static void glfw_key(GLFWwindow * window, int key, int scancode, int action, int mode) 
+	    static void glfw_key(GLFWwindow * Triangle, int key, int scancode, int action, int mode) 
 	    {
-	    	app->v_KeyCallback(window,  key,  scancode, action,  mode);
+	    	app->v_KeyCallback(Triangle,  key,  scancode, action,  mode);
 	    }
-	    static void glfw_mouse(GLFWwindow* window, double xpos, double ypos)
+	    static void glfw_mouse(GLFWwindow* Triangle, double xpos, double ypos)
 	    {
-	    	app->v_MouseCallback(window,  xpos, ypos);
+	    	app->v_MouseCallback(Triangle,  xpos, ypos);
 	    }
-	    static void glfw_scroll(GLFWwindow* window, double xoffset, double yoffset)
+	    static void glfw_scroll(GLFWwindow* Triangle, double xoffset, double yoffset)
 	    {
-	    	app->v_ScrollCallback(window,  xoffset, yoffset);
+	    	app->v_ScrollCallback(Triangle,  xoffset, yoffset);
 	    }
 	    
 	};  //class
@@ -90,13 +90,5 @@ namespace byhj {
 }  //namespace 
 
 
-#define CALL_MAIN(a)                                \
-	int main(int argc, const char **argv)           \
-{                                                   \
-	a *app = new a;                                 \
-	app->Run(app);                                  \
-	delete app;                                     \
-	return 0;                                       \
-}
 
 #endif  //

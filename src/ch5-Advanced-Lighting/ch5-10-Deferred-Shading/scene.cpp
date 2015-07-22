@@ -85,7 +85,7 @@ namespace byhj
 		glBindVertexArray(0);
 	}
 
-	void Scene::Render(byhj::MvpMatrix matrix, const byhj::Camera &camera)
+	void Scene::Render(const byhj::MvpMatrix &matrix, const byhj::Camera &camera)
 	{		
 		std::vector<glm::vec3> objectPositions;
 		objectPositions.push_back(glm::vec3(-3.0, -3.0, -3.0));
