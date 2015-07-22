@@ -74,7 +74,7 @@
     <ClCompile Include="..\..\..\include\ogl\oglApp.cpp" />
     <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
     <ClCompile Include="ch4-16-Geometry-Normal-View.cpp" />
-    <ClCompile Include="OGLRenderSystem.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="point.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +84,7 @@
     <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
     <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
     <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
-    <ClInclude Include="OGLRenderSystem.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="point.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

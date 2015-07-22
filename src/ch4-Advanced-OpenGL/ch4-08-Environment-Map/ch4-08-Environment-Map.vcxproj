@@ -75,7 +75,7 @@
     <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
     <ClCompile Include="ch4-08-Environment.cpp" />
     <ClCompile Include="cube.cpp" />
-    <ClCompile Include="OGLRenderSystem.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="skybox.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -85,7 +85,7 @@
     <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
     <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
     <ClInclude Include="cube.h" />
-    <ClInclude Include="OGLRenderSystem.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="skybox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

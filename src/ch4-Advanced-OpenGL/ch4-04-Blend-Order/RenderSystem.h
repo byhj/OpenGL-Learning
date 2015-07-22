@@ -6,7 +6,7 @@
 
 #include "cube.h"
 #include "plane.h"
-#include "Triangle.h"
+#include "window.h"
 
 namespace byhj
 {
@@ -32,16 +32,10 @@ public:
 
 private:
 	void update();
-	void init_fbo();
-	// Generates a texture that is suited for attachments to a framebuffer
-	GLuint generateAttachmentTexture(GLboolean depth, GLboolean stencil);
-
-	GLuint tex, rbo, fbo;
-	GLuint textureColorbuffer;
 
 	byhj::Cube   m_Cube;
 	byhj::Plane  m_Plane;
-	byhj::Triangle m_Window;
+	byhj::Window m_Window;
 	byhj::Camera m_Camera;
 };
 

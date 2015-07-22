@@ -47,7 +47,7 @@
     <ClCompile Include="..\..\..\include\ogl\mesh.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="OGLRenderSystem.cpp">
+    <ClCompile Include="RenderSystem.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -73,7 +73,7 @@
     <ClInclude Include="..\..\..\include\ogl\mesh.h">
       <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="OGLRenderSystem.h">
+    <ClInclude Include="RenderSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,6 @@
 
 
-#include "Triangle.h"
+#include "Window.h"
 #include "ogl/loadTexture.h"
 
 
@@ -26,7 +26,7 @@ namespace byhj
 
 #pragma endregion
 
-	void Triangle::Init()
+	void Window::Init()
 	{
 		init_shader();
 		init_buffer();
@@ -34,7 +34,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Triangle::Render(const const byhj::MvpMatrix &matrix, const GLuint &textureID)
+	void Window::Render(const const byhj::MvpMatrix &matrix, const GLuint &textureID)
 	{
 		glUseProgram(program);
 		glBindVertexArray(vao);
@@ -48,18 +48,18 @@ namespace byhj
 		glUseProgram(0);
 	}
 
-	void Triangle::Shutdown()
+	void Window::Shutdown()
 	{
 		glDeleteProgram(program);
 		glDeleteVertexArrays(1, &vao);
 		glDeleteBuffers(1, &vbo);
 	}
 
-	void Triangle::init_shader()
+	void Window::init_shader()
 	{
 		WindowShader.init();
-		WindowShader.attach(GL_VERTEX_SHADER,   "Triangle.vert");
-		WindowShader.attach(GL_FRAGMENT_SHADER, "Triangle.frag");
+		WindowShader.attach(GL_VERTEX_SHADER,   "Window.vert");
+		WindowShader.attach(GL_FRAGMENT_SHADER, "Window.frag");
 		WindowShader.link();
 		WindowShader.info();
 		program = WindowShader.GetProgram();
@@ -67,7 +67,7 @@ namespace byhj
 		tex_loc   = glGetUniformLocation(program, "tex");
 	}
 
-	void Triangle::init_buffer()
+	void Window::init_buffer()
 	{
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);    //load the vertex data
@@ -75,7 +75,7 @@ namespace byhj
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void Triangle::init_vertexArray()
+	void Window::init_vertexArray()
 	{	
 		glGenVertexArrays(1, &vao);
 		glBindVertexArray(vao);
@@ -89,7 +89,7 @@ namespace byhj
 		glBindVertexArray(0);
 	}
 
-	void Triangle::init_texture()
+	void Window::init_texture()
 	{
 
 	}

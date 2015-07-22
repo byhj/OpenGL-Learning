@@ -17,25 +17,6 @@ namespace byhj
 	   glm::mat4 proj;
 	};
 
-	struct Vertex
-	{
-		glm::vec3 pos; //顶点，纹理，法线坐标
-		glm::vec2 tex;
-		glm::vec3 normal;
-
-		Vertex(glm::vec3 mpos, glm::vec2 mtex)
-		{
-			pos = mpos;
-			tex = mtex;
-			normal = glm::vec3(0.0f, 0.0f, 0.0f);
-		}
-		Vertex(glm::vec3 mpos, glm::vec2 mtex, glm::vec3 n)
-		{
-			pos = mpos;
-			tex = mtex;
-			normal = n;
-		}
-	};
 
 	const GLuint OGL_VALUE = 0xffffffff;
 }

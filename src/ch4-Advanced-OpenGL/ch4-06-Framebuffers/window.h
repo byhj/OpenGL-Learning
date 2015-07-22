@@ -9,11 +9,11 @@
 namespace byhj
 {
 
-	class Triangle
+	class Window
 	{
 	public:
-		Triangle(): program(0), vao(0), vbo(0), WindowShader("Triangle Shader") {}
-		~Triangle() {}
+		Window(): program(0), vao(0), vbo(0), WindowShader("Window Shader") {}
+		~Window() {}
 
 	public:
 		void Init();

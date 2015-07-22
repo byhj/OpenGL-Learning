@@ -78,7 +78,7 @@
     <ClCompile Include="ch4-03-Blend-Grass.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="grass.cpp" />
-    <ClCompile Include="OGLRenderSystem.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="plane.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -89,7 +89,7 @@
     <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="grass.h" />
-    <ClInclude Include="OGLRenderSystem.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="plane.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
