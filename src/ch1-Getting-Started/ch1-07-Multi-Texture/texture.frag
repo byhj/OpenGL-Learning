@@ -7,10 +7,10 @@ in VS_OUT
   vec2 tc;
 }fs_in;
 
-uniform sampler2D tex1;
-uniform sampler2D tex2;
+uniform sampler2D containerTex;
+uniform sampler2D faceTex;
 
 void main()
 {
-    fragColor = mix(texture(tex1, fs_in.tc) , texture(tex2, fs_in.tc), 0.2);
+    fragColor = mix(texture(containerTex, fs_in.tc) , texture(faceTex, fs_in.tc), 0.2);
 }

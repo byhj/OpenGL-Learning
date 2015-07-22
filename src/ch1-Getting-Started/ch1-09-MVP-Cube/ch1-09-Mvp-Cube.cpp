@@ -7,41 +7,14 @@
  * Viewport
  * ----------> Screen Space( Map to Window Screen Width and Height)
  */
-#include "ogl/oglApp.h"
+#include "RenderSystem.h"
+#include <memory>
 
-#include "cube.h"
-
-class OGLRenderSystem : public byhj::Application
+int main(int argc, const char **argv)
 {
-public:
-	OGLRenderSystem() {}
-	~OGLRenderSystem() {}
+	auto app = std::make_shared<byhj::RenderSystem>();
 
-	void v_InitInfo()
-	{
-		windowInfo.title += ": Cube";
-	}
-	void v_Init()
-	{
-		cube.Init();
-	}
-	void v_Render()
-	{
-		static const float bgColor[4] = {0.2f, 0.4f, 0.5f, 1.0f};
-		glClearBufferfv(GL_COLOR, 0, bgColor);
-		static const float one = 1.0f;
-		glClearBufferfv(GL_DEPTH, 0, &one);
+	app->Run(app);
 
-		cube.Render();
-	}
-
-	void v_Shutdown()
-	{
-		cube.Shutdown();
-	}
-
-private:
-	byhj::Cube cube;
-};
-
-CALL_MAIN(OGLRenderSystem);
+	return 0;
+}

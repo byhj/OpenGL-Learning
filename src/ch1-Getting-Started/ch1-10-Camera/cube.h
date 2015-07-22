@@ -2,8 +2,7 @@
 #define CUBE_H
 
 #include "ogl/oglShader.h"
-#include "ogl/camera.h"
-#include <glfw/glfw3.h>
+#include "ogl/oglUtility.h"
 
 namespace byhj
 {
@@ -11,12 +10,12 @@ namespace byhj
 class Cube
 {
 public:
-	Cube(){}
-	~Cube() {}
+	Cube()  = default;
+	~Cube() = default;
 
 public:
 	void Init();
-	void Render(const glm::mat4 &viewMat, float zoom, float aspect);
+	void Render(const byhj::MvpMatrix &matrix);
 	void Shutdown();
 
 private:
@@ -25,10 +24,17 @@ private:
 	void init_vertexArray();
 	void init_texture();
 
-	GLuint vao, vbo, program;
-	GLuint faceTex, containerTex;
-	GLuint faceTex_loc, contaninerTex_loc, mvp_loc;
-    OGLShader CubeShader;			
+
+	GLuint vao = 0;
+	GLuint vbo = 0;
+	GLuint faceTex          = byhj::OGL_VALUE;
+	GLuint containerTex     = byhj::OGL_VALUE;
+	GLuint faceTex_loc      = byhj::OGL_VALUE;
+	GLuint containerTex_loc = byhj::OGL_VALUE;
+	GLuint mvp_loc    = byhj::OGL_VALUE;
+	GLuint program          = byhj::OGL_VALUE;
+
+	byhj::Shader CubeShader ={ "Cube Shader" };		
 };
 
 }

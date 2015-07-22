@@ -90,7 +90,6 @@ namespace byhj
 	// Is called whenever a key is pressed/released via GLFW
 	void Camera::key_callback(GLFWwindow* Triangle, int key, int scancode, int action, int mode)
 	{
-		//cout << key << std::endl;
 		if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 			glfwSetWindowShouldClose(Triangle, GL_TRUE);
 

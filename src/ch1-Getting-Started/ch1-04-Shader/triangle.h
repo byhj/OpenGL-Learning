@@ -3,7 +3,7 @@
 
 #include "ogl/oglApp.h"
 #include "ogl/oglShader.h"
-
+#include "ogl/oglUtility.h"
 
 namespace byhj
 {
@@ -11,38 +11,15 @@ namespace byhj
 class Triangle
 {
 public:
-	Triangle() :program(0), vao(0), vbo(0) { }
-	~Triangle() {}
+	Triangle() = default;
+	~Triangle() = default;
 
 public:
 
-	void Init()
-	{
-		init_shader();
-		init_buffer();
-		init_vertexArray();
-	}
+	void Init()	   ;
+	void Render()  ;
+	void Shutdown();
 
-	void Render() 
-	{
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		glUseProgram(program);
-		glBindVertexArray(vao);
-
-		//Draw the Triangle
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-
-		glUseProgram(0);
-		glBindVertexArray(0);
-	}
-
-	void Shutdown() 
-	{
-		glDeleteProgram(program);
-		glDeleteVertexArrays(1, &vao);
-		glDeleteBuffers(1, &vbo);
-	}
 
 private:
 
@@ -50,8 +27,11 @@ private:
 	void init_shader();
 	void init_vertexArray();
 
-	GLuint vbo, vao, program;
-	OGLShader TriangleShader;
+	GLuint vbo     = byhj::OGL_VALUE;
+	GLuint vao     = byhj::OGL_VALUE;
+	GLuint program = byhj::OGL_VALUE;
+
+	byhj::Shader TriangleShader = { "Triangle Shader" };
 };
 
 }

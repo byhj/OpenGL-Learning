@@ -1,6 +1,6 @@
 #include "cube.h"
 #include "ogl/loadTexture.h"
-
+#include <glfw/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -8,110 +8,61 @@
 
 namespace byhj
 {
-	glm::vec3 cubePositions[] = 
-	{
-		glm::vec3( 0.0f,  0.0f,  0.0f), 
-		glm::vec3( 2.0f,  5.0f, -15.0f), 
-		glm::vec3(-1.5f, -2.2f, -2.5f),  
-		glm::vec3(-3.8f, -2.0f, -12.3f),  
-		glm::vec3( 2.4f, -0.4f, -3.5f),  
-		glm::vec3(-1.7f,  3.0f, -7.5f),  
-		glm::vec3( 1.3f, -2.0f, -2.5f),  
-		glm::vec3( 1.5f,  2.0f, -2.5f), 
-		glm::vec3( 1.5f,  0.2f, -1.5f), 
-		glm::vec3(-1.3f,  1.0f, -1.5f)  
-	};
-
-#pragma region VertexData
-
-	const static GLfloat VertexData[] = {
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f 
-	};
-
-#pragma endregion
 
 void Cube::Init()
 {
-	glEnable(GL_DEPTH_TEST);  
-
 	init_shader();
 	init_buffer();
 	init_vertexArray();
 	init_texture();
+
+
 }
 
-void Cube::Render(const glm::mat4 &viewMat, float zoom, float aspect)
+static const glm::vec3 cubePositions[] =
+{
+	glm::vec3(0.0f,  0.0f,  0.0f),
+	glm::vec3(2.0f,  5.0f, -15.0f),
+	glm::vec3(-1.5f, -2.2f, -2.5f),
+	glm::vec3(-3.8f, -2.0f, -12.3f),
+	glm::vec3(2.4f, -0.4f, -3.5f),
+	glm::vec3(-1.7f,  3.0f, -7.5f),
+	glm::vec3(1.3f, -2.0f, -2.5f),
+	glm::vec3(1.5f,  2.0f, -2.5f),
+	glm::vec3(1.5f,  0.2f, -1.5f),
+	glm::vec3(-1.3f,  1.0f, -1.5f)
+};
+
+
+void Cube::Render(const byhj::MvpMatrix &matrix)
 {
 	glUseProgram(program);
 	glBindVertexArray(vao);
 
+	glUniform1i(faceTex_loc, 0);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, containerTex);
-	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, faceTex);
 
+	glUniform1i(containerTex_loc, 1);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, containerTex);
+
+	float time = static_cast<float>( glfwGetTime() );
+	glm::mat4 view = matrix.view;
+	glm::mat4 proj = matrix.proj;
 
 #ifdef MANY_CUBES
-	glm::mat4 view = viewMat;
-	glm::mat4 proj = glm::perspective(zoom, aspect, 0.1f, 1000.0f);
-
 	for(GLuint i = 0; i < 10; i++) 
 	{
-		glm::mat4 model;
-		model = glm::translate(model, cubePositions[i]);
-		GLfloat angle = 20.0f * i; 
-		model = glm::rotate(model, 50.0f, glm::vec3(1.0f, 0.3f, 0.5f));
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), cubePositions[i]);
 		glm::mat4 mvp = proj * view * model;
-
 		glUniformMatrix4fv(mvp_loc, 1, GL_FALSE, &mvp[0][0]);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
 #else
 
-	glm::mat4 model = glm::vec4(1.0f);
-	glm::mat4 view  = camera.GetViewMatrix();
-	glm::mat4 proj  = glm::perspective(camera.Zoom, GetAspect(), 0.1f, 1000.0f);
-	glm::mat4 mvp   = proj * view * model;
+	glm::mat4 model = glm::rotate(model, glm::radians(time * 50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+	glm::mat4 mvp = proj * view * model;
 	glUniformMatrix4fv(mvp_loc, 1, GL_FALSE, &mvp[0][0]);
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -133,19 +84,65 @@ void Cube::init_shader()
 	CubeShader.attach(GL_VERTEX_SHADER, "cube.vert");
 	CubeShader.attach(GL_FRAGMENT_SHADER, "cube.frag");
 	CubeShader.link();
-	CubeShader.use();
 	CubeShader.info();
 
 	program = CubeShader.GetProgram();
 	mvp_loc = glGetUniformLocation(program, "mvp_matrix");
 	faceTex_loc = glGetUniformLocation(program, "faceTex");
-	contaninerTex_loc = glGetUniformLocation(program, "contaninerTex");
-	
-	glUniform1i(contaninerTex_loc, 0);
-	glUniform1i(faceTex_loc, 1);
+	containerTex_loc = glGetUniformLocation(program, "containerTex");
 
-	glUseProgram(0);
 }
+
+
+#pragma region VertexData
+
+
+const static GLfloat VertexData[] ={
+	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+	0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+	0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+	0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+};
+
+#pragma endregion
+
 
 void Cube::init_buffer()
 {
@@ -175,5 +172,4 @@ void Cube::init_texture()
 	faceTex = loadTexture("../../../media/textures/awesomeface.png");
 }
 
-
-}//Namespace
+}

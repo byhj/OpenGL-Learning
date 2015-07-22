@@ -65,7 +65,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\include\ogl\oglApp.cpp" />
     <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglUtility.cpp" />
     <ClCompile Include="ch1-04-Shader.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +77,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
     <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

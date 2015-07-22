@@ -69,7 +69,6 @@
     <ClCompile Include="ch1-03-Rectangle.cpp" />
     <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
-    <ClCompile Include="rectangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="rectangle.frag" />
@@ -79,7 +78,6 @@
     <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
     <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
     <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
-    <ClInclude Include="rectangle.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="rectangle.h" />
   </ItemGroup>
