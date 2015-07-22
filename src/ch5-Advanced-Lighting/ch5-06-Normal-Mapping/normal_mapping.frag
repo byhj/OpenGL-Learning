@@ -38,11 +38,13 @@ void main()
     // Get diffuse color
     vec3 color = texture(diffuseMap, fs_in.TexCoords).rgb;
     // Ambient
-    vec3 ambient = 0.1 * color;
+    vec3 ambient = 0.5f * color;
+
     // Diffuse
     vec3 lightDir = normalize(fs_in.TangentLightPos - fs_in.TangentFragPos);
     float diff = max(dot(lightDir, normal), 0.0);
     vec3 diffuse = diff * color;
+
     // Specular
     vec3 viewDir = normalize(fs_in.TangentViewPos - fs_in.TangentFragPos);
     vec3 reflectDir = reflect(-lightDir, normal);

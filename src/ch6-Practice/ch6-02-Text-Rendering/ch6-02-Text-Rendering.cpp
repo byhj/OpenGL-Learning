@@ -1,5 +1,6 @@
 #include "ogl/oglApp.h"
 #include "ogl/oglShader.h"
+#include <memory>
 
 // FreeType
 #include <freetype/ft2build.h>
@@ -43,7 +44,14 @@ private:
 	byhj::Shader TextShader;
 };
 
-CALL_MAIN(WindowApp);
+int main(int argc, const char **argv)
+{
+	auto app = std::make_shared<WindowApp>();
+
+	app->Run(app);
+
+	return 0;
+}
 
 void WindowApp::v_Init()
 {

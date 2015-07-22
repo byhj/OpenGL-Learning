@@ -141,6 +141,9 @@ namespace byhj
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(deferred_prog);
 
+		glUniform1i(glGetUniformLocation(deferred_prog, "gPosition"), 0);
+		glUniform1i(glGetUniformLocation(deferred_prog, "gNormal"), 1);
+		glUniform1i(glGetUniformLocation(deferred_prog, "gAlbedoSpec"), 2);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, gPosition);
 		glActiveTexture(GL_TEXTURE1);

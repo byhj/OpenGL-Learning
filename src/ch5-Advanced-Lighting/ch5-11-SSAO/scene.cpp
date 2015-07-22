@@ -103,14 +103,16 @@ namespace byhj
 
 		//////////////////////////////////////////////////////////////////////////////////
 		// 1. Geometry Pass: render scene's geometry/color data into gbuffer
+		glUseProgram(model_prog);
+		
 		glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glUseProgram(model_prog);
 		glUniformMatrix4fv(glGetUniformLocation(model_prog, "proj"), 1, GL_FALSE, &proj[0][0]);
 		glUniformMatrix4fv(glGetUniformLocation(model_prog, "view"), 1, GL_FALSE, &view[0][0]);
 
 		// Floor cube
+		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0, -1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(20.0f, 1.0f, 20.0f));
 		glUniformMatrix4fv(glGetUniformLocation(model_prog, "model"), 1, GL_FALSE, &model[0][0]);
@@ -124,18 +126,25 @@ namespace byhj
 		cyborg.Draw(model_prog);
 	
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glUseProgram(0);
 
-		/////////////////////////////////////////////////////////////////////////////////////////
-		// 2. Create SSAO texture
+		/////////////////////////////2. Create SSAO texture//////////////////////////////////////
+		glUseProgram(ssao_prog);
+
 		glBindFramebuffer(GL_FRAMEBUFFER, ssaoFBO);
 		glClear(GL_COLOR_BUFFER_BIT);
-		glUseProgram(ssao_prog);
+
+		glUniform1i(glGetUniformLocation(ssao_prog, "gPositionDepth"), 0);
+		glUniform1i(glGetUniformLocation(ssao_prog, "gNormal"), 1);
+		glUniform1i(glGetUniformLocation(ssao_prog, "texNoise"), 2);
+
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, gPositionDepth);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, gNormal);
 		glActiveTexture(GL_TEXTURE2);
 		glBindTexture(GL_TEXTURE_2D, noiseTexture);
+
 
 		// Sample kernel
 		std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
@@ -161,6 +170,8 @@ namespace byhj
 		RenderQuad();
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+		glUseProgram(0);
+
 		//////////////////////////////////////////////////////////////////////////////////////
 		// 3. Blur SSAO texture to remove noise
 		glBindFramebuffer(GL_FRAMEBUFFER, ssaoBlurFBO);
@@ -183,6 +194,12 @@ namespace byhj
 		glBindTexture(GL_TEXTURE_2D, gAlbedo);
 		glActiveTexture(GL_TEXTURE3); // Add extra SSAO texture to lighting pass
 		glBindTexture(GL_TEXTURE_2D, ssaoColorBufferBlur);
+
+		glUniform1i(glGetUniformLocation(light_prog, "gPositionDepth"), 0);
+		glUniform1i(glGetUniformLocation(light_prog, "gNormal"), 1);
+		glUniform1i(glGetUniformLocation(light_prog, "gAlbedo"), 2);
+		glUniform1i(glGetUniformLocation(light_prog, "ssao"), 3);
+
 		// Also send light relevant uniforms
 		glm::vec3 lightPosView = glm::vec3(camera.GetViewMatrix() * glm::vec4(lightPos, 1.0));
 		glUniform3fv(glGetUniformLocation(light_prog, "light.Position"), 1, &lightPosView[0]);

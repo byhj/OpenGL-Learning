@@ -68,7 +68,7 @@
     <ClCompile Include="..\..\..\include\ogl\oglApp.cpp" />
     <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
     <ClCompile Include="ch5-04-Shadow-Point.cpp" />
-    <ClCompile Include="OGLRenderSystem.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="scene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -77,7 +77,7 @@
     <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
     <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
     <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
-    <ClInclude Include="OGLRenderSystem.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="scene.h" />
   </ItemGroup>
   <ItemGroup>

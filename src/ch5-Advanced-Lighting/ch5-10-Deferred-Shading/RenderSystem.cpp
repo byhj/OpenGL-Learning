@@ -13,7 +13,7 @@ namespace byhj
 
 		m_Scene.init_fbo(GetScreenWidth(), GetScreenHeight());
 		m_Scene.Init();
-		m_Camera.SetPos( glm::vec3(0.0f, 0.0f, 5.0f) );
+		m_Camera.SetPos( glm::vec3(0.0f, 0.0f,10.0f) );
 	}
 
 	void RenderSystem::v_Render()

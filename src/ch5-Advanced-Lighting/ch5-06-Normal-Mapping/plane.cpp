@@ -32,7 +32,7 @@ namespace byhj
 		glUniformMatrix4fv(proj_loc, 1, GL_FALSE,  &proj[0][0]);
 		// Render normal-mapped quad
 
-		glm::vec3 lightPos(0.5f, 1.0f, 0.3f);
+		glm::vec3 lightPos(0.5f, 1.0f, 3.0f);
 	    glm::vec3 camPos = camera.GetPos();
 
 		model = glm::rotate(model, glm::radians((GLfloat)glfwGetTime() * -10), glm::normalize(glm::vec3(1.0, 0.0, 1.0))); // Rotates the quad to show normal mapping works in all directions
@@ -49,6 +49,7 @@ namespace byhj
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 
+		/*
 		// render light source (simply re-renders a smaller plane at the light's position for debugging/visualization)
 		model = glm::mat4();
 		model = glm::translate(model, lightPos);
@@ -58,7 +59,7 @@ namespace byhj
 		glBindVertexArray(vao);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
-
+		*/
 		glUseProgram(0);
 	}
 
