@@ -40,7 +40,7 @@ namespace byhj
 		GLuint scene_prog, shadow_prog;
 		GLuint fbo, depth_tex;
 		GLboolean shadowFlag;
-		OGLShader SceneShader, ShadowShader;
+		byhj::Shader SceneShader, ShadowShader;
 	};
 
 

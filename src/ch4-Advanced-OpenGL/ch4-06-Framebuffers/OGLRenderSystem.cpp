@@ -1,15 +1,15 @@
-#include "OGLRenderSystem.h"
+#include "RenderSystem.h"
 
 const static glm::vec3 g_LightPos(1.5f, 0.5f, 0.0f);
 
 namespace byhj
 {
-	void OGLRenderSystem::v_InitInfo()
+	void RenderSystem::v_InitInfo()
 	{
 		windowInfo.title += ": Cube";
 	}
 
-	void OGLRenderSystem::v_Init()
+	void RenderSystem::v_Init()
 	{
 
 		init_fbo();
@@ -20,7 +20,7 @@ namespace byhj
 		m_Camera.SetPos( glm::vec3(0.0f, 0.0f, 3.0f) );
 	}
 
-	void OGLRenderSystem::v_Render()
+	void RenderSystem::v_Render()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 		glEnable(GL_DEPTH_TEST);
@@ -33,7 +33,7 @@ namespace byhj
 
 		update();
 
-		static const byhj::MvpMatrix &matrix;
+		static byhj::MvpMatrix matrix;
 		matrix.view  = m_Camera.GetViewMatrix();
 		matrix.proj  = glm::perspective(glm::radians(m_Camera.GetZoom() ), GetAspect(), 0.1f, 1000.0f);
 		matrix.model = glm::mat4(1.0f);
@@ -51,7 +51,7 @@ namespace byhj
 	
 	}
 
-	void OGLRenderSystem::v_Shutdown()
+	void RenderSystem::v_Shutdown()
 	{
 		m_Cube.Shutdown();
 		m_Plane.Shutdown();
@@ -59,7 +59,7 @@ namespace byhj
 	}
 
 	// Generates a texture that is suited for attachments to a framebuffer
-	GLuint OGLRenderSystem::generateAttachmentTexture(GLboolean depth, GLboolean stencil)
+	GLuint RenderSystem::generateAttachmentTexture(GLboolean depth, GLboolean stencil)
 	{
 		// What enum to use?
 		GLenum attachment_type;
@@ -88,7 +88,7 @@ namespace byhj
 		return textureID;
 	}
 
-	void OGLRenderSystem::init_fbo()
+	void RenderSystem::init_fbo()
 	{
 		glGenFramebuffers(1, &fbo);
 		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -107,26 +107,26 @@ namespace byhj
 
 
 	/////////////////////////////////Key and Mouse//////////////////////////////////
-	void OGLRenderSystem::v_Movement(GLFWwindow *Triangle)
+	void RenderSystem::v_Movement(GLFWwindow *Triangle)
 	{
 		m_Camera.movement(Triangle);
 	}
-	void OGLRenderSystem::v_KeyCallback(GLFWwindow* Triangle, int key, int scancode, int action, int mode)
+	void RenderSystem::v_KeyCallback(GLFWwindow* Triangle, int key, int scancode, int action, int mode)
 	{
 		m_Camera.key_callback(Triangle, key, scancode, action, mode);
 	}
 
-	void OGLRenderSystem::v_MouseCallback(GLFWwindow* Triangle, double xpos, double ypos)
+	void RenderSystem::v_MouseCallback(GLFWwindow* Triangle, double xpos, double ypos)
 	{
 		m_Camera.mouse_callback(Triangle, xpos, ypos);
 	}
 
-	void OGLRenderSystem::v_ScrollCallback(GLFWwindow* Triangle, double xoffset, double yoffset)
+	void RenderSystem::v_ScrollCallback(GLFWwindow* Triangle, double xoffset, double yoffset)
 	{
 		m_Camera.scroll_callback(Triangle, xoffset, yoffset);
 	}
 
-	void OGLRenderSystem::update()
+	void RenderSystem::update()
 	{
 		static GLfloat lastFrame = static_cast<float>( glfwGetTime() );
 		GLfloat currentFrame = static_cast<float>( glfwGetTime() );

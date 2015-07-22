@@ -29,7 +29,7 @@ namespace byhj
 		GLuint vao, vbo, program;
 		GLuint texture, tex_loc;
 		GLuint model_loc, view_loc, proj_loc;
-		OGLShader GrassShader;			
+		byhj::Shader GrassShader;			
 		std::vector<glm::vec3> vecPos;
 	};
 

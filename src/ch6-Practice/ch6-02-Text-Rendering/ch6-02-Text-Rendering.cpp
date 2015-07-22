@@ -40,7 +40,7 @@ private:
 	std::map<GLchar, Character> Characters;
 	GLuint vao, vbo;
 	GLuint program;
-	OGLShader TextShader;
+	byhj::Shader TextShader;
 };
 
 CALL_MAIN(WindowApp);

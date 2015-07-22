@@ -27,7 +27,7 @@ private:
 	void init_vertexArray();
 
 	GLuint vbo, vao, program;
-	OGLShader TriangleShader;
+	byhj::Shader TriangleShader;
 };
 
 }

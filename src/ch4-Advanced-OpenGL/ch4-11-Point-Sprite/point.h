@@ -28,7 +28,7 @@ namespace byhj
 
 		GLuint vao, vbo, program;
 		GLuint sprite_texture;
-		OGLShader PointShader;			
+		byhj::Shader PointShader;			
 	};
 
 }

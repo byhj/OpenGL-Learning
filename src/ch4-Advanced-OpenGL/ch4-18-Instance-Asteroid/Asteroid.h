@@ -27,7 +27,7 @@ namespace byhj
 
 		GLuint vao, vbo, instanceVBO;
 		GLuint program;
-		OGLShader AsteroidShader;
+		byhj::Shader AsteroidShader;
 		byhj::Model rockObj;
 
 	};

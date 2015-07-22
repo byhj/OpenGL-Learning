@@ -28,7 +28,7 @@ namespace byhj
 
 		GLuint vao, vbo, program;
 		GLuint texture, tex_loc;
-		OGLShader WindowShader;			
+		byhj::Shader WindowShader;			
 	};
 
 }

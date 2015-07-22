@@ -27,8 +27,8 @@ private:
 	GLuint model_loc ,view_loc, proj_loc;
 	GLuint ambient_loc, diffuse_loc, specular_loc;
 
-	OGLShader CubeShader;		
-	OGLShader ObjShader;
+	byhj::Shader CubeShader;		
+	byhj::Shader ObjShader;
 	byhj::Model modelLoad;
 };
 

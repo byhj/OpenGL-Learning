@@ -30,7 +30,7 @@ private:
 	GLuint vao, vbo, program;
 	GLuint model_loc ,view_loc, proj_loc;
 	GLuint diffuse_tex, specular_tex;
-    OGLShader CubeShader;			
+    byhj::Shader CubeShader;			
 };
 
 }

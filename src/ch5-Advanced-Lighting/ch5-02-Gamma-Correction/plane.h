@@ -32,7 +32,7 @@ namespace byhj
 		GLuint vao, vbo;
 		GLuint woodTex, woodTex_loc, woodTexGamma ;
 		GLuint program;
-		OGLShader PlaneShader;
+		byhj::Shader PlaneShader;
 		GLboolean blinn, gamma;
 	};
 

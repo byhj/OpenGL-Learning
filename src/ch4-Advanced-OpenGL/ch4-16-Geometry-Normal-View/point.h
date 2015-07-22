@@ -28,7 +28,7 @@ namespace byhj
 		void init_texture();
 
 		GLuint vao, vbo, program;
-		OGLShader modelShader;
+		byhj::Shader modelShader;
 		GLuint model_loc, view_loc, proj_loc;
 		byhj::Model objModel;
 		GLint lightSpecularLoc, lightDiffuseLoc, lightAmbientLoc;

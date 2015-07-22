@@ -12,8 +12,8 @@ namespace byhj
 	class Light
 	{
 	public:
-		Light(): program(0), vao(0), vbo(0), LightShader("Light Shader"){}
-		~Light() {}
+		Light()  = default;
+		~Light() = default;
 
 	public:
 		void Init();
@@ -26,9 +26,11 @@ namespace byhj
 		void init_vertexArray();
 		void init_texture();
 
-		GLuint vao, vbo, program;
-		GLuint  mvp_loc;
-		OGLShader LightShader;			
+		GLuint vao	   = byhj::OGL_VALUE;
+		GLuint vbo	   = byhj::OGL_VALUE;
+		GLuint program = byhj::OGL_VALUE;
+		GLuint mvp_loc = byhj::OGL_VALUE;
+		byhj::Shader LightShader={ "Light Shader" };
 	};
 
 }

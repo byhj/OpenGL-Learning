@@ -31,7 +31,7 @@ namespace byhj
 		GLuint vao, vbo;
 		GLuint woodTex, woodTex_loc;
 		GLuint program;
-		OGLShader PlaneShader;
+		byhj::Shader PlaneShader;
 		GLboolean blinn;
 	};
 

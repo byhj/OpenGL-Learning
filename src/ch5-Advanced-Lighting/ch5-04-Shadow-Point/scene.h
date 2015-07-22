@@ -42,7 +42,7 @@ namespace byhj
 		GLuint depthCubemap;
 
 		GLboolean shadowFlag;
-		OGLShader SceneShader, ShadowShader;
+		byhj::Shader SceneShader, ShadowShader;
 	};
 
 

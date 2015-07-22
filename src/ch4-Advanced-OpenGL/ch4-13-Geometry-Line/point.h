@@ -27,7 +27,7 @@ namespace byhj
 		void init_texture();
 
 		GLuint vao, vbo, program;
-		OGLShader PointShader;			
+		byhj::Shader PointShader;			
 	};
 
 }

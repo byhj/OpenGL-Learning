@@ -34,7 +34,7 @@ namespace byhj
 
 		GLuint cubeVAO, planeVAO, cubeVBO, planeVBO;
 		GLuint woodTex , containerTex;
-		OGLShader lightShader, deferredShader;
+		byhj::Shader lightShader, deferredShader;
 		GLuint light_prog, deferred_prog; 
 		byhj::Model  cyborg;
 		GLuint gBuffer;

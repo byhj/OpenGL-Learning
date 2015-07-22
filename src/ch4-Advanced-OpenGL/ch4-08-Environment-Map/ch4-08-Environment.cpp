@@ -1,6 +1,6 @@
 #include "ogl/oglApp.h"
 
-#include "OGLRenderSystem.h"
+#include "RenderSystem.h"
 
-CALL_MAIN(byhj::OGLRenderSystem);
+CALL_MAIN(byhj::RenderSystem);
 

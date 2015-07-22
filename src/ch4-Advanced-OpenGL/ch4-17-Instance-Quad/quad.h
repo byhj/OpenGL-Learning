@@ -26,7 +26,7 @@ private:
 
 	GLuint vao, vbo, instanceVBO;
 	GLuint program;
-	OGLShader QuadShader;
+	byhj::Shader QuadShader;
 };
 
 

@@ -34,7 +34,7 @@ namespace byhj
 		GLuint cubeVAO, planeVAO, cubeVBO, planeVBO;
 		GLuint woodTex , containerTex;
 		GLuint light_prog, bloom_prog, blur_prog, final_prog;
-		OGLShader lightShader, bloomShader, blurShader, finalShader;
+		byhj::Shader lightShader, bloomShader, blurShader, finalShader;
 
 		GLuint pingpongFBO[2];
 		GLuint pingpongColorbuffers[2];

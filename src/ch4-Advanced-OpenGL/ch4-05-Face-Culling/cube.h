@@ -28,7 +28,7 @@ namespace byhj
 
 		GLuint vao, vbo, program;
 		GLuint model_loc, view_loc, proj_loc;
-		OGLShader CubeShader;			
+		byhj::Shader CubeShader;			
 	};
 
 }

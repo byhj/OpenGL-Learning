@@ -35,7 +35,7 @@ namespace byhj
 		GLuint cubeVAO, planeVAO, cubeVBO, planeVBO;
 
 		GLuint model_prog, light_prog, blur_prog, ssao_prog;
-		OGLShader modelShader, lightShader, blurShader, ssaoShader;
+		byhj::Shader modelShader, lightShader, blurShader, ssaoShader;
 
 		byhj::Model  cyborg;
 		GLuint gBuffer;

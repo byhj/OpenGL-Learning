@@ -2,11 +2,11 @@
 
 #include "triangle.h"
 
-class OGLRenderSystem : public byhj::Application
+class RenderSystem : public byhj::Application
 {
 public:
-	OGLRenderSystem() {}
-	~OGLRenderSystem() {}
+	RenderSystem() {}
+	~RenderSystem() {}
 
 	void v_InitInfo()
 	{
@@ -36,4 +36,4 @@ private:
 	byhj::Triangle triangle;
 };
 
-CALL_MAIN(OGLRenderSystem);
+CALL_MAIN(RenderSystem);

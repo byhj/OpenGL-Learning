@@ -30,7 +30,7 @@ namespace byhj
 		GLuint copy_vao, copy_vbo;
 		GLuint faceTex, containerTex;
 		GLuint mvp_loc;
-		OGLShader CubeShader;			
+		byhj::Shader CubeShader;			
 	};
 
 }

@@ -43,7 +43,7 @@ namespace byhj
 		GLuint vao, vbo, program;
 		GLuint texture, tex_loc;
 		GLuint model_loc, view_loc, proj_loc;
-		OGLShader PlaneShader;	
+		byhj::Shader PlaneShader;	
 		GLuint diffuseMap, heightMap, normalMap; 
 		GLboolean parallax_mapping;
 		GLfloat height_scale;

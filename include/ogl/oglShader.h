@@ -1,5 +1,5 @@
-#ifndef OGLSHADER_H
-#define OGLSHADER_H
+#ifndef OGLShader_H
+#define OGLShader_H
 
 #include <GL/glew.h>
 #include <iostream>

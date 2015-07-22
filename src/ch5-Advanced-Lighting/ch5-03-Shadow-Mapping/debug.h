@@ -28,7 +28,7 @@ namespace byhj
 
 		GLuint vao, vbo;
 		GLuint program;
-		OGLShader DebugShader;
+		byhj::Shader DebugShader;
 	};
 
 

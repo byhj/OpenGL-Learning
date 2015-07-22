@@ -1,5 +1,11 @@
-#include "ogl/oglApp.h"
+#include "RenderSystem.h"
+#include <memory>
 
-#include "OGLRenderSystem.h"
+int main(int argc, const char **argv)
+{
+	auto app = std::make_shared<byhj::RenderSystem>();
 
-CALL_MAIN(byhj::OGLRenderSystem);
+	app->Run(app);
+
+	return 0;
+}

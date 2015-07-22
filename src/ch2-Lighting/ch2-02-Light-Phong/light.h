@@ -28,7 +28,7 @@ namespace byhj
 
 		GLuint vao, vbo, program;
 		GLuint  mvp_loc;
-		OGLShader LightShader;			
+		byhj::Shader LightShader;			
 	};
 
 }

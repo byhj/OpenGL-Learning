@@ -34,7 +34,7 @@ namespace byhj
 		GLuint texture, tex_loc;
 		GLfloat exposure;
 		GLuint model_loc, view_loc, proj_loc;
-		OGLShader PlaneShader;			
+		byhj::Shader PlaneShader;			
 	};
 
 }

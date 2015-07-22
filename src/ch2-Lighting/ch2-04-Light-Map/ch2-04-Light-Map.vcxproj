@@ -70,7 +70,7 @@
     <ClCompile Include="ch2-04-Light-Map.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="light.cpp" />
-    <ClCompile Include="OGLRenderSystem.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cube.frag" />
@@ -86,7 +86,7 @@
     <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="light.h" />
-    <ClInclude Include="OGLRenderSystem.h" />
+    <ClInclude Include="RenderSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

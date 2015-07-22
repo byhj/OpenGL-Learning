@@ -9,11 +9,11 @@
 namespace byhj
 {
 
-class OGLRenderSystem : public byhj::Application
+class RenderSystem : public byhj::Application
 {
 public:
-	OGLRenderSystem() {}
-	~OGLRenderSystem() {}
+	RenderSystem() {}
+	~RenderSystem() {}
 
 	///////////////////////// Triangle and Render //////////////////////////////////
 	void v_InitInfo();

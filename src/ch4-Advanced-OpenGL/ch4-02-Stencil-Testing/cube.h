@@ -33,8 +33,8 @@ namespace byhj
 		GLuint model_loc, view_loc, proj_loc;
 		GLuint color_model_loc, color_view_loc, color_proj_loc; 
 
-		OGLShader CubeShader;		
-		OGLShader ColorShader;
+		byhj::Shader CubeShader;		
+		byhj::Shader ColorShader;
 	};
 
 }

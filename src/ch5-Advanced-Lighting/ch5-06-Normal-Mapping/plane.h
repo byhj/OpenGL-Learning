@@ -30,7 +30,7 @@ namespace byhj
 		GLuint vao, vbo, program;
 		GLuint texture, tex_loc;
 		GLuint model_loc, view_loc, proj_loc;
-		OGLShader PlaneShader;	
+		byhj::Shader PlaneShader;	
 		GLuint diffuseMap;
 		GLuint normalMap; // Setup plane VAO
 	};
