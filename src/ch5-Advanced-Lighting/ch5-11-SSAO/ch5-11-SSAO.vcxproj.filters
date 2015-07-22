@@ -21,9 +21,6 @@
     <ClCompile Include="ch5-11-SSAO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OGLRenderSystem.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="scene.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
@@ -44,6 +41,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\include\ogl\oglShader.cpp">
       <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSystem.cpp">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,9 +73,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OGLRenderSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -99,6 +96,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\ogl\oglUtility.h">
       <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

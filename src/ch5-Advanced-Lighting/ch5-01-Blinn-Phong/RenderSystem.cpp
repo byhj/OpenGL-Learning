@@ -9,10 +9,8 @@ namespace byhj
 
 	void RenderSystem::v_Init()
 	{
-		glfwWindowHint(GLFW_SAMPLES, 4);
 		glEnable(GL_DEPTH_TEST);
-		glDepthFunc(GL_LESS);
-		glEnable(GL_MULTISAMPLE);  
+		glDepthFunc(GL_LESS); 
 
 		m_Plane.Init();
 		m_Camera.SetPos( glm::vec3(0.0f, 0.0f, 3.0f) );

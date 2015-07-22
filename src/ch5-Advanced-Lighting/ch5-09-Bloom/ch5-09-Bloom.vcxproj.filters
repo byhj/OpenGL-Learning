@@ -47,9 +47,6 @@
     <ClCompile Include="ch5-09-Bloom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OGLRenderSystem.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="scene.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
@@ -65,12 +62,12 @@
     <ClCompile Include="..\..\..\include\ogl\oglShader.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
+    <ClCompile Include="RenderSystem.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OGLRenderSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\ogl\camera.h">
@@ -87,6 +84,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\ogl\oglUtility.h">
       <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -69,7 +69,7 @@
     <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
     <ClCompile Include="ch5-03-Shadow-Mapping.cpp" />
     <ClCompile Include="debug.cpp" />
-    <ClCompile Include="OGLRenderSystem.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="scene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -87,7 +87,7 @@
     <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
     <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
     <ClInclude Include="debug.h" />
-    <ClInclude Include="OGLRenderSystem.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
