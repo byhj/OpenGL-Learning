@@ -1,7 +1,9 @@
 #include "Scene.h"
 
 #include "ogl/loadTexture.h"
-#include "ogl/glDebug.h"
+#include "ogl/oglDebug.h"
+
+static byhj::OGLDebug oglDebug;
 
 namespace byhj
 {
@@ -60,7 +62,7 @@ namespace byhj
 		init_vertexArray();
 		init_shader();
 		init_texture();
-
+		oglDebug.Debug();
 	}
 
 
