@@ -67,6 +67,7 @@ namespace byhj
 		init_vertexArray();
 		init_shader();
 		init_texture();
+
 	}
 
 	// RenderQuad() Renders a 1x1 quad in NDC, best used for framebuffer color targets
