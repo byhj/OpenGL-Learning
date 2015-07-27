@@ -1,19 +1,19 @@
-#include "Triangle.h"
+#include "Window.h"
 
 namespace byhj
 {
 
-void Triangle::Init()
+void Window::Init()
 {
 
 }
 
-void Triangle::Render()
+void Window::Render()
 {
 
 }
 
-void Triangle::Shutdown()
+void Window::Shutdown()
 {
 
 }

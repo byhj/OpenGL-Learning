@@ -4,11 +4,11 @@
 namespace byhj
 {
 
-class Triangle 
+class Window 
 {
 public:
-	Triangle() {}
-	~Triangle() {}
+	Window() {}
+	~Window() {}
 
 public:
 

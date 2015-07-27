@@ -2,7 +2,7 @@
 #define RENDERSYSTEM_H
 
 #include "ogl/oglApp.h"
-#include "Triangle.h"
+#include "Window.h"
 
 namespace byhj
 {
@@ -21,7 +21,7 @@ public:
 
 private:
 
-	byhj::Triangle m_Window;
+	byhj::Window m_Window;
 };
 
 }
