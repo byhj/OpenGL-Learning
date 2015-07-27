@@ -1,6 +1,9 @@
 #include "Scene.h"
 
 #include "ogl/loadTexture.h"
+#include "ogl/oglDebug.h"
+
+static byhj::OGLDebug oglDebug;
 
 namespace byhj
 {
@@ -59,6 +62,7 @@ namespace byhj
 		init_vertexArray();
 		init_shader();
 		init_texture();
+		oglDebug.Debug();
 	}
 
 
@@ -120,7 +124,7 @@ namespace byhj
 
 		glm::vec3 lightPos(0.0f, 0.0f, 0.0f);
 		// Move light position over time
-		lightPos.z = sin(glfwGetTime() * 0.5) * 3.0;
+		//lightPos.z = sin(glfwGetTime() * 0.5) * 3.0;
 		glm::vec3 camPos = camera.GetPos();
 
 		GLfloat near_plane = 1.0f;
@@ -170,11 +174,12 @@ namespace byhj
 
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubemap);
-		glUniform1i(glGetUniformLocation(scene_prog, "shadowMap"), 1);
+		glUniform1i(glGetUniformLocation(scene_prog, "depthMap"), 1);
 
 		RenderScene(scene_prog);
 
 		glUseProgram(0);
+	
 
 	}
 
@@ -195,6 +200,7 @@ namespace byhj
 
 		glGenVertexArrays(1, &cubeVAO);
 		glBindVertexArray(cubeVAO);
+
 		glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
@@ -202,6 +208,7 @@ namespace byhj
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 		glEnableVertexAttribArray(2);
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+	
 		glBindVertexArray(0);
 	}
 
@@ -229,14 +236,13 @@ namespace byhj
 
 	void Scene::init_fbo(int sw, int sh)
 	{
-
 		glGenFramebuffers(1, &depthMapFBO);
-		// Create depth cubemap texture
 		glGenTextures(1, &depthCubemap);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubemap);
 
 		for (GLuint i = 0; i < 6; ++i)
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, sw, sh, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, sw, sw, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+		
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -248,9 +254,11 @@ namespace byhj
 		glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthCubemap, 0);
 		glDrawBuffer(GL_NONE);
 		glReadBuffer(GL_NONE);
+
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 			std::cout << "Framebuffer not complete!" << std::endl;
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	}
 

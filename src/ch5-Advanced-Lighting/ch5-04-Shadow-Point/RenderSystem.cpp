@@ -10,7 +10,8 @@ namespace byhj
 	void RenderSystem::v_Init()
 	{
 		glEnable(GL_DEPTH_TEST);
-
+		glEnable(GL_CULL_FACE);
+		 
 		m_Scene.init_fbo(GetScreenWidth(), GetScreenHeight());
 		m_Scene.Init();
 		m_Camera.SetPos( glm::vec3(0.0f, 0.0f, 5.0f) );
