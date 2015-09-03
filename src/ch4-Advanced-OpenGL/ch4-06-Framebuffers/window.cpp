@@ -34,7 +34,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Window::Render(const const byhj::MvpMatrix &matrix, const GLuint &textureID)
+	void Window::Render(const const ogl::MvpMatrix &matrix, const GLuint &textureID)
 	{
 		glUseProgram(program);
 		glBindVertexArray(vao);

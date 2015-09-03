@@ -1,8 +1,8 @@
 #ifndef CUBE_H
 #define CUBE_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 #include "ogl/camera.h"
 
 #include <glfw/glfw3.h>
@@ -18,7 +18,7 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(const byhj::MvpMatrix &matrix, const byhj::Camera &camrera);
+		void Render(const ogl::MvpMatrix &matrix, const ogl::Camera &camrera);
 		void Shutdown();
 
 	private:
@@ -30,7 +30,7 @@ namespace byhj
 		GLuint vao, vbo, program;
 		GLuint woodTexture;
 		GLuint model_loc, view_loc, proj_loc;
-		byhj::Shader CubeShader;			
+		ogl::Shader CubeShader;			
 	};
 
 }

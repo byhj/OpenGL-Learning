@@ -26,7 +26,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Plane::Render(const byhj::MvpMatrix &matrix, const byhj::Camera &camera)
+	void Plane::Render(const ogl::MvpMatrix &matrix, const ogl::Camera &camera)
 	{
 		glBindVertexArray(vao);
 		glUseProgram(program);
@@ -102,7 +102,7 @@ namespace byhj
 
 	void Plane::init_texture()
 	{
-		woodTex = loadTexture("../../../media/textures/wood.png");
+		woodTex = ogl::loadTexture("../../../media/textures/wood.png");
 	}
 
 	void Plane::ChangeLight()

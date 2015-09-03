@@ -115,7 +115,7 @@ namespace byhj
 		RenderCube();
 	}
 
-	void Scene::Render(const byhj::MvpMatrix &matrix, const byhj::Camera &camera, float aspect)
+	void Scene::Render(const ogl::MvpMatrix &matrix, const ogl::Camera &camera, float aspect)
 	{		
 		
 		glm::mat4 model = matrix.model;
@@ -231,7 +231,7 @@ namespace byhj
 
 	void Scene::init_texture()
 	{
-		woodTex = loadTexture("../../../media/textures/wood.png");
+		woodTex = ogl::loadTexture("../../../media/textures/wood.png");
 	}
 
 	void Scene::init_fbo(int sw, int sh)

@@ -1,8 +1,8 @@
-#include "ogl/oglApp.h"
+#include "ogl/App.h"
 
 #include "triangle.h"
 
-class RenderSystem : public byhj::Application
+class RenderSystem : public ogl::App
 {
 public:
 	RenderSystem() {}

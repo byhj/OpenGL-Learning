@@ -10,10 +10,12 @@
 #include <memory>
 
 #ifdef _WIN32
-const int ScreenWidth = static_cast<int>( GetSystemMetrics(SM_CXSCREEN) * 0.75 );
+const int ScreenWidth  = static_cast<int>( GetSystemMetrics(SM_CXSCREEN) * 0.75 );
 const int ScreenHeight = static_cast<int>(  GetSystemMetrics(SM_CYSCREEN) * 0.75 );
-const int PosX = (GetSystemMetrics(SM_CXSCREEN) - ScreenWidth)  / 2;
-const int PosY = (GetSystemMetrics(SM_CYSCREEN) - ScreenHeight) / 2;
+
+const int PosX = (GetSystemMetrics(SM_CXSCREEN) - ScreenWidth)  ;
+const int PosY = (GetSystemMetrics(SM_CYSCREEN) - ScreenHeight) ;
+
 #else
 const int ScreenWidth = 1200;
 const int ScreenHeight = 1000;
@@ -21,20 +23,24 @@ const int PosX = 300;
 const int PosY = 100;
 #endif
 
-namespace byhj {
+namespace byhj 
+{
+namespace ogl
+{
 
-	class Application 
-	{
+class App 
+{
 	public:
-		Application() {}
-		virtual ~Application() {}
+		App() {}
+		virtual ~App() {}
 
 	public:
-		void Run(std::shared_ptr<byhj::Application> the_app);
+		void Run(std::shared_ptr<App> the_app);
 
 		//Override
 		virtual void v_InitInfo() = 0;
 		virtual void v_Init()	  = 0;
+		virtual void v_Update() {}
 		virtual void v_Render()	  = 0;
 		virtual void v_Shutdown() = 0;
 
@@ -53,11 +59,11 @@ namespace byhj {
 	protected:
 		struct WindowInfo
 		{
-			WindowInfo():title("Learn OpenGL:"), 
-				        Width(ScreenWidth), 
-						Height(ScreenHeight),
-				        posX(PosX), 
-						posY(PosY) {}
+			WindowInfo():title("OpenGL-Learning:"), 
+				         Width(ScreenWidth), 
+						 Height(ScreenHeight),
+				         posX(PosX), 
+					     posY(PosY) {}
 
 			std::string title;
 			int Width;
@@ -65,12 +71,12 @@ namespace byhj {
 			int posX, posY;
 		}windowInfo;
 
-		float GetAspect();
-		int GetScreenWidth();
-		int GetScreenHeight();
+		float GetAspect() const ;
+		int   GetScreenWidth() const ;
+		int   GetScreenHeight() const ;
 
 	protected:
-	    static  std::shared_ptr<byhj::Application> app;
+	    static  std::shared_ptr<App> app;
 
 	    static void glfw_key(GLFWwindow * Triangle, int key, int scancode, int action, int mode) 
 	    {
@@ -89,6 +95,8 @@ namespace byhj {
 
 }  //namespace 
 
+
+}
 
 
 #endif  //

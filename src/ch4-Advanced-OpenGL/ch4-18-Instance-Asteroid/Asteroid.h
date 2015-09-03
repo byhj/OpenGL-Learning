@@ -1,8 +1,8 @@
 #ifndef Asteroid_H
 #define Asteroid_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 #include "ogl/model.h"
 
 namespace byhj
@@ -16,7 +16,7 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(const byhj::MvpMatrix &matrix);
+		void Render(const ogl::MvpMatrix &matrix);
 		void Shutdown();
 
 	private:
@@ -27,7 +27,7 @@ namespace byhj
 
 		GLuint vao, vbo, instanceVBO;
 		GLuint program;
-		byhj::Shader AsteroidShader;
+		ogl::Shader AsteroidShader;
 		byhj::Model rockObj;
 
 	};

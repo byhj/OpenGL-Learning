@@ -26,7 +26,7 @@ void Quad::Init()
 	init_shader();
 }
 
-void Quad::Render(const byhj::MvpMatrix &matrix)
+void Quad::Render(const ogl::MvpMatrix &matrix)
 {
 	glBindVertexArray(vao);
 	glUseProgram(program);

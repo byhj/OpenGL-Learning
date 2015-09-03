@@ -65,7 +65,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Cube::Render(const const byhj::MvpMatrix &matrix)
+	void Cube::Render(const const ogl::MvpMatrix &matrix)
 	{
 		glUseProgram(program);
 		glBindVertexArray(vao);
@@ -137,7 +137,7 @@ namespace byhj
 
 	void Cube::init_texture()
 	{
-	    texture = loadTexture("../../../media/textures/marble.jpg");
+	    texture = ogl::loadTexture("../../../media/textures/marble.jpg");
 	}
 
 

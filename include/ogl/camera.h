@@ -14,6 +14,8 @@
 namespace byhj
 {
 
+namespace ogl
+{ 
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from Triangle-system specific input methods
 enum Camera_Movement {
@@ -122,6 +124,7 @@ private:
 };
 
 
+}
 }
 
 #endif

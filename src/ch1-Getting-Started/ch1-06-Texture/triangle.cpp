@@ -60,7 +60,7 @@ void Triangle::init_shader()
 	program = TriangleShader.GetProgram();
 
 	tex_loc = glGetUniformLocation(program, "tex");
-	assert(tex_loc != byhj::OGL_VALUE);
+	assert(tex_loc != ogl::VALUE);
 }
 
 void Triangle::init_buffer()
@@ -90,7 +90,7 @@ void Triangle::init_vertexArray()
 
 void Triangle::init_texture()
 {
-	brickTex = loadTexture("../../../media/textures/wall.jpg");
+	brickTex = ogl::loadTexture("../../../media/textures/wall.jpg");
 }
 
 }

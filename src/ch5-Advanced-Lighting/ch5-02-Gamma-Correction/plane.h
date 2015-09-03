@@ -1,8 +1,8 @@
 #ifndef Plane_H
 #define Plane_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 #include "ogl/model.h"
 #include "ogl/camera.h"
 
@@ -17,7 +17,7 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(const byhj::MvpMatrix &matrix, const byhj::Camera &camera);
+		void Render(const ogl::MvpMatrix &matrix, const ogl::Camera &camera);
 		void Shutdown();
 		void ChangeLight();
 		void ChangeGamma();
@@ -32,7 +32,7 @@ namespace byhj
 		GLuint vao, vbo;
 		GLuint woodTex, woodTex_loc, woodTexGamma ;
 		GLuint program;
-		byhj::Shader PlaneShader;
+		ogl::Shader PlaneShader;
 		GLboolean blinn, gamma;
 	};
 

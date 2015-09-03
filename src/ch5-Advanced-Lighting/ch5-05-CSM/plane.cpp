@@ -33,7 +33,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Plane::Render(const const byhj::MvpMatrix &matrix)
+	void Plane::Render(const const ogl::MvpMatrix &matrix)
 	{
 		glUseProgram(program);
 		glBindVertexArray(vao);
@@ -101,7 +101,7 @@ namespace byhj
 
 	void Plane::init_texture()
 	{
-		texture = loadTexture("../../../media/textures/metal.png");
+		texture = ogl::loadTexture("../../../media/textures/metal.png");
 	}
 
 

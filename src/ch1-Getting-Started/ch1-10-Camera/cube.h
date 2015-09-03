@@ -1,8 +1,8 @@
 #ifndef CUBE_H
 #define CUBE_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 
 namespace byhj
 {
@@ -15,7 +15,7 @@ public:
 
 public:
 	void Init();
-	void Render(const byhj::MvpMatrix &matrix);
+	void Render(const ogl::MvpMatrix &matrix);
 	void Shutdown();
 
 private:
@@ -27,14 +27,14 @@ private:
 
 	GLuint vao = 0;
 	GLuint vbo = 0;
-	GLuint faceTex          = byhj::OGL_VALUE;
-	GLuint containerTex     = byhj::OGL_VALUE;
-	GLuint faceTex_loc      = byhj::OGL_VALUE;
-	GLuint containerTex_loc = byhj::OGL_VALUE;
-	GLuint mvp_loc    = byhj::OGL_VALUE;
-	GLuint program          = byhj::OGL_VALUE;
+	GLuint faceTex          = ogl::VALUE;
+	GLuint containerTex     = ogl::VALUE;
+	GLuint faceTex_loc      = ogl::VALUE;
+	GLuint containerTex_loc = ogl::VALUE;
+	GLuint mvp_loc          = ogl::VALUE;
+	GLuint program          = ogl::VALUE;
 
-	byhj::Shader CubeShader ={ "Cube Shader" };		
+	ogl::Shader CubeShader ={ "Cube Shader" };		
 };
 
 }

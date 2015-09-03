@@ -29,7 +29,7 @@ namespace byhj
 		update();
 
 		float time = static_cast<float>( glfwGetTime() );
-		static byhj::MvpMatrix matrix;
+		static ogl::MvpMatrix matrix;
 		matrix.view  = m_Camera.GetViewMatrix();
 		matrix.proj  = glm::perspective(glm::radians(m_Camera.GetZoom() ), GetAspect(), 0.1f, 1000.0f);
 		matrix.model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -8.0f, -15.0f))

@@ -78,7 +78,7 @@ void Cube::Init()
 	init_texture();
 }
 
-void Cube::Render(const const byhj::MvpMatrix &matrix, const byhj::Camera camera)
+void Cube::Render(const const ogl::MvpMatrix &matrix, const ogl::Camera camera)
 {
 	glUseProgram(program);
 	glBindVertexArray(vao);
@@ -196,8 +196,8 @@ void Cube::init_vertexArray()
 
 void Cube::init_texture()
 {
-	diffuse_tex = loadTexture("../../../media/textures/container2.png");
-	specular_tex = loadTexture("../../../media/textures/container2_specular.png");
+	diffuse_tex = ogl::loadTexture("../../../media/textures/container2.png");
+	specular_tex = ogl::loadTexture("../../../media/textures/container2_specular.png");
 }
 
 

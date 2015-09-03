@@ -87,7 +87,7 @@ namespace byhj
 		glBindVertexArray(0);
 	}
 
-	void Scene::Render(const byhj::MvpMatrix &matrix, const byhj::Camera &camera)
+	void Scene::Render(const ogl::MvpMatrix &matrix, const ogl::Camera &camera)
 	{		
 		
 		// Light sources
@@ -301,8 +301,8 @@ namespace byhj
 
 	void Scene::init_texture()
 	{
-		woodTex = loadTexture("../../../media/textures/wood.png");
-		containerTex = loadTexture("../../../media/textures/container2.png");
+		woodTex = ogl::loadTexture("../../../media/textures/wood.png");
+		containerTex = ogl::loadTexture("../../../media/textures/container2.png");
 	}
 
 	void Scene::init_fbo(int SCR_WIDTH, int SCR_HEIGHT)

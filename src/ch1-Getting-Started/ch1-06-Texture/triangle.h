@@ -1,9 +1,9 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include "ogl/oglApp.h"
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/App.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 
 namespace byhj
 {
@@ -28,12 +28,12 @@ private:
 	void init_vertexArray();
 	void init_texture();
 
-	GLuint vbo      = byhj::OGL_VALUE;
-	GLuint vao      = byhj::OGL_VALUE;
-	GLuint program  = byhj::OGL_VALUE;
-	GLuint tex_loc  = byhj::OGL_VALUE;
-	GLuint brickTex = byhj::OGL_VALUE;
-	byhj::Shader TriangleShader = { "Triangle Shader" };
+	GLuint vbo      = ogl::VALUE;
+	GLuint vao      = ogl::VALUE;
+	GLuint program  = ogl::VALUE;
+	GLuint tex_loc  = ogl::VALUE;
+	GLuint brickTex = ogl::VALUE;
+	ogl::Shader TriangleShader = { "Triangle Shader" };
 };
 
 }

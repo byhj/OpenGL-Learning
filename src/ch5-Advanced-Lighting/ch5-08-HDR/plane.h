@@ -1,8 +1,8 @@
 #ifndef Plane_H
 #define Plane_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 
 #include <glfw/glfw3.h>
 
@@ -17,7 +17,7 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(const const byhj::MvpMatrix &matrix, const GLuint &colorBuffer);
+		void Render(const const ogl::MvpMatrix &matrix, const GLuint &colorBuffer);
 		void Shutdown();
 
 		void AddExposure()
@@ -34,7 +34,7 @@ namespace byhj
 		GLuint texture, tex_loc;
 		GLfloat exposure;
 		GLuint model_loc, view_loc, proj_loc;
-		byhj::Shader PlaneShader;			
+		ogl::Shader PlaneShader;			
 	};
 
 }

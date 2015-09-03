@@ -1,5 +1,5 @@
-#ifndef OGLUTILITY_H
-#define OGLUTILITY_H
+#ifndef UTILITY_H
+#define UTILITY_H
 
 #include <gl/glew.h>
 #include <glm/glm.hpp>
@@ -10,6 +10,10 @@
 
 namespace byhj
 {
+
+namespace ogl
+{
+
 	struct MvpMatrix
 	{
 	   glm::mat4 model;
@@ -18,7 +22,10 @@ namespace byhj
 	};
 
 
-	const GLuint OGL_VALUE = 0xffffffff;
+	const GLuint VALUE = 0xffffffff;
+
+}
+
 }
 
 #define BUFFER_OFFSET(offset) ((GLvoid*)(NULL + offset))

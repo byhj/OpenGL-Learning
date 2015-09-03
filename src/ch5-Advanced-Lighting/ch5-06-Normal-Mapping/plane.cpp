@@ -16,7 +16,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Plane::Render(const const byhj::MvpMatrix &matrix, const byhj::Camera camera)
+	void Plane::Render(const const ogl::MvpMatrix &matrix, const ogl::Camera camera)
 	{
 		glUseProgram(program);
 		glBindVertexArray(vao);
@@ -180,8 +180,8 @@ namespace byhj
 	void Plane::init_texture()
 	{
 		// Load textures
-		diffuseMap = loadTexture("../../../media/textures/brickwall.jpg");
-		normalMap = loadTexture("../../../media/textures/brickwall_normal.jpg");
+		diffuseMap = ogl::loadTexture("../../../media/textures/brickwall.jpg");
+		normalMap = ogl::loadTexture("../../../media/textures/brickwall_normal.jpg");
 	}
 
 

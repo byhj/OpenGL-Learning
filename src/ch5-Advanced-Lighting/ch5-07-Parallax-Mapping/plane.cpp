@@ -16,7 +16,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Plane::Render(const const byhj::MvpMatrix &matrix, const byhj::Camera camera)
+	void Plane::Render(const const ogl::MvpMatrix &matrix, const ogl::Camera camera)
 	{
 		glUseProgram(program);
 
@@ -183,12 +183,12 @@ namespace byhj
 
 	void Plane::init_texture()
 	{
-		diffuseMap = loadTexture("../../../media/textures/brickwall.jpg");
-		normalMap = loadTexture("../../../media/textures/brickwall_normal.jpg");
-		heightMap = loadTexture("../../../resources/textures/bricks2_disp.jpg");
-		//GLuint diffuseMap = loadTexture("../../../resources/textures/wood.png");
-		//GLuint normalMap = loadTexture("../../../resources/textures/toy_box_normal.png");
-		//GLuint heightMap = loadTexture("../../../resources/textures/toy_box_disp.png");
+		diffuseMap = ogl::loadTexture("../../../media/textures/brickwall.jpg");
+		normalMap = ogl::loadTexture("../../../media/textures/brickwall_normal.jpg");
+		heightMap = ogl::loadTexture("../../../resources/textures/bricks2_disp.jpg");
+		//GLuint diffuseMap = ogl::loadTexture("../../../resources/textures/wood.png");
+		//GLuint normalMap = ogl::loadTexture("../../../resources/textures/toy_box_normal.png");
+		//GLuint heightMap = ogl::loadTexture("../../../resources/textures/toy_box_disp.png");
 	}
 
 

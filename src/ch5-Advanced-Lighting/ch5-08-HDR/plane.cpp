@@ -28,7 +28,7 @@ void Plane::Init()
 	init_texture();
 }
 
-void Plane::Render(const const byhj::MvpMatrix &matrix, const GLuint &colorBuffer)
+void Plane::Render(const const ogl::MvpMatrix &matrix, const GLuint &colorBuffer)
 {
 	glUseProgram(program);
 	glBindVertexArray(vao);

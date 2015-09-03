@@ -10,7 +10,7 @@ namespace byhj
 		init_shader();
 	}
 
-	void Planet::Render(const byhj::MvpMatrix &matrix)
+	void Planet::Render(const ogl::MvpMatrix &matrix)
 	{
 		glBindVertexArray(vao);
 		glUseProgram(program);

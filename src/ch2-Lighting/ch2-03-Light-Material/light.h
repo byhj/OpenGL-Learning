@@ -1,8 +1,8 @@
 #ifndef Light_H
 #define Light_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 
 #include <glfw/glfw3.h>
 
@@ -17,7 +17,7 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(const const byhj::MvpMatrix &matrix);
+		void Render(const const ogl::MvpMatrix &matrix);
 		void Shutdown();
 
 	private:
@@ -28,7 +28,7 @@ namespace byhj
 
 		GLuint vao, vbo, program;
 		GLuint  mvp_loc;
-		byhj::Shader LightShader;			
+		ogl::Shader LightShader;			
 	};
 
 }

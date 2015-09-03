@@ -1,8 +1,8 @@
 #ifndef Scene_H
 #define Scene_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 #include "ogl/model.h"
 #include "ogl/camera.h"
 
@@ -17,7 +17,7 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(const byhj::MvpMatrix &matrix, const byhj::Camera &camera);
+		void Render(const ogl::MvpMatrix &matrix, const ogl::Camera &camera);
 		void Shutdown();
 		void ChangeShadow();
 		void init_fbo(int sw, int sh);
@@ -34,7 +34,7 @@ namespace byhj
 		GLuint cubeVAO, planeVAO, cubeVBO, planeVBO;
 		GLuint woodTex , containerTex;
 		GLuint light_prog, bloom_prog, blur_prog, final_prog;
-		byhj::Shader lightShader, bloomShader, blurShader, finalShader;
+		ogl::Shader lightShader, bloomShader, blurShader, finalShader;
 
 		GLuint pingpongFBO[2];
 		GLuint pingpongColorbuffers[2];

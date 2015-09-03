@@ -14,7 +14,7 @@ namespace byhj
 		init_shader();
 	}
 
-	void Asteroid::Render(const byhj::MvpMatrix &matrix)
+	void Asteroid::Render(const ogl::MvpMatrix &matrix)
 	{
 		glBindVertexArray(vao);
 		glUseProgram(program);

@@ -9,7 +9,7 @@ void ObjModel::Init()
 	init_shader();
 }
 
-void ObjModel::Render(const const byhj::MvpMatrix &matrix)
+void ObjModel::Render(const const ogl::MvpMatrix &matrix)
 {
 
 	glUseProgram(program);

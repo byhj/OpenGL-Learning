@@ -36,7 +36,7 @@ void RenderSystem::v_Render()
 
 	update();
 
-	static byhj::MvpMatrix matrix;
+	static ogl::MvpMatrix matrix;
 	static float aspect = GetAspect();
 	float zoom   = m_Camera.GetZoom();
 	matrix.view  = m_Camera.GetViewMatrix();

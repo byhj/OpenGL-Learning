@@ -1,8 +1,8 @@
 #ifndef Light_H
 #define Light_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 
 #include <glfw/glfw3.h>
 
@@ -17,7 +17,7 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(const const byhj::MvpMatrix &matrix);
+		void Render(const const ogl::MvpMatrix &matrix);
 		void Shutdown();
 
 	private:
@@ -26,11 +26,11 @@ namespace byhj
 		void init_vertexArray();
 		void init_texture();
 
-		GLuint vao	   = byhj::OGL_VALUE;
-		GLuint vbo	   = byhj::OGL_VALUE;
-		GLuint program = byhj::OGL_VALUE;
-		GLuint mvp_loc = byhj::OGL_VALUE;
-		byhj::Shader LightShader={ "Light Shader" };
+		GLuint vao	   = ogl::VALUE;
+		GLuint vbo	   = ogl::VALUE;
+		GLuint program = ogl::VALUE;
+		GLuint mvp_loc = ogl::VALUE;
+		ogl::Shader LightShader={ "Light Shader" };
 	};
 
 }

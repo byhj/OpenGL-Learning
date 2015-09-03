@@ -16,7 +16,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Point::Render(const const byhj::MvpMatrix &matrix)
+	void Point::Render(const const ogl::MvpMatrix &matrix)
 	{
 
 		glm::mat4 view  = matrix.view;
@@ -64,7 +64,7 @@ namespace byhj
 	void Point::init_texture()
 	{
 		//Notice to use texture alpha value
-		sprite_texture = loadTexture("../../../media/textures/awesomeface.png", true);
+		sprite_texture = ogl::loadTexture("../../../media/textures/awesomeface.png", true);
 	}
 
 

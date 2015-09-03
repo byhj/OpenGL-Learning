@@ -1,5 +1,5 @@
-#include "ogl/oglApp.h"
-#include "ogl/oglShader.h"
+#include "ogl/App.h"
+#include "ogl/Shader.h"
 #include <memory>
 
 // FreeType
@@ -11,7 +11,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <map>
 
-class WindowApp: public byhj::Application
+class WindowApp: public ogl::App
 {
 public:
 	WindowApp() {};
@@ -41,7 +41,7 @@ private:
 	std::map<GLchar, Character> Characters;
 	GLuint vao, vbo;
 	GLuint program;
-	byhj::Shader TextShader;
+	ogl::Shader TextShader;
 };
 
 int main(int argc, const char **argv)

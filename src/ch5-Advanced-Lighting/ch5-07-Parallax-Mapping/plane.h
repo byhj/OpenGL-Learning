@@ -1,8 +1,8 @@
 #ifndef Plane_H
 #define Plane_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 #include "ogl/camera.h"
 
 #include <glfw/glfw3.h>
@@ -19,7 +19,7 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(const const byhj::MvpMatrix &matrix, const byhj::Camera camera);
+		void Render(const const ogl::MvpMatrix &matrix, const ogl::Camera camera);
 		void Shutdown();
 
 		void AddHeightScale()
@@ -43,7 +43,7 @@ namespace byhj
 		GLuint vao, vbo, program;
 		GLuint texture, tex_loc;
 		GLuint model_loc, view_loc, proj_loc;
-		byhj::Shader PlaneShader;	
+		ogl::Shader PlaneShader;	
 		GLuint diffuseMap, heightMap, normalMap; 
 		GLboolean parallax_mapping;
 		GLfloat height_scale;

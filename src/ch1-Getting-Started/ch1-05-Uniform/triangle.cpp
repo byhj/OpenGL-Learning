@@ -57,7 +57,7 @@ void Triangle::init_shader()
 	program = TriangleShader.GetProgram();
 
 	color_loc = glGetUniformLocation(program, "color");
-	assert(color_loc != byhj::OGL_VALUE);
+	assert(color_loc != ogl::VALUE);
 }
 
 void Triangle::init_buffer()

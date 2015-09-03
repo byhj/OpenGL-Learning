@@ -48,8 +48,8 @@ void Rectangle::init_shader()
 	containerTex_loc = glGetUniformLocation(program, "containerTex");
 	faceTex_loc = glGetUniformLocation(program, "faceTex");
 
-	assert(containerTex_loc != byhj::OGL_VALUE);
-	assert(faceTex_loc != byhj::OGL_VALUE);
+	assert(containerTex_loc != ogl::VALUE);
+	assert(faceTex_loc != ogl::VALUE);
 
 }
 
@@ -65,8 +65,8 @@ void Rectangle::init_vertexArray()
 
 void Rectangle::init_texture()
 {
-	containerTex = loadTexture("../../../media/textures/container.jpg");
-	faceTex = loadTexture("../../../media/textures/awesomeface.png");
+	containerTex = ogl::loadTexture("../../../media/textures/container.jpg");
+	faceTex = ogl::loadTexture("../../../media/textures/awesomeface.png");
 }
 
 

@@ -1,8 +1,8 @@
 #ifndef Debug_H
 #define Debug_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 #include "ogl/model.h"
 #include "ogl/camera.h"
 
@@ -17,7 +17,7 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(const byhj::MvpMatrix &matrix, const GLuint &depth_tex);
+		void Render(const ogl::MvpMatrix &matrix, const GLuint &depth_tex);
 		void Shutdown();
 
 	private:
@@ -28,7 +28,7 @@ namespace byhj
 
 		GLuint vao, vbo;
 		GLuint program;
-		byhj::Shader DebugShader;
+		ogl::Shader DebugShader;
 	};
 
 

@@ -64,7 +64,7 @@ void Cube::Init()
 	init_texture();
 }
 
-void Cube::Render(const const byhj::MvpMatrix &matrix, const byhj::Camera camera)
+void Cube::Render(const const ogl::MvpMatrix &matrix, const ogl::Camera camera)
 {
 	glUseProgram(program);
 	glBindVertexArray(vao);

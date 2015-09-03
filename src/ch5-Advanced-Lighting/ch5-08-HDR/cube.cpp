@@ -65,7 +65,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Cube::Render(const byhj::MvpMatrix &matrix, const byhj::Camera &camera)
+	void Cube::Render(const ogl::MvpMatrix &matrix, const ogl::Camera &camera)
 	{
 		glUseProgram(program);
 		glBindVertexArray(vao);
@@ -161,7 +161,7 @@ namespace byhj
 
 	void Cube::init_texture()
 	{
-	    woodTexture = loadTexture("../../../media/textures/wood.png");
+	    woodTexture = ogl::loadTexture("../../../media/textures/wood.png");
 	}
 
 

@@ -1,8 +1,8 @@
 #ifndef OBJMODEL_H
 #define OBJMODEL_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 #include "ogl/model.h"
 
 namespace  byhj
@@ -16,7 +16,7 @@ public:
 
 public:
 	void Init();
-	void Render(const const byhj::MvpMatrix &matrix);
+	void Render(const const ogl::MvpMatrix &matrix);
 	void Shutdown();
 
 private:
@@ -27,8 +27,8 @@ private:
 	GLuint model_loc ,view_loc, proj_loc;
 	GLuint ambient_loc, diffuse_loc, specular_loc;
 
-	byhj::Shader CubeShader;		
-	byhj::Shader ObjShader;
+	ogl::Shader CubeShader;		
+	ogl::Shader ObjShader;
 	byhj::Model modelLoad;
 };
 

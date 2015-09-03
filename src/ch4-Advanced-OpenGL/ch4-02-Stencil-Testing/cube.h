@@ -1,8 +1,8 @@
 #ifndef CUBE_H
 #define CUBE_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 
 #include <glfw/glfw3.h>
 
@@ -17,8 +17,8 @@ namespace byhj
 
 	public:
 		void Init();
-		void Render(const const byhj::MvpMatrix &matrix);
-		void RenderColor(const const byhj::MvpMatrix &matrix);
+		void Render(const const ogl::MvpMatrix &matrix);
+		void RenderColor(const const ogl::MvpMatrix &matrix);
 		void Shutdown();
 	
 	private:
@@ -33,8 +33,8 @@ namespace byhj
 		GLuint model_loc, view_loc, proj_loc;
 		GLuint color_model_loc, color_view_loc, color_proj_loc; 
 
-		byhj::Shader CubeShader;		
-		byhj::Shader ColorShader;
+		ogl::Shader CubeShader;		
+		ogl::Shader ColorShader;
 	};
 
 }

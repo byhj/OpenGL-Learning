@@ -1,8 +1,8 @@
 #ifndef Quad_H
 #define Quad_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 
 namespace byhj
 {
@@ -15,7 +15,7 @@ public:
 
 public:
 	void Init();
-	void Render(const byhj::MvpMatrix &matrix);
+	void Render(const ogl::MvpMatrix &matrix);
 	void Shutdown();
 
 private:
@@ -26,7 +26,7 @@ private:
 
 	GLuint vao, vbo, instanceVBO;
 	GLuint program;
-	byhj::Shader QuadShader;
+	ogl::Shader QuadShader;
 };
 
 

@@ -1,7 +1,7 @@
 #ifndef OGLRENDERSYSTEM_H
 #define OGLRENDERSYSTEM_H
 
-#include "ogl/oglApp.h"
+#include "ogl/App.h"
 #include "ogl/camera.h"
 
 #include "cube.h"
@@ -11,7 +11,7 @@
 namespace byhj
 {
 
-class RenderSystem : public byhj::Application
+class RenderSystem : public ogl::App
 {
 public:
 	RenderSystem() {}
@@ -42,7 +42,7 @@ private:
 	byhj::Cube   m_Cube;
 	byhj::Plane  m_Plane;
 	byhj::Window m_Window;
-	byhj::Camera m_Camera;
+	ogl::Camera m_Camera;
 };
 
 

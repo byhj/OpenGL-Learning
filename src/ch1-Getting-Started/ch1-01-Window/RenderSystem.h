@@ -1,13 +1,13 @@
 #ifndef RENDERSYSTEM_H
 #define RENDERSYSTEM_H
 
-#include "ogl/oglApp.h"
+#include "ogl/App.h"
 #include "Window.h"
 
 namespace byhj
 {
 
-class RenderSystem : public byhj::Application
+class RenderSystem : public ogl::App
 {
 public:
 	RenderSystem();
@@ -24,6 +24,6 @@ private:
 	byhj::Window m_Window;
 };
 
-}
+}//namespace
 
 #endif

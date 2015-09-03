@@ -34,7 +34,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Grass::Render(const const byhj::MvpMatrix &matrix)
+	void Grass::Render(const const ogl::MvpMatrix &matrix)
 	{
 		glUseProgram(program);
 		glBindVertexArray(vao);
@@ -116,7 +116,7 @@ namespace byhj
 
 	void Grass::init_texture()
 	{
-		texture = loadTexture("../../../media/textures/grass.png", true);
+		texture = ogl::loadTexture("../../../media/textures/grass.png", true);
 	}
 
 

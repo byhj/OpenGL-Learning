@@ -34,7 +34,7 @@ namespace byhj
 		init_texture();
 	}
 
-	void Window::Render(const const byhj::MvpMatrix &matrix, const glm::vec3 &camPos)
+	void Window::Render(const const ogl::MvpMatrix &matrix, const glm::vec3 &camPos)
 	{
 		glUseProgram(program);
 		glBindVertexArray(vao);
@@ -125,7 +125,7 @@ namespace byhj
 
 	void Window::init_texture()
 	{
-		texture = loadTexture("../../../media/textures/Window.png", true);
+		texture = ogl::loadTexture("../../../media/textures/Window.png", true);
 	}
 
 

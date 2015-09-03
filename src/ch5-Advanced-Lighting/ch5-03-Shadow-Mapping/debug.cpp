@@ -23,7 +23,7 @@ namespace byhj
 		init_shader();
 	}
 
-	void Debug::Render(const byhj::MvpMatrix &matrix, const GLuint &depth_tex)
+	void Debug::Render(const ogl::MvpMatrix &matrix, const GLuint &depth_tex)
 	{
 		glBindVertexArray(vao);
 		glUseProgram(program);

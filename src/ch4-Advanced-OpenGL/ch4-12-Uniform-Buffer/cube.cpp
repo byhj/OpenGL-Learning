@@ -56,7 +56,7 @@ void Cube::Init()
 	init_shader();
 }
 
-void Cube::Render(const byhj::MvpMatrix &matrix)
+void Cube::Render(const ogl::MvpMatrix &matrix)
 {
 	glBindVertexArray(vao);
 	glUseProgram(program);

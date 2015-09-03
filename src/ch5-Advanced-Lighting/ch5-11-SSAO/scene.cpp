@@ -91,7 +91,7 @@ namespace byhj
 		glBindVertexArray(0);
 	}
 
-	void Scene::Render(const byhj::MvpMatrix &matrix, const byhj::Camera &camera)
+	void Scene::Render(const ogl::MvpMatrix &matrix, const ogl::Camera &camera)
 	{		
 		glm::mat4 model = matrix.model;
 	    glm::mat4 view  = matrix.view;

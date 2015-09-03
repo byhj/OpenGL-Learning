@@ -3,6 +3,8 @@
 namespace byhj
 {
 
+namespace ogl
+{ 
 	// Processes input received from any keyboard-like input system. 
 	//Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
 	void Camera::ProcessKeyboard(Camera_Movement direction, GLfloat deltaTime)
@@ -150,4 +152,6 @@ namespace byhj
 	{
 		return Front;
 	}
+}
+
 }

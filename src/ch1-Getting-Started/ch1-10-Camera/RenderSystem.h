@@ -1,14 +1,14 @@
 #ifndef RENDERSYSTEM_H
 #define RENDERSYSTEM_H
 
-#include "ogl/oglApp.h"
+#include "ogl/App.h"
 #include "ogl/camera.h"
 #include "Cube.h"
 
 namespace byhj
 {
 
-class RenderSystem : public byhj::Application
+class RenderSystem : public ogl::App
 {
 public:
 	RenderSystem();
@@ -31,7 +31,7 @@ private:
 	void update();
 
 	byhj::Cube m_Cube;
-	byhj::Camera m_Camera;
+	ogl::Camera m_Camera;
 };
 
 }

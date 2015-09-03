@@ -177,8 +177,8 @@ void Cube::init_vertexArray()
 
 void Cube::init_texture()
 {
-	containerTex = loadTexture("../../../media/textures/container.jpg");
-	faceTex = loadTexture("../../../media/textures/awesomeface.png");
+	containerTex = ogl::loadTexture("../../../media/textures/container.jpg");
+	faceTex = ogl::loadTexture("../../../media/textures/awesomeface.png");
 }
 
 }
