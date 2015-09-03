@@ -11,6 +11,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <map>
 
+namespace byhj
+{
+
 class WindowApp: public ogl::App
 {
 public:
@@ -216,4 +219,6 @@ void WindowApp::RenderText(GLuint program, std::string text, GLfloat x, GLfloat 
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_BLEND);
+}
+
 }

@@ -1,12 +1,13 @@
 #include "Scene.h"
 
 #include "ogl/loadTexture.h"
-#include "ogl/oglDebug.h"
+#include "ogl/Debug.h"
 
-static byhj::OGLDebug oglDebug;
+
 
 namespace byhj
 {
+	static ogl::OGLDebug oglDebug;
 #pragma region VertexData
 
 

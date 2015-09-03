@@ -2,6 +2,9 @@
 
 #include "triangle.h"
 
+namespace byhj
+{
+
 class RenderSystem : public ogl::App
 {
 public:
@@ -36,4 +39,6 @@ private:
 	byhj::Triangle triangle;
 };
 
-CALL_MAIN(RenderSystem);
+}
+
+CALL_MAIN(byhj::RenderSystem);

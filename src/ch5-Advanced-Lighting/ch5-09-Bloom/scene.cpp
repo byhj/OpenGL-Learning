@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 #include "ogl/loadTexture.h"
-#include "ogl/glDebug.h"
+#include "ogl/Debug.h"
 
 namespace byhj
 {
