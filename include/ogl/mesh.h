@@ -20,6 +20,9 @@
 namespace byhj
 {
 
+namespace ogl
+{
+
 struct Vertex {
 	// Position
 	glm::vec3 Position;
@@ -65,7 +68,7 @@ public:
 
 };
 
-
+}
 }
 
 #endif

@@ -29,15 +29,6 @@
     <ClCompile Include="ch3-01-Model-Loading.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\include\ogl\camera.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\include\ogl\oglApp.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\include\ogl\oglShader.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
     <ClCompile Include="ObjModel.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
@@ -50,20 +41,23 @@
     <ClCompile Include="RenderSystem.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\include\ogl\loadTexture.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\include\ogl\camera.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\include\ogl\App.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\include\ogl\Shader.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\include\ogl\Utility.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\ogl\camera.h">
-      <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\ogl\oglApp.h">
-      <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\ogl\oglShader.h">
-      <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\ogl\oglUtility.h">
-      <Filter>Framework</Filter>
-    </ClInclude>
     <ClInclude Include="ObjModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -75,6 +69,21 @@
     </ClInclude>
     <ClInclude Include="RenderSystem.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\loadTexture.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\camera.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\App.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\Shader.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\Utility.h">
+      <Filter>Framework</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

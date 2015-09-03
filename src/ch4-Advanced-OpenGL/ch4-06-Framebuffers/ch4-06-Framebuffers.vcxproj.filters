@@ -14,7 +14,7 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Framework">
-      <UniqueIdentifier>{0898fa73-cc26-4960-894b-6368a785f7ff}</UniqueIdentifier>
+      <UniqueIdentifier>{e04fbb82-5a8c-437d-b6b7-52559aa45c8b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,20 +30,23 @@
     <ClCompile Include="cube.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="RenderSystem.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\include\ogl\camera.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\include\ogl\oglApp.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\include\ogl\oglShader.cpp">
+    <ClCompile Include="..\..\..\include\ogl\App.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\include\ogl\loadTexture.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="RenderSystem.cpp">
-      <Filter>Header Files</Filter>
+    <ClCompile Include="..\..\..\include\ogl\Shader.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\include\ogl\Utility.cpp">
+      <Filter>Framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,23 +79,23 @@
     <ClInclude Include="window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\ogl\camera.h">
       <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ogl\oglApp.h">
-      <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\ogl\oglShader.h">
-      <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\ogl\oglUtility.h">
+    <ClInclude Include="..\..\..\include\ogl\App.h">
       <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\ogl\loadTexture.h">
       <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="RenderSystem.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\..\include\ogl\Shader.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\Utility.h">
+      <Filter>Framework</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -28,7 +28,7 @@ namespace byhj
 		GLuint vao, vbo, instanceVBO;
 		GLuint program;
 		ogl::Shader PlanetShader;
-		byhj::Model planetObj;
+		ogl::Model planetObj;
 	};
 
 

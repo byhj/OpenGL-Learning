@@ -14,7 +14,7 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Framework">
-      <UniqueIdentifier>{f1ece85f-ba07-4cdc-8745-8e9c66b5e4ac}</UniqueIdentifier>
+      <UniqueIdentifier>{f960e971-f890-45db-96c3-4c1cd0329796}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -47,13 +47,16 @@
     <ClCompile Include="..\..\..\include\ogl\camera.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\include\ogl\App.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\include\ogl\loadTexture.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\include\ogl\oglApp.cpp">
+    <ClCompile Include="..\..\..\include\ogl\Shader.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\include\ogl\oglShader.cpp">
+    <ClCompile Include="..\..\..\include\ogl\Utility.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
   </ItemGroup>
@@ -64,23 +67,23 @@
     <ClInclude Include="cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\ogl\camera.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\App.h">
       <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\ogl\loadTexture.h">
       <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ogl\oglApp.h">
+    <ClInclude Include="..\..\..\include\ogl\Shader.h">
       <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ogl\oglShader.h">
+    <ClInclude Include="..\..\..\include\ogl\Utility.h">
       <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\ogl\oglUtility.h">
-      <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderSystem.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

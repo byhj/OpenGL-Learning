@@ -3,6 +3,9 @@
 
 namespace byhj
 {
+namespace ogl
+{ 
+
 	// Draws the model, and thus all its meshes
 void Model::Draw(GLuint program)
 {
@@ -175,4 +178,5 @@ GLint TextureFromFile(const char* path, std::string directory)
 	return textureID;
 }
 
+}
 }

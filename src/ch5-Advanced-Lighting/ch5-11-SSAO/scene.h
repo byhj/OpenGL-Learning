@@ -37,7 +37,7 @@ namespace byhj
 		GLuint model_prog, light_prog, blur_prog, ssao_prog;
 		ogl::Shader modelShader, lightShader, blurShader, ssaoShader;
 
-		byhj::Model  cyborg;
+		ogl::Model  cyborg;
 		GLuint gBuffer;
         GLuint gPositionDepth, gNormal, gAlbedo;
 		GLuint noiseTexture;

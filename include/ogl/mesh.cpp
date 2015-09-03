@@ -2,6 +2,10 @@
 
 namespace byhj
 {
+namespace ogl
+{
+
+
 	void Mesh::Draw(GLuint program)
 	{
 		// Bind appropriate textures
@@ -73,4 +77,5 @@ namespace byhj
 
 		glBindVertexArray(0);
 	}
+}	
 }

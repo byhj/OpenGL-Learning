@@ -140,7 +140,7 @@ namespace byhj
 		faces.push_back("../../../media/textures/skybox/bottom.jpg");
 		faces.push_back("../../../media/textures/skybox/back.jpg");
 		faces.push_back("../../../media/textures/skybox/front.jpg");
-		cubemap_texture = loadCubeMap(faces);
+		cubemap_texture = ogl::loadCubeMap(faces);
 	}
 
 

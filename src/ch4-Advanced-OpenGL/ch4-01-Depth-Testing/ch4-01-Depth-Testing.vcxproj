@@ -63,10 +63,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\include\ogl\App.cpp" />
     <ClCompile Include="..\..\..\include\ogl\camera.cpp" />
     <ClCompile Include="..\..\..\include\ogl\loadTexture.cpp" />
-    <ClCompile Include="..\..\..\include\ogl\oglApp.cpp" />
-    <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\Shader.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\Utility.cpp" />
     <ClCompile Include="ch4-01-Depth-Testing.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
@@ -79,11 +80,11 @@
     <None Include="plane.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\ogl\App.h" />
     <ClInclude Include="..\..\..\include\ogl\camera.h" />
     <ClInclude Include="..\..\..\include\ogl\loadTexture.h" />
-    <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
-    <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
-    <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
+    <ClInclude Include="..\..\..\include\ogl\Shader.h" />
+    <ClInclude Include="..\..\..\include\ogl\Utility.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="plane.h" />

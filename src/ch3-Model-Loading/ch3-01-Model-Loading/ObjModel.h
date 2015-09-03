@@ -29,7 +29,7 @@ private:
 
 	ogl::Shader CubeShader;		
 	ogl::Shader ObjShader;
-	byhj::Model modelLoad;
+	ogl::Model modelLoad;
 };
 
 }

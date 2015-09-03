@@ -36,7 +36,7 @@ namespace byhj
 		GLuint woodTex , containerTex;
 		ogl::Shader lightShader, deferredShader;
 		GLuint light_prog, deferred_prog; 
-		byhj::Model  cyborg;
+		ogl::Model  cyborg;
 		GLuint gBuffer;
 		GLuint gPosition, gNormal, gAlbedoSpec;
 	};

@@ -30,7 +30,7 @@ namespace byhj
 		GLuint vao, vbo, program;
 		ogl::Shader modelShader;
 		GLuint model_loc, view_loc, proj_loc;
-		byhj::Model objModel;
+		ogl::Model objModel;
 		GLint lightSpecularLoc, lightDiffuseLoc, lightAmbientLoc;
 	};
 

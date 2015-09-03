@@ -31,7 +31,7 @@ namespace byhj
 		GLuint cubemap_texture, tex_loc;
 		GLuint model_loc, view_loc, proj_loc;
 		ogl::Shader CubeShader;	
-		byhj::Model objModel;
+		ogl::Model objModel;
 	};
 
 }

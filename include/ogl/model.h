@@ -23,7 +23,8 @@
 
 namespace byhj
 {
-
+namespace ogl
+{
 
 GLint TextureFromFile(const char* path, std::string directory);
 
@@ -50,6 +51,6 @@ public:
 };
 
 }
-
+}
 
 #endif
