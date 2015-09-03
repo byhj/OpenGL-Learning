@@ -20,7 +20,7 @@ namespace byhj
 
 	void RenderSystem::v_Render()
 	{
-		static const float bgColor[4] = {0.2f, 0.4f, 0.5f, 1.0f};
+		static const float bgColor[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 		glClearBufferfv(GL_COLOR, 0, bgColor);
 		static const float one = 1.0f;
 		glClearBufferfv(GL_DEPTH, 0, &one);
